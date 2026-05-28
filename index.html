@@ -3,157 +3,325 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Louis Kieu | Scientific Voxel Gaming Portal</title>
-  <meta name="description" content="Enter Louis Kieu's interactive 3D Voxel Reactor & Telemetry Dashboard. Harness real-time quantum ripple wave equations, shape morphing, and falling debris physics.">
+  <title>Louis Kieu | Interactive 3D Low-Poly Game Portfolio</title>
+  <meta name="description" content="Explore Louis Kieu's interactive 3D Low-Poly gaming portfolio. Complete quests, collect commits, warp between portals, and discover voxel engineering collections under the nheep.com ecosystem.">
   <link rel="stylesheet" href="style.css">
-  <!-- Load Premium 3D & Animation libraries -->
+  
+  <!-- Premium 3D & Animation libraries -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
 </head>
 <body>
 
-  <!-- WebGL Voxel Lattice Simulation Canvas -->
+  <!-- Screen Warp Teleport Speedlines Flash -->
+  <div id="warp-flash"></div>
+
+  <!-- WebGL 3D Landscape Viewport -->
   <div id="canvas-container"></div>
 
-  <!-- Neubrutalist Header -->
-  <nav class="neubrutalist-nav">
-    <a href="#" class="logo">Louis Kieu</a>
-    <ul class="nav-links">
-      <li><a href="https://nheep.com" target="_blank">ECOSYSTEM</a></li>
-      <li><a href="https://github.com/louisaimaster-lab" target="_blank">MY GITHUB</a></li>
-    </ul>
-  </nav>
+  <!-- 3D floating HTML label overlay -->
+  <div id="hover-label" class="floating-html-label">PORTAL</div>
 
-  <!-- Hero Landing Section -->
-  <header class="hero">
-    <div class="hero-tagline">⚡ LATTICE SIMULATION RUNNING</div>
-    <h1 class="hero-title">Louis Kieu</h1>
-    <p class="hero-description">
-      Welcome to a highly sophisticated scientific voxel gaming environment. Move your mouse to warp the 3D grid with real-time wave equations, click to blast gravity-defying cyber debris, and use the telemetry HUD dashboard to mutate quantum configurations.
-    </p>
-    <div class="cta-group">
-      <a href="https://nheep.com" target="_blank" class="btn btn-primary">nheep.com PORTAL</a>
-      <a href="#projects" class="btn btn-secondary">SYSTEM DIAGNOSTICS</a>
-    </div>
-  </header>
-
-  <!-- Showcase Cards Section -->
-  <section id="projects" class="showcase-container">
+  <!-- ==========================================================================
+       GAMING HUD INTERFACE OVERLAY
+       ========================================================================== -->
+  <div id="game-hud">
     
-    <!-- Card 1: Voxel Island -->
-    <div class="neubrutalist-card">
-      <div>
-        <div class="card-icon">
-          <img src="assets/voxel_island.png" alt="Voxel Island" class="game-icon-img">
+    <!-- 1. TOP HEADER BAR -->
+    <header class="hud-header">
+      
+      <!-- Player Badge Info -->
+      <div class="console-panel player-card">
+        <div class="avatar-container">
+          LK
+          <div class="avatar-pulse"></div>
         </div>
-        <h3 class="card-title">Voxel Island</h3>
-        <p class="card-description">
-          A high-performance floating block ecosystem simulated with custom biome noise equations, interactive coordinate grids, and voxelized topography rendering.
-        </p>
-      </div>
-      <a href="https://nheep.com" target="_blank" class="card-link">
-        Access Simulator <span>&rarr;</span>
-      </a>
-    </div>
-
-    <!-- Card 2: Quantum Reactor -->
-    <div class="neubrutalist-card">
-      <div>
-        <div class="card-icon">
-          <img src="assets/voxel_reactor.png" alt="Quantum Reactor" class="game-icon-img">
+        <div class="player-details">
+          <h2>Louis Kieu</h2>
+          <p>LVL <span id="hud-level">1</span> // ARCH-ENGINEER</p>
         </div>
-        <h3 class="card-title">Quantum Reactor</h3>
-        <p class="card-description">
-          Control deep nuclear cold fusion matrices. Monitor atomic cell configurations, scale thermal output, and analyze live voxel fission physics.
-        </p>
       </div>
-      <a href="https://nheep.com" target="_blank" class="card-link">
-        Engage Core <span>&rarr;</span>
-      </a>
-    </div>
 
-    <!-- Card 3: Voxel Portal -->
-    <div class="neubrutalist-card">
-      <div>
-        <div class="card-icon">
-          <img src="assets/voxel_portal.png" alt="Voxel Portal" class="game-icon-img">
+      <!-- Live Experience Progression Tracker -->
+      <div class="console-panel xp-tracker">
+        <div class="xp-header">
+          <span style="color: var(--neon-cyan)">EXP RATIO</span>
+          <span id="xp-text" style="color: var(--neon-yellow)">0 / 500 XP</span>
         </div>
-        <h3 class="card-title">Voxel Portal</h3>
-        <p class="card-description">
-          Cross sub-atomic threshold barriers to traverse the nheep.com gaming hub. Sync server environments and explore creative 3D sandboxes.
-        </p>
+        <div class="xp-bar-bg">
+          <div id="xp-bar-fill" class="xp-bar-fill" style="width: 0%"></div>
+        </div>
       </div>
-      <a href="https://nheep.com" target="_blank" class="card-link">
-        Enter Gateway <span>&rarr;</span>
-      </a>
+
+      <!-- Quick Audio, Quest, Warp HUD actions -->
+      <div class="header-controls">
+        <button id="btn-audio" class="hud-btn muted">
+          <!-- Audio Visualizer Equalizer Icon bars / Mutecross -->
+          <span class="audio-playing-bars">🔊 MUSIC</span>
+          <span class="audio-muted-cross">🔇 MUTED</span>
+        </button>
+        <button id="btn-warp" class="hud-btn">
+          ⚡ WARP SPEED
+        </button>
+      </div>
+
+    </header>
+
+    <!-- 2. SIDEBAR PANELS -->
+    <div class="hud-middle">
+      
+      <!-- Left: Real-Time Diagnostic Dashboard telemetry -->
+      <aside class="console-panel telemetry-sidebar">
+        <div class="sidebar-title">
+          <div class="title-dot"></div>
+          DIAGNOSTIC CORE
+        </div>
+        
+        <div class="metric-row">
+          <span class="metric-label">SYS FRAMERATE</span>
+          <span id="fps-val" class="metric-value">60 FPS</span>
+        </div>
+        <div class="metric-row">
+          <span class="metric-label">OCEAN TEMP</span>
+          <span id="temp-val" class="metric-value">22.4°C</span>
+        </div>
+        <div class="metric-row">
+          <span class="metric-label">WIND VECTOR</span>
+          <span id="wind-val" class="metric-value">12.5 KTS</span>
+        </div>
+        <div class="metric-row">
+          <span class="metric-label">TOTAL COMMITS</span>
+          <span id="commits-val" class="metric-value">0</span>
+        </div>
+        <div class="metric-row">
+          <span class="metric-label">BUGS ELIMINATED</span>
+          <span id="bugs-val" class="metric-value">0</span>
+        </div>
+
+        <div class="active-zone-box">
+          <div class="zone-label">CURRENT COORDINATES</div>
+          <div id="active-zone-name" class="zone-value">SPAWN TEMPLE</div>
+        </div>
+      </aside>
+
+      <!-- Right: Main Quest Logging & Objectives checklist -->
+      <aside class="console-panel quest-sidebar">
+        <div class="sidebar-title">
+          🎯 QUEST JOURNAL
+        </div>
+        
+        <!-- Quest 1 -->
+        <div id="quest-travel" class="quest-item">
+          <div class="quest-checkbox">✓</div>
+          <div class="quest-content">
+            <span class="quest-title">Archipelago Explorer</span>
+            <span class="quest-desc">Warp to all 4 islands using the 3D portals or inventory links.</span>
+          </div>
+        </div>
+
+        <!-- Quest 2 -->
+        <div id="quest-commits" class="quest-item">
+          <div class="quest-checkbox">✓</div>
+          <div class="quest-content">
+            <span class="quest-title">Harvest the Source</span>
+            <span class="quest-desc">Collect 5 yellow Commit Orbs floating in the sky (<span id="quest-commits-ratio">0</span>/5).</span>
+          </div>
+        </div>
+
+        <!-- Quest 3 -->
+        <div id="quest-bugs" class="quest-item">
+          <div class="quest-checkbox">✓</div>
+          <div class="quest-content">
+            <span class="quest-title">Security Firewall</span>
+            <span class="quest-desc">Click & zap 3 floating Red Bug matrices (<span id="quest-bugs-ratio">0</span>/3).</span>
+          </div>
+        </div>
+      </aside>
+
     </div>
 
-  </section>
-
-  <!-- Interactive Neubrutalist Telemetry HUD -->
-  <div class="sandbox-hud" id="telemetry-hud">
-    <div class="hud-header">
-      <div class="sandbox-dot"></div>
-      <span class="hud-status">SYS LEVEL ACTIVE // 60 FPS</span>
-      <button class="hud-min-btn" id="hud-min-btn">[-]</button>
-    </div>
-    
-    <div class="hud-metrics">
-      <div class="hud-metric">
-        <span class="hud-label">VOXEL FLUX</span>
-        <span class="hud-val" id="hud-flux">1,024 VX</span>
+    <!-- 3. BOTTOM PANEL: Monospace log logs & Grid inventory items -->
+    <footer class="hud-bottom">
+      
+      <!-- Real-Time Interactive Log Console Output -->
+      <div class="console-panel diagnostics-log-box">
+        <div class="log-title">QUANTUM TELEMETRY BUFFER</div>
+        <div id="log-console" class="log-content">
+          <div class="log-row">[SYS] Interactive low-poly gaming core initialized...</div>
+          <div class="log-row">[SYS] Use click & drag to rotate camera, mousewheel to zoom.</div>
+          <div class="log-row">[SYS] Click on portals, orbs, or bugs in the 3D world to interact!</div>
+        </div>
       </div>
-      <div class="hud-metric">
-        <span class="hud-label">GRID ENTROPY</span>
-        <span class="hud-val" id="hud-entropy">1.458 uN</span>
+
+      <!-- Retro inventory grid containing Louis Kieu's projects & outbound links -->
+      <div class="console-panel inventory-box">
+        <div class="log-title" style="color: var(--neon-yellow)">INVENTORY ITEMS (COLLECTIONS)</div>
+        <div class="inventory-grid">
+          
+          <div class="inventory-slot active" data-project="portal">
+            <span class="slot-icon">🏝️</span>
+            <span class="slot-name">Spawn Temple</span>
+            <span class="slot-status">ACTIVE</span>
+          </div>
+
+          <div class="inventory-slot" data-project="github">
+            <span class="slot-icon">💻</span>
+            <span class="slot-name">GitHub Forge</span>
+            <span class="slot-status">WARP</span>
+          </div>
+
+          <div class="inventory-slot" data-project="collections">
+            <span class="slot-icon">💎</span>
+            <span class="slot-name">Artifact Vault</span>
+            <span class="slot-status">WARP</span>
+          </div>
+
+          <div class="inventory-slot" data-project="radio">
+            <span class="slot-icon">📡</span>
+            <span class="slot-name">Radio Signal</span>
+            <span class="slot-status">WARP</span>
+          </div>
+
+        </div>
       </div>
-      <div class="hud-metric">
-        <span class="hud-label">LATTICE STABILITY</span>
-        <span class="hud-val" id="hud-stability">99.82%</span>
+
+    </footer>
+
+  </div>
+
+  <!-- ==========================================================================
+       POPUP MODALS FOR INVENTORY ITEMS (COLLECTIONS IN-DEPTH VIEW)
+       ========================================================================== -->
+  <div id="detail-modal-overlay" class="card-modal-overlay">
+    <div class="card-modal">
+      <button id="btn-close-modal" class="close-modal-btn">&times;</button>
+      
+      <div class="modal-header">
+        <div id="modal-project-icon" class="modal-icon">🏝️</div>
+        <div class="modal-header-meta">
+          <h3 id="modal-project-title">Spawn Temple</h3>
+          <span id="modal-project-tagline">Central Sanctuary / Spatial Hub</span>
+        </div>
       </div>
-    </div>
 
-    <div class="hud-divider"></div>
+      <p id="modal-project-desc" class="modal-desc">
+        Welcome to the core sanctuary of Louis Kieu's website portfolio! This low-poly sky island features an ancient warp portal ring connecting you to other sectors of the digital universe, procedural pine forests, and a clean wind-turbine diagnostic array.
+      </p>
 
-    <div class="hud-controls-title">GEOMETRY MUTATOR</div>
-    <div class="hud-controls">
-      <button class="hud-btn active" data-shape="grid">GRID</button>
-      <button class="hud-btn" data-shape="helix">HELIX</button>
-      <button class="hud-btn" data-shape="torus">TORUS</button>
-      <button class="hud-btn" data-shape="chaos">CHAOS</button>
-    </div>
+      <div class="stat-grid">
+        <div class="stat-item">
+          <div id="stat-1-val" class="stat-val">99.8%</div>
+          <div id="stat-1-lbl" class="stat-lbl">STABILITY</div>
+        </div>
+        <div class="stat-item">
+          <div id="stat-2-val" class="stat-val">EASY</div>
+          <div id="stat-2-lbl" class="stat-lbl">DIFFICULTY</div>
+        </div>
+        <div class="stat-item">
+          <div id="stat-3-val" class="stat-val">THREE.JS</div>
+          <div id="stat-3-lbl" class="stat-lbl">ENGINE</div>
+        </div>
+      </div>
 
-    <button class="hud-btn-warp" id="warp-btn">WARP FLUX VELOCITY</button>
-
-    <div class="hud-divider"></div>
-    
-    <div class="hud-terminal-header">QUANTUM TERMINAL LOG</div>
-    <div class="hud-terminal" id="terminal-log">
-      <div>[SYS] Quantum voxel engine online.</div>
-      <div>[SYS] Calibrating 3D voxel lattice... OK</div>
+      <div class="modal-actions">
+        <a id="modal-action-primary" href="#" target="_blank" class="modal-btn btn-cyan">Enter Portal</a>
+        <button id="modal-action-secondary" class="modal-btn btn-outline">Close View</button>
+      </div>
     </div>
   </div>
 
-  <!-- Interactive Toast Notification -->
-  <div id="toast" class="toast">
-    <span style="font-size: 1.5rem;">🎉</span>
-    <span id="toast-text">RIPPLE INSTIGATED: +100 XP</span>
+  <!-- Interactive Achievement Toast Alert banner -->
+  <div id="toast-achievement" class="toast-notice">
+    <span style="font-size: 1.3rem;">🏆</span>
+    <span id="toast-text">QUEST COMPLETED: SYSTEM FIREWALL</span>
   </div>
 
-  <!-- Footer -->
-  <footer>
-    <p>&copy; 2026 Louis Kieu. All rights reserved. Created under the <a href="https://nheep.com" target="_blank">nheep.com</a> ecosystem.</p>
-  </footer>
-
-  <!-- 3D Voxel Lattice Engine and Script logic -->
+  <!-- ==========================================================================
+       THREE.JS WEBGL GAME ENGINE CODE
+       ========================================================================== -->
   <script>
-    // ----------------------------------------------------
-    // QUANTUM SYNTHESIZER (WEB AUDIO API SYNTH)
-    // ----------------------------------------------------
-    class QuantumSynth {
+    // -------------------------------------------------------------------------
+    // 1. GAME & PLAYER STATE
+    // -------------------------------------------------------------------------
+    const gameState = {
+      level: 1,
+      xp: 0,
+      xpNeeded: 500,
+      commitsCollected: 0,
+      bugsEliminated: 0,
+      activeIsland: 'portal', // portal, github, collections, radio
+      visitedIslands: new Set(['portal']),
+      activeWarp: false,
+      quests: {
+        explore: false,
+        commits: false,
+        bugs: false
+      }
+    };
+
+    // Diagnostics Telemetry metrics
+    let fps = 60;
+    let lastTime = performance.now();
+    let frameCount = 0;
+
+    function updateFPS() {
+      frameCount++;
+      const now = performance.now();
+      if (now >= lastTime + 1000) {
+        fps = Math.round((frameCount * 1000) / (now - lastTime));
+        document.getElementById('fps-val').textContent = `${fps} FPS`;
+        frameCount = 0;
+        lastTime = now;
+      }
+      requestAnimationFrame(updateFPS);
+    }
+    requestAnimationFrame(updateFPS);
+
+    // Minor random values for diagnostic dashboards
+    setInterval(() => {
+      if (Math.random() > 0.4) {
+        const deltaTemp = (Math.random() - 0.5) * 0.4;
+        const currentTemp = parseFloat(document.getElementById('temp-val').textContent);
+        document.getElementById('temp-val').textContent = `${(currentTemp + deltaTemp).toFixed(1)}°C`;
+      }
+      if (Math.random() > 0.5) {
+        const deltaWind = (Math.random() - 0.5) * 1.5;
+        const currentWind = parseFloat(document.getElementById('wind-val').textContent);
+        document.getElementById('wind-val').textContent = `${Math.max(5.0, currentWind + deltaWind).toFixed(1)} KTS`;
+      }
+    }, 2000);
+
+    // Log tracking in bottom console
+    const logConsole = document.getElementById('log-console');
+    function addLog(text, color = 'var(--neon-green)') {
+      const row = document.createElement('div');
+      row.className = 'log-row';
+      row.style.color = color;
+      
+      const timeStr = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+      row.textContent = `[${timeStr}] ${text}`;
+      
+      logConsole.appendChild(row);
+      logConsole.scrollTop = logConsole.scrollHeight;
+
+      // Restrict rows to avoid memory leakage
+      while (logConsole.children.length > 25) {
+        logConsole.removeChild(logConsole.firstChild);
+      }
+    }
+
+    // -------------------------------------------------------------------------
+    // 2. RETRO SOUND EFFECTS SYNTHESIZER (WEB AUDIO API)
+    // -------------------------------------------------------------------------
+    class AudioSynthesizer {
       constructor() {
         this.ctx = null;
+        this.muted = true;
+        this.musicNode = null;
+        this.musicGain = null;
       }
+
       init() {
         if (!this.ctx) {
           this.ctx = new (window.AudioContext || window.webkitAudioContext)();
@@ -162,521 +330,1174 @@
           this.ctx.resume();
         }
       }
-      playBlip() {
+
+      toggleMute() {
         this.init();
-        if (!this.ctx) return;
+        this.muted = !this.muted;
+        document.getElementById('btn-audio').classList.toggle('muted', this.muted);
+        
+        if (this.muted) {
+          this.stopMusic();
+          addLog('[SYS] Audio core offline.', 'var(--neon-pink)');
+        } else {
+          this.playMusic();
+          addLog('[SYS] Audio core online. Procedural synthesizer running.', 'var(--neon-green)');
+          this.playChime(); // Play nice indicator note
+        }
+      }
+
+      playChime() {
+        if (this.muted) return;
+        this.init();
         const osc = this.ctx.createOscillator();
         const gain = this.ctx.createGain();
+        
         osc.type = 'sine';
-        osc.frequency.setValueAtTime(800, this.ctx.currentTime);
-        osc.frequency.exponentialRampToValueAtTime(1500, this.ctx.currentTime + 0.04);
-        gain.gain.setValueAtTime(0.012, this.ctx.currentTime);
-        gain.gain.exponentialRampToValueAtTime(0.0001, this.ctx.currentTime + 0.04);
-        osc.connect(gain);
-        gain.connect(this.ctx.destination);
-        osc.start();
-        osc.stop(this.ctx.currentTime + 0.04);
-      }
-      playClick() {
-        this.init();
-        if (!this.ctx) return;
-        const osc = this.ctx.createOscillator();
-        const gain = this.ctx.createGain();
-        osc.type = 'triangle';
-        osc.frequency.setValueAtTime(220, this.ctx.currentTime);
-        osc.frequency.exponentialRampToValueAtTime(800, this.ctx.currentTime + 0.1);
-        gain.gain.setValueAtTime(0.06, this.ctx.currentTime);
-        gain.gain.exponentialRampToValueAtTime(0.0001, this.ctx.currentTime + 0.1);
-        osc.connect(gain);
-        gain.connect(this.ctx.destination);
-        osc.start();
-        osc.stop(this.ctx.currentTime + 0.1);
-      }
-      playWarp() {
-        this.init();
-        if (!this.ctx) return;
-        const osc1 = this.ctx.createOscillator();
-        const osc2 = this.ctx.createOscillator();
-        const gain = this.ctx.createGain();
-        osc1.type = 'sawtooth';
-        osc2.type = 'sine';
-        osc1.frequency.setValueAtTime(120, this.ctx.currentTime);
-        osc1.frequency.exponentialRampToValueAtTime(1200, this.ctx.currentTime + 0.7);
-        osc2.frequency.setValueAtTime(180, this.ctx.currentTime);
-        osc2.frequency.exponentialRampToValueAtTime(1600, this.ctx.currentTime + 0.7);
+        osc.frequency.setValueAtTime(523.25, this.ctx.currentTime); // C5
+        osc.frequency.exponentialRampToValueAtTime(783.99, this.ctx.currentTime + 0.15); // G5
+        
         gain.gain.setValueAtTime(0.04, this.ctx.currentTime);
-        gain.gain.exponentialRampToValueAtTime(0.0001, this.ctx.currentTime + 0.7);
-        osc1.connect(gain);
-        osc2.connect(gain);
-        gain.connect(this.ctx.destination);
-        osc1.start();
-        osc2.start();
-        osc1.stop(this.ctx.currentTime + 0.7);
-        osc2.stop(this.ctx.currentTime + 0.7);
-      }
-      playMorph() {
-        this.init();
-        if (!this.ctx) return;
-        const osc = this.ctx.createOscillator();
-        const gain = this.ctx.createGain();
-        osc.type = 'sine';
-        osc.frequency.setValueAtTime(600, this.ctx.currentTime);
-        osc.frequency.linearRampToValueAtTime(300, this.ctx.currentTime + 0.22);
-        gain.gain.setValueAtTime(0.03, this.ctx.currentTime);
-        gain.gain.exponentialRampToValueAtTime(0.0001, this.ctx.currentTime + 0.22);
+        gain.gain.exponentialRampToValueAtTime(0.0001, this.ctx.currentTime + 0.3);
+        
         osc.connect(gain);
         gain.connect(this.ctx.destination);
         osc.start();
-        osc.stop(this.ctx.currentTime + 0.22);
+        osc.stop(this.ctx.currentTime + 0.3);
       }
-    }
 
-    const synth = new QuantumSynth();
-    const trailVoxels = [];
+      playOrbSound() {
+        if (this.muted) return;
+        this.init();
+        
+        const now = this.ctx.currentTime;
+        // Pentatonic Scale C5, D5, E5, G5, A5, C6 arpeggiating
+        const notes = [523.25, 587.33, 659.25, 783.99, 880.00, 1046.50];
+        
+        notes.forEach((freq, index) => {
+          const osc = this.ctx.createOscillator();
+          const gain = this.ctx.createGain();
+          
+          osc.type = 'triangle';
+          osc.frequency.setValueAtTime(freq, now + index * 0.05);
+          
+          gain.gain.setValueAtTime(0.02, now + index * 0.05);
+          gain.gain.exponentialRampToValueAtTime(0.0001, now + index * 0.05 + 0.2);
+          
+          osc.connect(gain);
+          gain.connect(this.ctx.destination);
+          
+          osc.start(now + index * 0.05);
+          osc.stop(now + index * 0.05 + 0.2);
+        });
+      }
 
-    // ----------------------------------------------------
-    // THREE.JS SCENE SETUP
-    // ----------------------------------------------------
-    const container = document.getElementById('canvas-container');
-    const scene = new THREE.Scene();
-    
-    // Sleek space depth fog
-    scene.fog = new THREE.FogExp2(0x0d0e15, 0.015);
+      playLaserSound() {
+        if (this.muted) return;
+        this.init();
+        
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        
+        osc.type = 'sawtooth';
+        osc.frequency.setValueAtTime(880, this.ctx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(110, this.ctx.currentTime + 0.18);
+        
+        gain.gain.setValueAtTime(0.05, this.ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.0001, this.ctx.currentTime + 0.18);
+        
+        osc.connect(gain);
+        gain.connect(this.ctx.destination);
+        
+        osc.start();
+        osc.stop(this.ctx.currentTime + 0.18);
+      }
 
-    const camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 1000);
-    // Positioned slightly above and back for a premium cinematic bird's-eye view
-    camera.position.set(0, 22, 36);
-    camera.lookAt(0, 0, 0);
+      playWarpSound() {
+        if (this.muted) return;
+        this.init();
+        
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(100, this.ctx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(1200, this.ctx.currentTime + 0.8);
+        
+        gain.gain.setValueAtTime(0.08, this.ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.0001, this.ctx.currentTime + 0.8);
+        
+        osc.connect(gain);
+        gain.connect(this.ctx.destination);
+        
+        osc.start();
+        osc.stop(this.ctx.currentTime + 0.8);
+      }
 
-    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false });
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    renderer.setClearColor(0x0d0e15, 1);
-    container.appendChild(renderer.domElement);
+      playLevelUp() {
+        if (this.muted) return;
+        this.init();
+        
+        const now = this.ctx.currentTime;
+        const notes = [261.63, 329.63, 392.00, 523.25, 659.25, 783.99, 1046.50]; // C Major arpeggio boost!
+        
+        notes.forEach((freq, idx) => {
+          const osc = this.ctx.createOscillator();
+          const gain = this.ctx.createGain();
+          
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(freq, now + idx * 0.08);
+          
+          gain.gain.setValueAtTime(0.04, now + idx * 0.08);
+          gain.gain.exponentialRampToValueAtTime(0.0001, now + idx * 0.08 + 0.5);
+          
+          osc.connect(gain);
+          gain.connect(this.ctx.destination);
+          
+          osc.start(now + idx * 0.08);
+          osc.stop(now + idx * 0.08 + 0.5);
+        });
+      }
 
-    // ----------------------------------------------------
-    // HIGH-END CYBER LIGHTING
-    // ----------------------------------------------------
-    const ambientLight = new THREE.AmbientLight(0x121320, 0.6);
-    scene.add(ambientLight);
+      // Procedural chiptune retro background music sequence
+      playMusic() {
+        this.stopMusic();
+        this.init();
 
-    const sunLight = new THREE.DirectionalLight(0xffffff, 1.2);
-    sunLight.position.set(20, 45, 20);
-    scene.add(sunLight);
+        this.musicGain = this.ctx.createGain();
+        this.musicGain.gain.value = 0.015; // Extremely soft background ambience
+        this.musicGain.connect(this.ctx.destination);
 
-    // Cyber lights flashing off colors on the voxels
-    const cyanLight = new THREE.PointLight(0x00f0ff, 2.5, 80);
-    cyanLight.position.set(-15, 10, -15);
-    scene.add(cyanLight);
+        let tempo = 120;
+        let noteLength = 60 / tempo * 0.5; // Eighth notes
+        let step = 0;
+        
+        // Cozy deep bassline & arpeggio note patterns
+        const bassPattern = [110.00, 110.00, 130.81, 130.81, 146.83, 146.83, 164.81, 196.00]; // A2, C3, D3, E3...
+        const leadPattern = [
+          [220.00, 329.63], [220.00, 392.00], [261.63, 329.63], [261.63, 392.00],
+          [293.66, 349.23], [293.66, 440.00], [329.63, 392.00], [392.00, 523.25]
+        ];
 
-    const pinkLight = new THREE.PointLight(0xff007f, 2.5, 80);
-    pinkLight.position.set(15, -10, 15);
-    scene.add(pinkLight);
+        this.musicInterval = setInterval(() => {
+          if (this.muted || !this.ctx) return;
+          
+          const now = this.ctx.currentTime;
+          
+          // Play Synth Bass note
+          const bassOsc = this.ctx.createOscillator();
+          const bassGain = this.ctx.createGain();
+          bassOsc.type = 'triangle';
+          bassOsc.frequency.value = bassPattern[step % bassPattern.length];
+          bassGain.gain.setValueAtTime(0.03, now);
+          bassGain.gain.exponentialRampToValueAtTime(0.0001, now + noteLength * 0.9);
+          bassOsc.connect(bassGain);
+          bassGain.connect(this.musicGain);
+          bassOsc.start(now);
+          bassOsc.stop(now + noteLength * 0.9);
 
-    // Cyber Grid Helper at the base for premium industrial flavor
-    const gridHelper = new THREE.GridHelper(80, 40, 0xbd00ff, 0x1b1c30);
-    gridHelper.position.y = -14;
-    scene.add(gridHelper);
-
-    // ----------------------------------------------------
-    // VOXEL LATTICE CONFIGURATION (THREE.InstancedMesh)
-    // ----------------------------------------------------
-    const N = 1024; // 32x32 lattice
-    const voxelGeo = new THREE.BoxGeometry(0.85, 0.85, 0.85);
-    // Standard material with shiny roughness to capture neon highlights
-    const voxelMat = new THREE.MeshStandardMaterial({
-      roughness: 0.15,
-      metalness: 0.8,
-    });
-
-    const instancedMesh = new THREE.InstancedMesh(voxelGeo, voxelMat, N);
-    scene.add(instancedMesh);
-
-    // Voxel structural tracking array
-    const voxelData = [];
-    for (let i = 0; i < N; i++) {
-      voxelData.push({
-        currentPos: new THREE.Vector3(0, -50, 0), // Spawn from deep below for entry morph
-        targetPos: new THREE.Vector3(0, 0, 0),
-        currentColor: new THREE.Color('#00f0ff'),
-        targetColor: new THREE.Color('#00f0ff'),
-        scale: 0.01,
-        targetScale: 1.0
-      });
-    }
-
-    // Invisible XZ plane for 3D mouse raycasting ripples
-    const planeGeo = new THREE.PlaneGeometry(1000, 1000);
-    planeGeo.rotateX(-Math.PI / 2);
-    const planeMat = new THREE.MeshBasicMaterial({ visible: false });
-    const raycastPlane = new THREE.Mesh(planeGeo, planeMat);
-    scene.add(raycastPlane);
-
-    // Simulation States
-    let currentShape = 'grid'; // grid, helix, torus, chaos
-    let activeWarp = 1.0;
-    const rippleCenter = new THREE.Vector3();
-    let rippleActive = false;
-    const raycaster = new THREE.Raycaster();
-    const mouse = new THREE.Vector2();
-
-    // ----------------------------------------------------
-    // SHAPE TRANSITIONS & MATHEMATICAL WAVE EQUATIONS
-    // ----------------------------------------------------
-    function calculateVoxelTargets(time) {
-      for (let i = 0; i < N; i++) {
-        const voxel = voxelData[i];
-
-        if (currentShape === 'grid') {
-          // Standard flat square plane
-          const u = (i % 32) - 15.5;
-          const v = Math.floor(i / 32) - 15.5;
-          const spacing = 1.25;
-          const x = u * spacing;
-          const z = v * spacing;
-
-          // Wave equation radiating outward from center
-          const d = Math.sqrt(u*u + v*v);
-          let y = Math.sin(d * 0.35 - time * 2.5) * 1.5;
-
-          // Add real-time decaying mouse ripple vectors
-          if (rippleActive) {
-            const dx = x - rippleCenter.x;
-            const dz = z - rippleCenter.z;
-            const distToMouse = Math.sqrt(dx*dx + dz*dz);
-            const ripple = Math.sin(distToMouse * 0.45 - time * 6.0) * 3.8 * Math.exp(-distToMouse * 0.12);
-            y += ripple;
+          // Play subtle lead chime on alternate beats
+          if (step % 2 === 0) {
+            const leadPair = leadPattern[step % leadPattern.length];
+            leadPair.forEach(freq => {
+              const leadOsc = this.ctx.createOscillator();
+              const leadGain = this.ctx.createGain();
+              leadOsc.type = 'sine';
+              leadOsc.frequency.value = freq;
+              leadGain.gain.setValueAtTime(0.015, now);
+              leadGain.gain.exponentialRampToValueAtTime(0.0001, now + noteLength * 1.5);
+              leadOsc.connect(leadGain);
+              leadGain.connect(this.musicGain);
+              leadOsc.start(now);
+              leadOsc.stop(now + noteLength * 1.5);
+            });
           }
 
-          voxel.targetPos.set(x, y, z);
-          voxel.targetScale = 1.0;
+          step++;
+        }, noteLength * 1000);
+      }
 
-          // Morph colors from Cyan inside to Purple outside
-          const colorRatio = Math.min(d / 16, 1.0);
-          voxel.targetColor.copy(new THREE.Color('#00f0ff')).lerp(new THREE.Color('#bd00ff'), colorRatio);
-
-        } else if (currentShape === 'helix') {
-          // DNA Double Helix
-          const strand = i < 512 ? 0 : 1;
-          const idx = i % 512;
-          const t = (idx / 512) * Math.PI * 6; // Twists
-          const offset = strand * Math.PI;
-
-          const radius = 6.0;
-          // Twist rotation dynamic over time
-          const x = Math.cos(t + offset + time * 0.6) * radius;
-          const z = Math.sin(t + offset + time * 0.6) * radius;
-          const y = (idx / 512 - 0.5) * 24.0;
-
-          voxel.targetPos.set(x, y, z);
-          voxel.targetScale = 0.9;
-
-          // Strand color differentiation
-          if (strand === 0) {
-            voxel.targetColor.set('#ff007f'); // Hot Pink
-          } else {
-            voxel.targetColor.set('#39ff14'); // Lime Green
-          }
-
-        } else if (currentShape === 'torus') {
-          // Quantum Torus Donut
-          const uIndex = i % 32;
-          const vIndex = Math.floor(i / 32);
-
-          const theta = (uIndex / 32) * Math.PI * 2;
-          const phi = (vIndex / 32) * Math.PI * 2;
-
-          const R = 9.5;
-          const r = 3.6;
-
-          // Modulating torus thickness with orbit waves
-          const rDynamic = r + Math.sin(theta * 6.0 - time * 4.0) * 0.85;
-
-          const x = (R + rDynamic * Math.cos(phi)) * Math.cos(theta);
-          const y = rDynamic * Math.sin(phi);
-          const z = (R + rDynamic * Math.cos(phi)) * Math.sin(theta);
-
-          voxel.targetPos.set(x, y, z);
-          voxel.targetScale = 0.85;
-
-          // Concentric neon coloring loops
-          const colorRatio = Math.sin(theta + time) * 0.5 + 0.5;
-          voxel.targetColor.copy(new THREE.Color('#bd00ff')).lerp(new THREE.Color('#39ff14'), colorRatio);
-
-        } else if (currentShape === 'chaos') {
-          // Entropy Noise Field (3D Pseudo-random harmonic drift)
-          const seed1 = Math.sin(i * 432.12) * 54.3;
-          const seed2 = Math.cos(i * 876.54) * 32.1;
-          const seed3 = Math.sin(i * 129.87) * 98.7;
-
-          const x = Math.sin(time * 0.45 + seed1) * 15.0;
-          const y = Math.cos(time * 0.55 + seed2) * 12.0;
-          const z = Math.sin(time * 0.65 + seed3) * 15.0;
-
-          voxel.targetPos.set(x, y, z);
-          voxel.targetScale = 0.7;
-
-          // Fast neon cycling colors
-          const h = (i * 0.003 + time * 0.15) % 1.0;
-          voxel.targetColor.setHSL(h, 1.0, 0.5);
+      stopMusic() {
+        if (this.musicInterval) {
+          clearInterval(this.musicInterval);
+          this.musicInterval = null;
+        }
+        if (this.musicGain) {
+          try {
+            this.musicGain.disconnect();
+          } catch(e) {}
+          this.musicGain = null;
         }
       }
     }
 
-    // ----------------------------------------------------
-    // VOXEL DEBRIS SYSTEM (GRAVITY SIMULATION)
-    // ----------------------------------------------------
-    const debrisList = [];
-    const debrisGeo = new THREE.BoxGeometry(0.35, 0.35, 0.35);
+    const synth = new AudioSynthesizer();
+    document.getElementById('btn-audio').addEventListener('click', () => {
+      synth.toggleMute();
+    });
 
-    function spawnDebris(point) {
-      const count = 22;
-      const neonColors = ['#00f0ff', '#ff007f', '#39ff14', '#bd00ff', '#fff200'];
+    // -------------------------------------------------------------------------
+    // 3. THREE.JS VIEWPORT & WORLD INITIALIZATION
+    // -------------------------------------------------------------------------
+    const container = document.getElementById('canvas-container');
+    const scene = new THREE.Scene();
+    
+    // Cozy atmosphere fog
+    scene.fog = new THREE.FogExp2(0x0e111d, 0.022);
+
+    const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
+    camera.position.set(0, 16, 24);
+
+    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setClearColor(0x0e111d, 1);
+    renderer.shadowMap.enabled = true;
+    renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+    container.appendChild(renderer.domElement);
+
+    // OrbitControls for manual camera rotation, panning, zooming
+    const controls = new THREE.OrbitControls(camera, renderer.domElement);
+    controls.enableDamping = true;
+    controls.dampingFactor = 0.05;
+    controls.maxPolarAngle = Math.PI / 2 - 0.05; // Prevent camera clipping underground
+    controls.minDistance = 5;
+    controls.maxDistance = 60;
+    controls.target.set(0, 2, 0);
+
+    // -------------------------------------------------------------------------
+    // 4. COZY WORLD LIGHTING
+    // -------------------------------------------------------------------------
+    const ambientLight = new THREE.AmbientLight(0x1a2135, 0.85);
+    scene.add(ambientLight);
+
+    const sunLight = new THREE.DirectionalLight(0xfffaed, 1.2);
+    sunLight.position.set(20, 30, 15);
+    sunLight.castShadow = true;
+    sunLight.shadow.mapSize.width = 1024;
+    sunLight.shadow.mapSize.height = 1024;
+    sunLight.shadow.bias = -0.001;
+    scene.add(sunLight);
+
+    // Cyber colorful spotlights
+    const cyanLight = new THREE.PointLight(varHex('--neon-cyan'), 2.0, 35);
+    cyanLight.position.set(-15, 6, -10);
+    scene.add(cyanLight);
+
+    const pinkLight = new THREE.PointLight(varHex('--neon-pink'), 2.0, 35);
+    pinkLight.position.set(15, 5, -12);
+    scene.add(pinkLight);
+
+    const purpleLight = new THREE.PointLight(varHex('--neon-purple'), 1.5, 30);
+    purpleLight.position.set(0, 5, -22);
+    scene.add(purpleLight);
+
+    function varHex(cssVar) {
+      const colors = {
+        '--neon-cyan': 0x00f3ff,
+        '--neon-pink': 0xff0077,
+        '--neon-green': 0x3cf000,
+        '--neon-yellow': 0xffd000,
+        '--neon-purple': 0xbe00ff
+      };
+      return colors[cssVar] || 0xffffff;
+    }
+
+    // -------------------------------------------------------------------------
+    // 5. PROCEDURAL LOW-POLY 3D MODEL GENERATORS
+    // -------------------------------------------------------------------------
+    
+    // Flat flat-shaded material constructor
+    function createLowPolyMat(colorHex, roughness = 0.85, metalness = 0.1) {
+      return new THREE.MeshStandardMaterial({
+        color: colorHex,
+        roughness: roughness,
+        metalness: metalness,
+        flatShading: true
+      });
+    }
+
+    // Procedural Rock Mesh
+    function createProceduralRock(scale = 0.4) {
+      const geo = new THREE.IcosahedronGeometry(scale, 0); // 12-vertex low-poly rock base
+      
+      // Randomly distort rock vertices to make organic boulders
+      const pos = geo.attributes.position;
+      for (let i = 0; i < pos.count; i++) {
+        pos.setX(i, pos.getX(i) + (Math.random() - 0.5) * scale * 0.35);
+        pos.setY(i, pos.getY(i) + (Math.random() - 0.5) * scale * 0.35);
+        pos.setZ(i, pos.getZ(i) + (Math.random() - 0.5) * scale * 0.35);
+      }
+      geo.computeVertexNormals();
+
+      const stoneColors = [0x545b6c, 0x414652, 0x2f323c];
+      const mat = createLowPolyMat(stoneColors[Math.floor(Math.random() * stoneColors.length)], 0.9, 0.05);
+      
+      const mesh = new THREE.Mesh(geo, mat);
+      mesh.castShadow = true;
+      mesh.receiveShadow = true;
+      return mesh;
+    }
+
+    // Procedural Pine Tree Mesh
+    function createProceduralTree(height = 1.6) {
+      const group = new THREE.Group();
+
+      // Trunk faceted cylinder
+      const trunkGeo = new THREE.CylinderGeometry(0.08, 0.15, height * 0.4, 5);
+      const trunkMat = createLowPolyMat(0x503b29, 0.95, 0.0);
+      const trunk = new THREE.Mesh(trunkGeo, trunkMat);
+      trunk.position.y = height * 0.2;
+      trunk.castShadow = true;
+      group.add(trunk);
+
+      // Pine foliage layers (cones stacked)
+      const foliageColors = [0x2c6b45, 0x3b8556, 0x225435];
+      const leafColor = foliageColors[Math.floor(Math.random() * foliageColors.length)];
+      const leafMat = createLowPolyMat(leafColor, 0.9, 0.0);
+
+      const layers = 3;
+      for (let i = 0; i < layers; i++) {
+        const sizeRatio = (layers - i) / layers;
+        const foliageGeo = new THREE.ConeGeometry(0.55 * sizeRatio, 0.8 * sizeRatio, 5);
+        const leafMesh = new THREE.Mesh(foliageGeo, leafMat);
+        
+        leafMesh.position.y = (height * 0.35) + (i * 0.32 * height);
+        leafMesh.rotation.y = Math.random() * Math.PI;
+        leafMesh.castShadow = true;
+        leafMesh.receiveShadow = true;
+        group.add(leafMesh);
+      }
+
+      return group;
+    }
+
+    // Procedural Floating Clouds
+    const cloudList = [];
+    function spawnProceduralCloud() {
+      const group = new THREE.Group();
+      
+      const parts = 3 + Math.floor(Math.random() * 3);
+      const mat = createLowPolyMat(0xffffff, 0.9, 0.0);
+      mat.transparent = true;
+      mat.opacity = 0.85;
+
+      for (let i = 0; i < parts; i++) {
+        const radius = 0.6 + Math.random() * 0.8;
+        const sphereGeo = new THREE.IcosahedronGeometry(radius, 1);
+        const part = new THREE.Mesh(sphereGeo, mat);
+        
+        part.position.set(
+          (i - parts / 2) * 1.1,
+          (Math.random() - 0.5) * 0.3,
+          (Math.random() - 0.5) * 0.3
+        );
+        part.scale.set(1.0, 0.7, 0.7);
+        part.castShadow = false;
+        group.add(part);
+      }
+
+      // Random position in sky
+      const theta = Math.random() * Math.PI * 2;
+      const dist = 25 + Math.random() * 20;
+      group.position.set(
+        Math.cos(theta) * dist,
+        8 + Math.random() * 5,
+        Math.sin(theta) * dist
+      );
+
+      scene.add(group);
+      
+      cloudList.push({
+        mesh: group,
+        speed: 0.01 + Math.random() * 0.02,
+        driftDir: Math.random() * Math.PI * 2
+      });
+    }
+
+    // Spawn initial sky clouds
+    for (let i = 0; i < 8; i++) {
+      spawnProceduralCloud();
+    }
+
+    // -------------------------------------------------------------------------
+    // 6. LOW-POLY FACETED WATER OCEAN
+    // -------------------------------------------------------------------------
+    const waterGeo = new THREE.PlaneGeometry(120, 120, 32, 32);
+    waterGeo.rotateX(-Math.PI / 2);
+
+    // Color: Deep slate indigo that reflects spotlights beautifully
+    const waterMat = new THREE.MeshStandardMaterial({
+      color: 0x091220,
+      roughness: 0.08,
+      metalness: 0.85,
+      flatShading: true
+    });
+
+    const waterMesh = new THREE.Mesh(waterGeo, waterMat);
+    waterMesh.receiveShadow = true;
+    scene.add(waterMesh);
+
+    // -------------------------------------------------------------------------
+    // 7. floating ARCHIPELAGO ISLANDS
+    // -------------------------------------------------------------------------
+    const islandsGroup = new THREE.Group();
+    scene.add(islandsGroup);
+
+    const islandData = {
+      portal: {
+        name: 'Spawn Temple',
+        tag: 'Spatial Hub Gate',
+        color: 0x468249, // Pale Green Grass
+        pos: new THREE.Vector3(0, 1.8, 0),
+        size: 5.5,
+        desc: "Welcome to the core sanctuary of Louis Kieu's portfolio. Step onto the glowing portal arch and teleport directly into other modules, or take time to harvest commits and click bugs!",
+        stat1: '100%', stat2: 'EASY', stat3: 'PORTAL'
+      },
+      github: {
+        name: 'GitHub Forge',
+        tag: 'Development Workspace',
+        color: 0x223623, // Deep forest green
+        pos: new THREE.Vector3(-15, 0.2, -10),
+        size: 4.8,
+        desc: "Enter Louis Kieu's coding workshop. Inspect repository metrics, review open projects under the louisaimaster-lab core repository, and collect floating green code structures.",
+        stat1: '148', stat2: 'HARD', stat3: 'GIT'
+      },
+      collections: {
+        name: 'Artifact Vault',
+        tag: 'Creative Showroom',
+        color: 0x4a4d6b, // Deep indigo vault stone
+        pos: new THREE.Vector3(15, -0.8, -12),
+        size: 4.5,
+        desc: "A floating interactive gallery hosting Louis Kieu's premium creations: Voxel Island, Quantum Reactor, and Voxel Portal simulations under the nheep.com portal.",
+        stat1: '3 ACTIVE', stat2: 'ELITE', stat3: '3D/WebGL'
+      },
+      radio: {
+        name: 'Radio Signal',
+        tag: 'Contact Beacon',
+        color: 0x6e2c2c, // Red sand
+        pos: new THREE.Vector3(0, 1.0, -22),
+        size: 4.0,
+        desc: "A deep antenna transmitter station designed to broadcast communication links directly into space. Check links to resume networking and build systems.",
+        stat1: 'ACTIVE', stat2: 'NORMAL', stat3: 'RADIO'
+      }
+    };
+
+    const islandMeshes = {};
+    const portalRings = [];
+    const interactiveObjects = [];
+
+    // Create the floating level selection islands
+    Object.keys(islandData).forEach(key => {
+      const data = islandData[key];
+      const group = new THREE.Group();
+      group.position.copy(data.pos);
+
+      // Create a hexagonal stylized low-poly base
+      const topGeo = new THREE.CylinderGeometry(data.size, data.size + 0.5, 1.5, 6);
+      const topMat = createLowPolyMat(data.color, 0.9, 0.0);
+      const topMesh = new THREE.Mesh(topGeo, topMat);
+      topMesh.castShadow = true;
+      topMesh.receiveShadow = true;
+      group.add(topMesh);
+
+      // Chunky brown underground stone crust
+      const baseGeo = new THREE.CylinderGeometry(data.size + 0.5, 0.1, 4.0, 6);
+      const baseMat = createLowPolyMat(0x3e2a1b, 0.95, 0.0);
+      const baseMesh = new THREE.Mesh(baseGeo, baseMat);
+      baseMesh.position.y = -2.7;
+      baseMesh.castShadow = true;
+      baseMesh.receiveShadow = true;
+      group.add(baseMesh);
+
+      // Make the top surface bumpy using random rocks & pine trees
+      const treeCount = 3 + Math.floor(Math.random() * 4);
+      for (let i = 0; i < treeCount; i++) {
+        const tree = createProceduralTree(0.8 + Math.random() * 0.8);
+        const radius = (Math.random() * 0.6 + 0.3) * data.size;
+        const angle = Math.random() * Math.PI * 2;
+        tree.position.set(Math.cos(angle) * radius, 0.7, Math.sin(angle) * radius);
+        group.add(tree);
+      }
+
+      const rockCount = 2 + Math.floor(Math.random() * 3);
+      for (let i = 0; i < rockCount; i++) {
+        const rock = createProceduralRock(0.2 + Math.random() * 0.3);
+        const radius = (Math.random() * 0.7 + 0.2) * data.size;
+        const angle = Math.random() * Math.PI * 2;
+        rock.position.set(Math.cos(angle) * radius, 0.75, Math.sin(angle) * radius);
+        group.add(rock);
+      }
+
+      // Add Custom Features on each island to make them unique
+      if (key === 'portal') {
+        // Ancient Stone Gate frame
+        const gate = new THREE.Group();
+        gate.position.set(0, 0.75, 0);
+
+        const pillarGeo = new THREE.BoxGeometry(0.4, 2.2, 0.4);
+        const stoneMat = createLowPolyMat(0x414652, 0.95, 0.05);
+
+        const leftPillar = new THREE.Mesh(pillarGeo, stoneMat);
+        leftPillar.position.x = -1.1;
+        leftPillar.position.y = 1.1;
+        leftPillar.castShadow = true;
+        gate.add(leftPillar);
+
+        const rightPillar = leftPillar.clone();
+        rightPillar.position.x = 1.1;
+        gate.add(rightPillar);
+
+        const crossbarGeo = new THREE.BoxGeometry(2.8, 0.4, 0.4);
+        const crossbar = new THREE.Mesh(crossbarGeo, stoneMat);
+        crossbar.position.y = 2.4;
+        crossbar.castShadow = true;
+        gate.add(crossbar);
+
+        // Glowing Portal Event Horizon inside the Gate
+        const portalGeo = new THREE.RingGeometry(0.1, 0.9, 8);
+        const portalMat = new THREE.MeshBasicMaterial({
+          color: 0x00f3ff,
+          side: THREE.DoubleSide,
+          transparent: true,
+          opacity: 0.65
+        });
+        const eventHorizon = new THREE.Mesh(portalGeo, portalMat);
+        eventHorizon.position.y = 1.1;
+        gate.add(eventHorizon);
+
+        // Rotating Portal particle ring
+        const ringGroup = new THREE.Group();
+        ringGroup.position.set(0, 1.85, 0);
+        
+        const cubeGeo = new THREE.BoxGeometry(0.12, 0.12, 0.12);
+        const cubeMat = new THREE.MeshBasicMaterial({ color: 0x00f3ff });
+        for (let j = 0; j < 8; j++) {
+          const particle = new THREE.Mesh(cubeGeo, cubeMat);
+          const pAngle = (j / 8) * Math.PI * 2;
+          particle.position.set(Math.cos(pAngle) * 0.95, Math.sin(pAngle) * 0.95, 0);
+          ringGroup.add(particle);
+        }
+        group.add(ringGroup);
+        portalRings.push(ringGroup);
+
+        group.add(gate);
+
+        // Add rotating diagnostics wind turbine
+        const turbine = new THREE.Group();
+        turbine.position.set(-2, 0.75, 2);
+
+        const postGeo = new THREE.CylinderGeometry(0.05, 0.08, 2.5, 4);
+        const post = new THREE.Mesh(postGeo, stoneMat);
+        post.position.y = 1.25;
+        turbine.add(post);
+
+        const rotorGroup = new THREE.Group();
+        rotorGroup.position.y = 2.5;
+
+        const bladeGeo = new THREE.BoxGeometry(0.1, 1.2, 0.04);
+        const bladeMat = createLowPolyMat(0xffffff, 0.9, 0.0);
+        for (let j = 0; j < 3; j++) {
+          const blade = new THREE.Mesh(bladeGeo, bladeMat);
+          blade.rotation.z = (j / 3) * Math.PI * 2;
+          blade.position.y = 0.5;
+          const bladeWrapper = new THREE.Group();
+          bladeWrapper.rotation.z = (j / 3) * Math.PI * 2;
+          blade.position.y = 0.55;
+          bladeWrapper.add(blade);
+          rotorGroup.add(bladeWrapper);
+        }
+        turbine.add(rotorGroup);
+        group.add(turbine);
+        
+        // Track rotor for rotation animation
+        gameState.rotor = rotorGroup;
+
+      } else if (key === 'github') {
+        // Gigantic glowing Code Pillars arrange like graph stats
+        const githubObj = new THREE.Group();
+        githubObj.position.set(0, 0.75, 0);
+
+        const contributions = [
+          { x: -1.2, y: 1.0, z: -1.2, color: 0x225435 },
+          { x: -0.4, y: 1.8, z: -1.2, color: 0x3b8556 },
+          { x: 0.4, y: 1.4, z: -1.2, color: 0x2c6b45 },
+          { x: 1.2, y: 2.2, z: -1.2, color: 0x3cf000 },
+          { x: -1.2, y: 0.8, z: 0.0, color: 0x1a2135 },
+          { x: -0.4, y: 2.4, z: 0.0, color: 0x3cf000 },
+          { x: 0.4, y: 0.6, z: 0.0, color: 0x225435 },
+          { x: 1.2, y: 1.9, z: 0.0, color: 0x3b8556 }
+        ];
+
+        contributions.forEach(item => {
+          const pillarGeo = new THREE.BoxGeometry(0.65, item.y, 0.65);
+          const pillarMat = createLowPolyMat(item.color, 0.8, 0.25);
+          pillarMat.emissive = new THREE.Color(item.color);
+          pillarMat.emissiveIntensity = 0.25;
+
+          const pillar = new THREE.Mesh(pillarGeo, pillarMat);
+          pillar.position.set(item.x, item.y / 2, item.z);
+          pillar.castShadow = true;
+          pillar.receiveShadow = true;
+          githubObj.add(pillar);
+        });
+
+        // Spinning Octocat beacon on top
+        const beaconGeo = new THREE.OctahedronGeometry(0.4, 0);
+        const beaconMat = new THREE.MeshBasicMaterial({ color: 0x3cf000 });
+        const beacon = new THREE.Mesh(beaconGeo, beaconMat);
+        beacon.position.set(0, 3.2, 0);
+        githubObj.add(beacon);
+        
+        group.add(githubObj);
+        gameState.gitBeacon = beacon;
+
+      } else if (key === 'collections') {
+        // Giant display columns holding spinning project miniatures
+        const displays = new THREE.Group();
+        displays.position.set(0, 0.75, 0);
+
+        const miniProjects = [
+          { name: 'island', icon: '🏝️', pos: new THREE.Vector3(-1.4, 1.2, 0), geometry: new THREE.CylinderGeometry(0.35, 0.35, 0.15, 6), color: 0x468249 },
+          { name: 'reactor', icon: '⚡', pos: new THREE.Vector3(0, 1.2, -1.2), geometry: new THREE.BoxGeometry(0.45, 0.45, 0.45), color: 0xff0077 },
+          { name: 'portal', icon: '🌀', pos: new THREE.Vector3(1.4, 1.2, 0), geometry: new THREE.TorusGeometry(0.3, 0.1, 4, 12), color: 0x00f3ff }
+        ];
+
+        gameState.miniatures = [];
+
+        miniProjects.forEach(item => {
+          // Transparent display stand
+          const standGeo = new THREE.CylinderGeometry(0.35, 0.42, 1.0, 6);
+          const standMat = new THREE.MeshStandardMaterial({
+            color: 0x1a2135,
+            roughness: 0.1,
+            metalness: 0.9,
+            transparent: true,
+            opacity: 0.5,
+            flatShading: true
+          });
+          const stand = new THREE.Mesh(standGeo, standMat);
+          stand.position.copy(item.pos);
+          stand.position.y = 0.5;
+          stand.castShadow = true;
+          displays.add(stand);
+
+          // Glowing miniature floating above
+          const miniMat = createLowPolyMat(item.color, 0.6, 0.5);
+          miniMat.emissive = new THREE.Color(item.color);
+          miniMat.emissiveIntensity = 0.3;
+          const mini = new THREE.Mesh(item.geometry, miniMat);
+          mini.position.copy(item.pos);
+          mini.position.y = 1.35;
+          mini.castShadow = true;
+          displays.add(mini);
+
+          // Spin tracker
+          gameState.miniatures.push(mini);
+        });
+
+        group.add(displays);
+
+      } else if (key === 'radio') {
+        // High Beacon Tower transmitting signals into the air
+        const radioObj = new THREE.Group();
+        radioObj.position.set(0, 0.75, 0);
+
+        const towerGeo = new THREE.CylinderGeometry(0.08, 0.3, 3.5, 4);
+        const towerMat = createLowPolyMat(0x414652, 0.95, 0.1);
+        const tower = new THREE.Mesh(towerGeo, towerMat);
+        tower.position.y = 1.75;
+        tower.castShadow = true;
+        radioObj.add(tower);
+
+        // Transmitter bulb glowing red/pink
+        const bulbGeo = new THREE.IcosahedronGeometry(0.35, 1);
+        const bulbMat = new THREE.MeshBasicMaterial({ color: 0xff0077 });
+        const bulb = new THREE.Mesh(bulbGeo, bulbMat);
+        bulb.position.y = 3.65;
+        radioObj.add(bulb);
+
+        // Signal transmitter pulses rings
+        const ringCount = 3;
+        gameState.beaconRings = [];
+        
+        for (let j = 0; j < ringCount; j++) {
+          const ringGeo = new THREE.RingGeometry(0.1, 0.2, 8);
+          ringGeo.rotateX(-Math.PI / 2);
+          const ringMat = new THREE.MeshBasicMaterial({
+            color: 0xff0077,
+            side: THREE.DoubleSide,
+            transparent: true,
+            opacity: 0.8
+          });
+          const ring = new THREE.Mesh(ringGeo, ringMat);
+          ring.position.y = 3.65;
+          ring.scale.setScalar(0.1);
+          radioObj.add(ring);
+          
+          gameState.beaconRings.push({
+            mesh: ring,
+            scale: 0.1 + (j * 0.3),
+            growth: 0.015
+          });
+        }
+
+        group.add(radioObj);
+      }
+
+      // Add a hover coordinate anchor bounding box for general click triggers
+      const anchorGeo = new THREE.BoxGeometry(data.size * 1.8, 5.0, data.size * 1.8);
+      const anchorMat = new THREE.MeshBasicMaterial({ visible: false });
+      const clickAnchor = new THREE.Mesh(anchorGeo, anchorMat);
+      clickAnchor.position.y = 1.0;
+      clickAnchor.userData = { islandId: key };
+      group.add(clickAnchor);
+
+      interactiveObjects.push(clickAnchor);
+
+      islandsGroup.add(group);
+      islandMeshes[key] = group;
+    });
+
+    // -------------------------------------------------------------------------
+    // 8. MINI-GAME OBJECT GENERATORS (COMMIT ORBS & SECURITY BUGS)
+    // -------------------------------------------------------------------------
+    const orbList = [];
+    const bugList = [];
+    const explosionParticles = [];
+
+    // Spawns glowing commit orbs near the active island
+    function spawnCommitOrb() {
+      // Find active island base coordinate
+      const activeData = islandData[gameState.activeIsland];
+      const origin = activeData.pos.clone();
+      
+      const orbGeo = new THREE.DodecahedronGeometry(0.24, 0); // Stylized faceted diamond shape
+      const orbMat = new THREE.MeshStandardMaterial({
+        color: 0xffd000,
+        emissive: 0xffd000,
+        emissiveIntensity: 0.8,
+        metalness: 0.8,
+        roughness: 0.1,
+        flatShading: true
+      });
+      const mesh = new THREE.Mesh(orbGeo, orbMat);
+      
+      // Random coordinates around island
+      const angle = Math.random() * Math.PI * 2;
+      const radius = 2.0 + Math.random() * 2.5;
+      mesh.position.set(
+        origin.x + Math.cos(angle) * radius,
+        origin.y + 2.0 + (Math.random() - 0.5) * 1.2,
+        origin.z + Math.sin(angle) * radius
+      );
+      
+      mesh.castShadow = true;
+      mesh.userData = { type: 'orb' };
+      scene.add(mesh);
+      
+      orbList.push({
+        mesh: mesh,
+        baseY: mesh.position.y,
+        bobSpeed: 1.5 + Math.random() * 1.5,
+        bobOffset: Math.random() * Math.PI
+      });
+
+      interactiveObjects.push(mesh);
+    }
+
+    // Spawns red threat bugs near active island
+    function spawnSecurityBug() {
+      const activeData = islandData[gameState.activeIsland];
+      const origin = activeData.pos.clone();
+      
+      const bugGeo = new THREE.OctahedronGeometry(0.26, 0);
+      const bugMat = new THREE.MeshStandardMaterial({
+        color: 0xff0055,
+        emissive: 0xff0055,
+        emissiveIntensity: 0.7,
+        metalness: 0.9,
+        roughness: 0.1,
+        flatShading: true
+      });
+      const mesh = new THREE.Mesh(bugGeo, bugMat);
+      
+      const angle = Math.random() * Math.PI * 2;
+      const radius = 2.0 + Math.random() * 2.5;
+      mesh.position.set(
+        origin.x + Math.cos(angle) * radius,
+        origin.y + 2.2 + (Math.random() - 0.5) * 1.0,
+        origin.z + Math.sin(angle) * radius
+      );
+      
+      mesh.castShadow = true;
+      mesh.userData = { type: 'bug' };
+      scene.add(mesh);
+      
+      bugList.push({
+        mesh: mesh,
+        baseY: mesh.position.y,
+        rotSpeed: new THREE.Vector3(
+          (Math.random() - 0.5) * 3,
+          2 + Math.random() * 3,
+          (Math.random() - 0.5) * 2
+        ),
+        bobSpeed: 2.0 + Math.random() * 2.0,
+        bobOffset: Math.random() * Math.PI
+      });
+
+      interactiveObjects.push(mesh);
+    }
+
+    // Trigger visual debris explosion on zapping/harvesting
+    function triggerExplosion(point, colorHex, count = 12) {
+      const particleGeo = new THREE.BoxGeometry(0.1, 0.1, 0.1);
+      const particleMat = new THREE.MeshBasicMaterial({ color: colorHex });
       
       for (let i = 0; i < count; i++) {
-        const colorStr = neonColors[Math.floor(Math.random() * neonColors.length)];
-        const mat = new THREE.MeshStandardMaterial({
-          color: new THREE.Color(colorStr),
-          roughness: 0.1,
-          metalness: 0.8,
-          emissive: new THREE.Color(colorStr),
-          emissiveIntensity: 0.35
-        });
-        
-        const mesh = new THREE.Mesh(debrisGeo, mat);
+        const mesh = new THREE.Mesh(particleGeo, particleMat);
         mesh.position.copy(point);
-
-        // Disperse velocity vectors outwards
-        const angle = Math.random() * Math.PI * 2;
-        const speed = Math.random() * 0.22 + 0.06;
+        
         const velocity = new THREE.Vector3(
-          Math.cos(angle) * speed,
-          Math.random() * 0.24 + 0.16, // Initial upward pop
-          Math.sin(angle) * speed
+          (Math.random() - 0.5) * 0.15,
+          (Math.random() - 0.2) * 0.22, // Pop up
+          (Math.random() - 0.5) * 0.15
         );
-
-        mesh.rotation.set(Math.random() * Math.PI, Math.random() * Math.PI, 0);
+        
         scene.add(mesh);
-
-        debrisList.push({
+        explosionParticles.push({
           mesh: mesh,
-          velocity: velocity,
-          rotationSpeed: new THREE.Vector3(
-            (Math.random() - 0.5) * 0.2,
-            (Math.random() - 0.5) * 0.2,
-            (Math.random() - 0.5) * 0.2
-          ),
+          vel: velocity,
           scale: 1.0,
-          gravity: 0.009
+          gravity: 0.007
         });
       }
     }
 
-    // ----------------------------------------------------
-    // INTERACTIVE EVENTS
-    // ----------------------------------------------------
-    const dummy = new THREE.Object3D();
-    
-    // Mouse movement updates raycast ripple coordinates and spawns 3D voxel trails
+    // Initial spawns near Spawn Temple island
+    for (let i = 0; i < 3; i++) spawnCommitOrb();
+    for (let i = 0; i < 2; i++) spawnSecurityBug();
+
+    // Spawn orbs periodically
+    setInterval(() => {
+      if (orbList.length < 5) {
+        spawnCommitOrb();
+      }
+    }, 6000);
+
+    // Spawn security threat bugs periodically
+    setInterval(() => {
+      if (bugList.length < 3) {
+        spawnSecurityBug();
+      }
+    }, 8500);
+
+    // -------------------------------------------------------------------------
+    // 9. EVENT LISTENERS, PORTAL NAVIGATION, AND GLIDES
+    // -------------------------------------------------------------------------
+    const raycaster = new THREE.Raycaster();
+    const mouse = new THREE.Vector2();
+
+    // Warp flash trigger
+    function flashScreen() {
+      const flash = document.getElementById('warp-flash');
+      flash.style.opacity = '1';
+      flash.style.transition = 'none';
+      
+      setTimeout(() => {
+        flash.style.transition = 'opacity 0.8s ease-out';
+        flash.style.opacity = '0';
+      }, 50);
+    }
+
+    // Float notification trigger banner
+    function triggerToast(text) {
+      const toast = document.getElementById('toast-achievement');
+      document.getElementById('toast-text').textContent = text;
+      toast.classList.add('show');
+      
+      synth.playChime();
+
+      setTimeout(() => {
+        toast.classList.remove('show');
+      }, 2500);
+    }
+
+    // Camera Focus Glider Engine using Anime.js and OrbitControls updates
+    function warpToIsland(islandId) {
+      if (gameState.activeIsland === islandId && gameState.visitedIslands.has(islandId)) return;
+      
+      gameState.activeIsland = islandId;
+      gameState.visitedIslands.add(islandId);
+      
+      // Play sound
+      synth.playWarpSound();
+      flashScreen();
+
+      // Update Diagnostics sidebar label
+      const data = islandData[islandId];
+      document.getElementById('active-zone-name').textContent = data.name.toUpperCase();
+      addLog(`[PORTAL] Teleporting spatial vectors to focus sector: ${data.name.toUpperCase()}...`, 'var(--neon-cyan)');
+
+      // Highlight active inventory slot UI
+      document.querySelectorAll('.inventory-slot').forEach(slot => {
+        slot.classList.remove('active');
+        if (slot.dataset.project === islandId) {
+          slot.classList.add('active');
+        }
+      });
+
+      // Quest: Explore all islands check
+      if (gameState.visitedIslands.size === 4 && !gameState.quests.explore) {
+        gameState.quests.explore = true;
+        document.getElementById('quest-travel').classList.add('completed');
+        addLog('[QUEST COMPLETED] Archipelago Explorer finished! +200 XP', 'var(--neon-yellow)');
+        gainXP(200);
+        triggerToast('QUEST COMPLETE: ARCHIPELAGO EXPLORER');
+      }
+
+      // Smooth camera coordinates transitions
+      let targetCamPos = new THREE.Vector3(0, 16, 24);
+      let targetLookAt = data.pos.clone();
+
+      if (islandId === 'portal') {
+        targetCamPos.set(0, 12, 16);
+      } else if (islandId === 'github') {
+        targetCamPos.set(-15, 8, -2);
+      } else if (islandId === 'collections') {
+        targetCamPos.set(15, 7, -5);
+      } else if (islandId === 'radio') {
+        targetCamPos.set(0, 9, -15);
+      }
+
+      // Stop previous control animations
+      controls.enabled = false;
+      
+      anime({
+        targets: camera.position,
+        x: targetCamPos.x,
+        y: targetCamPos.y,
+        z: targetCamPos.z,
+        duration: 1500,
+        easing: 'cubicBezier(0.19, 1, 0.22, 1)'
+      });
+
+      anime({
+        targets: controls.target,
+        x: targetLookAt.x,
+        y: targetLookAt.y,
+        z: targetLookAt.z,
+        duration: 1500,
+        easing: 'cubicBezier(0.19, 1, 0.22, 1)',
+        complete: () => {
+          controls.enabled = true;
+        }
+      });
+    }
+
+    // Gain Player XP, calculate level-up thresholds
+    function gainXP(amount) {
+      gameState.xp += amount;
+      addLog(`[XP GAINED] +${amount} Experience units harvested.`, 'var(--neon-green)');
+      
+      if (gameState.xp >= gameState.xpNeeded) {
+        gameState.xp -= gameState.xpNeeded;
+        gameState.level++;
+        
+        synth.playLevelUp();
+        addLog(`🏆 LEVEL UP! Player reached Rank: Level ${gameState.level}!`, 'var(--neon-yellow)');
+        triggerToast(`RANK UP: LEVEL ${gameState.level} ARCH-ENGINEER!`);
+        
+        document.getElementById('hud-level').textContent = gameState.level;
+      }
+
+      // Fill XP Bar progress visual
+      const fillPercentage = (gameState.xp / gameState.xpNeeded) * 100;
+      document.getElementById('xp-bar-fill').style.width = `${fillPercentage}%`;
+      document.getElementById('xp-text').textContent = `${gameState.xp} / ${gameState.xpNeeded} XP`;
+    }
+
+    // Binds raycast hovers & click triggers for interactive 3D elements
+    const hoverLabel = document.getElementById('hover-label');
+
     window.addEventListener('mousemove', (e) => {
       mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
       mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
 
       raycaster.setFromCamera(mouse, camera);
-      const intersects = raycaster.intersectObject(raycastPlane);
-      if (intersects.length > 0) {
-        rippleCenter.copy(intersects[0].point);
-        rippleActive = true;
+      const intersects = raycaster.intersectObjects(interactiveObjects);
 
-        // Spawn glowing 3D voxel cursor trail particle with 35% probability
-        if (Math.random() < 0.35) {
-          const trailGeo = new THREE.BoxGeometry(0.32, 0.32, 0.32);
-          const neonColors = ['#00f0ff', '#ff007f', '#39ff14', '#bd00ff', '#fff200'];
-          const randomColor = neonColors[Math.floor(Math.random() * neonColors.length)];
-          const trailMat = new THREE.MeshStandardMaterial({
-            color: new THREE.Color(randomColor),
-            roughness: 0.1,
-            metalness: 0.8,
-            emissive: new THREE.Color(randomColor),
-            emissiveIntensity: 0.8
-          });
-          const trailMesh = new THREE.Mesh(trailGeo, trailMat);
-          trailMesh.position.copy(intersects[0].point);
-          // Add minor scattering offsets
-          trailMesh.position.x += (Math.random() - 0.5) * 0.7;
-          trailMesh.position.z += (Math.random() - 0.5) * 0.7;
-          
-          scene.add(trailMesh);
-          trailVoxels.push({
-            mesh: trailMesh,
-            scale: 1.0,
-            driftSpeed: 0.04 + Math.random() * 0.04
-          });
+      if (intersects.length > 0) {
+        const obj = intersects[0].object;
+        let labelText = '';
+        
+        if (obj.userData.islandId) {
+          labelText = islandData[obj.userData.islandId].name;
+        } else if (obj.userData.type === 'orb') {
+          labelText = 'HARVEST COMMIT ORB';
+        } else if (obj.userData.type === 'bug') {
+          labelText = '🔥 ZAP SECURITY BUG!';
         }
 
+        hoverLabel.textContent = labelText.toUpperCase();
+        hoverLabel.classList.add('show');
+        hoverLabel.style.left = `${e.clientX}px`;
+        hoverLabel.style.top = `${e.clientY - 20}px`;
+        document.body.style.cursor = 'pointer';
       } else {
-        rippleActive = false;
+        hoverLabel.classList.remove('show');
+        document.body.style.cursor = 'auto';
       }
     });
 
-    window.addEventListener('mouseleave', () => {
-      rippleActive = false;
-    });
-
-    // Spawn gravity debris + play click synth audio on click (unless clicking interface elements)
     window.addEventListener('click', (e) => {
-      if (e.target.tagName === 'A' || e.target.closest('a') || e.target.tagName === 'BUTTON' || e.target.closest('.sandbox-hud')) return;
+      // Prevent click zaps triggering when using HUD overlay menus
+      if (e.target.tagName === 'BUTTON' || e.target.closest('button') || e.target.closest('.console-panel') || e.target.closest('.card-modal')) return;
 
       raycaster.setFromCamera(mouse, camera);
-      const intersects = raycaster.intersectObject(raycastPlane);
+      const intersects = raycaster.intersectObjects(interactiveObjects);
+
       if (intersects.length > 0) {
-        spawnDebris(intersects[0].point);
-        synth.playClick();
-        triggerToast("DEBRIS FIELD COLLISION: +50 XP");
-        addLog(`[GRAVITY] Collided at (${intersects[0].point.x.toFixed(1)}, ${intersects[0].point.z.toFixed(1)}). Debris sprayed!`);
-      }
-    });
-
-    // Minimize HUD functionality with sound triggering
-    const minimizeBtn = document.getElementById('hud-min-btn');
-    const telemetryHud = document.getElementById('telemetry-hud');
-    minimizeBtn.addEventListener('click', (e) => {
-      e.stopPropagation();
-      telemetryHud.classList.toggle('minimized');
-      synth.playMorph();
-      if (telemetryHud.classList.contains('minimized')) {
-        minimizeBtn.textContent = '[+]';
-        addLog('[SYS] Telemetry console minimized.');
-      } else {
-        minimizeBtn.textContent = '[-]';
-        addLog('[SYS] Telemetry console restored.');
-      }
-    });
-
-    // Attach hover sound blips on all interactive elements
-    function attachHoverSounds() {
-      const interactives = document.querySelectorAll('a, button, .neubrutalist-card, .hud-btn');
-      interactives.forEach(el => {
-        el.addEventListener('mouseenter', () => {
-          synth.playBlip();
-        });
-      });
-    }
-
-    // ----------------------------------------------------
-    // HUD & TERMINAL CONTROL HANDLERS
-    // ----------------------------------------------------
-    const terminalLog = document.getElementById('terminal-log');
-    
-    function addLog(text) {
-      const div = document.createElement('div');
-      div.textContent = text;
-      terminalLog.appendChild(div);
-      terminalLog.scrollTop = terminalLog.scrollHeight;
-      
-      // Prevent browser memory leaks by limiting log lines
-      while (terminalLog.children.length > 25) {
-        terminalLog.removeChild(terminalLog.firstChild);
-      }
-    }
-
-    // Periodic pseudo-scientific terminal logs
-    const logMessages = [
-      "[SYS] Telemetry grid linked successfully.",
-      "[LATTICE] Quantum ripple wave vector amplitude: 3.80",
-      "[WARN] Atomic energy fluctuation in Sector 7... resolved",
-      "[FLUX] Sub-atomic shielding loops at 99.82% efficiency",
-      "[GRAVITY] Vector core calculations updated to 9.81 v/s²",
-      "[PORTAL] Syncing stargate spatial matrices with nheep.com",
-      "[ENERGY] Reactor internal temp: 1.2M Kelvin (STABLE)",
-      "[SYS] Streaming accelerated voxel buffers at 60 FPS",
-      "[LATTICE] Recompiling instanced cellular structure... NOMINAL",
-      "[WARN] Magnetic flux oscillation detected... compensating",
-      "[SYS] Periodic diagnostic sweep... ALL MODULES OPERATIONAL"
-    ];
-
-    setInterval(() => {
-      const msg = logMessages[Math.floor(Math.random() * logMessages.length)];
-      addLog(msg);
-    }, 2800);
-
-    // Shape buttons handler with audio morphing blip
-    document.querySelectorAll('.hud-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        document.querySelectorAll('.hud-btn').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
+        const obj = intersects[0].object;
         
-        currentShape = btn.dataset.shape;
-        synth.playMorph();
-        addLog(`[MUTATOR] Morphing voxel lattice state to: ${currentShape.toUpperCase()}`);
-        triggerToast(`MORPHED TO ${currentShape.toUpperCase()} CONFIG!`);
+        if (obj.userData.islandId) {
+          // Clicked Island bounds -> Focus warp
+          warpToIsland(obj.userData.islandId);
+        } 
+        else if (obj.userData.type === 'orb') {
+          // Collected Commit Orb
+          synth.playOrbSound();
+          triggerExplosion(obj.position, 0xffd000, 16);
+          
+          gameState.commitsCollected++;
+          document.getElementById('commits-val').textContent = gameState.commitsCollected;
+          addLog(`[COLLECTED] Gathered GitHub Commit Orb! +50 XP.`, 'var(--neon-yellow)');
+          gainXP(50);
 
-        // Rotate InstancedMesh base coordinates for helical/toroid look
-        anime({
-          targets: instancedMesh.rotation,
-          x: currentShape === 'grid' ? 0 : 0.25,
-          y: 0,
-          z: 0,
-          duration: 1200,
-          easing: 'easeOutElastic(1, .8)'
-        });
+          // Update Quest State
+          document.getElementById('quest-commits-ratio').textContent = Math.min(5, gameState.commitsCollected);
+          if (gameState.commitsCollected >= 5 && !gameState.quests.commits) {
+            gameState.quests.commits = true;
+            document.getElementById('quest-commits').classList.add('completed');
+            addLog('[QUEST COMPLETED] Harvest the Source completed! +250 XP', 'var(--neon-yellow)');
+            gainXP(250);
+            triggerToast('QUEST COMPLETE: HARVEST THE SOURCE');
+          }
+
+          // Delete orb from lists and scene
+          scene.remove(obj);
+          const index = orbList.findIndex(item => item.mesh === obj);
+          if (index !== -1) orbList.splice(index, 1);
+          
+          const interIndex = interactiveObjects.indexOf(obj);
+          if (interIndex !== -1) interactiveObjects.splice(interIndex, 1);
+
+        } 
+        else if (obj.userData.type === 'bug') {
+          // Blast security bug malware
+          synth.playLaserSound();
+          triggerExplosion(obj.position, 0xff0055, 18);
+          
+          gameState.bugsEliminated++;
+          document.getElementById('bugs-val').textContent = gameState.bugsEliminated;
+          addLog(`[SECURITY] Firewall purged Red Threat bug! +75 XP.`, 'var(--neon-pink)');
+          gainXP(75);
+
+          // Update Quest State
+          document.getElementById('quest-bugs-ratio').textContent = Math.min(3, gameState.bugsEliminated);
+          if (gameState.bugsEliminated >= 3 && !gameState.quests.bugs) {
+            gameState.quests.bugs = true;
+            document.getElementById('quest-bugs').classList.add('completed');
+            addLog('[QUEST COMPLETED] Security Firewall configured! +300 XP', 'var(--neon-yellow)');
+            gainXP(300);
+            triggerToast('QUEST COMPLETE: SECURITY FIREWALL');
+          }
+
+          // Delete bug from lists and scene
+          scene.remove(obj);
+          const index = bugList.findIndex(item => item.mesh === obj);
+          if (index !== -1) bugList.splice(index, 1);
+          
+          const interIndex = interactiveObjects.indexOf(obj);
+          if (interIndex !== -1) interactiveObjects.splice(interIndex, 1);
+        }
+      }
+    });
+
+    // Binds bottom grid inventory slots click detailed modals
+    document.querySelectorAll('.inventory-slot').forEach(slot => {
+      slot.addEventListener('click', () => {
+        const id = slot.dataset.project;
+        
+        // Show detailed overlay specs
+        const data = islandData[id];
+        document.getElementById('modal-project-title').textContent = data.name;
+        document.getElementById('modal-project-tagline').textContent = data.tag;
+        document.getElementById('modal-project-desc').textContent = data.desc;
+        
+        // Custom Project Stats mapping
+        document.getElementById('stat-1-val').textContent = data.stat1;
+        document.getElementById('stat-2-val').textContent = data.stat2;
+        document.getElementById('stat-3-val').textContent = data.stat3;
+
+        // Customise modal action buttons
+        const actionBtn = document.getElementById('modal-action-primary');
+        if (id === 'portal') {
+          actionBtn.textContent = 'Enter Spawn Gate';
+          actionBtn.href = '#';
+          actionBtn.onclick = (e) => { e.preventDefault(); warpToIsland('portal'); closeModal(); };
+        } else if (id === 'github') {
+          actionBtn.textContent = 'Launch GitHub Forge';
+          actionBtn.href = 'https://github.com/louisaimaster-lab';
+          actionBtn.onclick = null;
+        } else if (id === 'collections') {
+          actionBtn.textContent = 'Enter nheep.com portal';
+          actionBtn.href = 'https://nheep.com';
+          actionBtn.onclick = null;
+        } else if (id === 'radio') {
+          actionBtn.textContent = 'Traverse Radio Transmit';
+          actionBtn.href = 'https://nheep.com';
+          actionBtn.onclick = null;
+        }
+
+        // Change icons in modal
+        const icons = { portal: '🏝️', github: '💻', collections: '💎', radio: '📡' };
+        document.getElementById('modal-project-icon').textContent = icons[id] || '🏝️';
+
+        document.getElementById('detail-modal-overlay').classList.add('show');
+        synth.playChime();
       });
     });
 
-    // Warp button handler with high-power audio warp sweep
-    const warpBtn = document.getElementById('warp-btn');
-    warpBtn.addEventListener('click', () => {
-      activeWarp = 6.2;
-      synth.playWarp();
-      addLog("[WARN] OVERDRIVE ENGAGED! Voxel warp flux velocity spike!");
-      triggerToast("WARP VELOCITY ENGAGED! 600% BOOST");
-
-      // HUD bounce reaction
-      anime.remove('.sandbox-hud');
-      anime({
-        targets: '.sandbox-hud',
-        scale: [1.0, 1.06, 1.0],
-        borderColor: ['#bd00ff', '#ff007f', '#bd00ff'],
-        duration: 800,
-        easing: 'easeOutElastic(1, .5)'
-      });
-    });
-
-    // Toast notification trigger
-    const toast = document.getElementById('toast');
-    const toastText = document.getElementById('toast-text');
-    let toastTimeout;
-
-    function triggerToast(text) {
-      toastText.textContent = text || "QUANTUM RIPPLE INSTIGATED: +100 XP";
-      toast.classList.add('show');
-      
-      anime.remove('.toast');
-      anime({
-        targets: '.toast',
-        scale: [0.75, 1.05, 1.0],
-        duration: 500,
-        easing: 'easeOutBack'
-      });
-
-      clearTimeout(toastTimeout);
-      toastTimeout = setTimeout(() => {
-        toast.classList.remove('show');
-      }, 2000);
+    // Close detail modal
+    function closeModal() {
+      document.getElementById('detail-modal-overlay').classList.remove('show');
     }
-
-    // ----------------------------------------------------
-    // WINDOW RESIZING
-    // ----------------------------------------------------
-    window.addEventListener('resize', () => {
-      camera.aspect = window.innerWidth / window.innerHeight;
-      camera.updateProjectionMatrix();
-      renderer.setSize(window.innerWidth, window.innerHeight);
+    document.getElementById('btn-close-modal').addEventListener('click', closeModal);
+    document.getElementById('modal-action-secondary').addEventListener('click', closeModal);
+    document.getElementById('detail-modal-overlay').addEventListener('click', (e) => {
+      if (e.target === document.getElementById('detail-modal-overlay')) closeModal();
     });
 
-    // ----------------------------------------------------
-    // ANIMATION & PHYSICS RENDERING LOOP
-    // ----------------------------------------------------
+    // Warp Drive Accelerator click
+    const btnWarp = document.getElementById('btn-warp');
+    btnWarp.addEventListener('click', () => {
+      gameState.activeWarp = !gameState.activeWarp;
+      btnWarp.classList.toggle('active-warp', gameState.activeWarp);
+      synth.playWarpSound();
+      flashScreen();
+
+      if (gameState.activeWarp) {
+        addLog('[LATTICE OVERDRIVE] Accelerator core engaged! Ocean wave vectors boosted 400%!', 'var(--neon-pink)');
+        document.getElementById('wind-val').textContent = '48.2 KTS';
+      } else {
+        addLog('[LATTICE NOMINAL] Accelerator core returning to standard operation ratio.', 'var(--neon-cyan)');
+        document.getElementById('wind-val').textContent = '12.5 KTS';
+      }
+    });
+
+    // -------------------------------------------------------------------------
+    // 10. REAL-TIME ANIMATION LOOP & PHYSICS UPDATES
+    // -------------------------------------------------------------------------
     const clock = new THREE.Clock();
 
     function animate() {
@@ -685,150 +1506,132 @@
       const elapsedTime = clock.getElapsedTime();
       const time = elapsedTime;
 
-      // Gradually decay warp velocity boost back to standard speed
-      if (activeWarp > 1.0) {
-        activeWarp -= 0.08;
-        if (activeWarp < 1.0) activeWarp = 1.0;
+      // Dynamic Low-Poly Water Wave Vertex Manipulation
+      const speedMultiplier = gameState.activeWarp ? 4.5 : 1.0;
+      const waveAmplitude = gameState.activeWarp ? 0.95 : 0.45;
+      
+      const posAttr = waterGeo.attributes.position;
+      for (let i = 0; i < posAttr.count; i++) {
+        const x = posAttr.getX(i);
+        const z = posAttr.getZ(i);
+        // Multi-harmonic sine equation representing stylized flat ripples
+        const height = Math.sin(x * 0.18 + time * 1.6 * speedMultiplier) * waveAmplitude + 
+                       Math.cos(z * 0.18 + time * 1.3 * speedMultiplier) * waveAmplitude;
+        posAttr.setY(i, height);
+      }
+      waterGeo.computeVertexNormals();
+      posAttr.needsUpdate = true;
+
+      // Gentle Floating/Bobbing animations on all islands
+      Object.keys(islandMeshes).forEach((key, idx) => {
+        const mesh = islandMeshes[key];
+        const data = islandData[key];
+        const bob = Math.sin(time * 0.8 + idx * 1.5) * 0.12;
+        mesh.position.y = data.pos.y + bob;
+      });
+
+      // Spawn portal event horizon rotation
+      portalRings.forEach(ring => {
+        ring.rotation.z += 0.035 * speedMultiplier;
+      });
+
+      // Wind turbine rotation
+      if (gameState.rotor) {
+        gameState.rotor.rotation.z += (gameState.activeWarp ? 0.16 : 0.025);
       }
 
-      // Update HUD metrics in real-time
-      document.getElementById('hud-flux').textContent = (1024 * activeWarp).toFixed(0) + ' VX/s';
-      document.getElementById('hud-entropy').textContent = (1.458 + Math.sin(time * 3.5) * 0.15 + (activeWarp - 1.0) * 1.5).toFixed(3) + ' uN';
-      document.getElementById('hud-stability').textContent = (99.82 - (activeWarp - 1.0) * 1.8 - Math.random() * 0.08).toFixed(2) + '%';
-
-      // Subtle base rotation of whole scene based on shape mode
-      if (currentShape === 'helix') {
-        instancedMesh.rotation.y += 0.005 * activeWarp;
-      } else if (currentShape === 'torus') {
-        instancedMesh.rotation.y += 0.003 * activeWarp;
-        instancedMesh.rotation.z += 0.001;
-      } else if (currentShape === 'chaos') {
-        instancedMesh.rotation.y += 0.002;
-        instancedMesh.rotation.x += 0.001;
-      } else {
-        instancedMesh.rotation.set(0, 0, 0);
+      // GitHub spinning octahedron beacon
+      if (gameState.gitBeacon) {
+        gameState.gitBeacon.rotation.y += 0.04;
+        gameState.gitBeacon.rotation.x += 0.015;
       }
 
-      // 1. Calculate positions & colors
-      calculateVoxelTargets(time);
+      // Collections spinning miniatures
+      if (gameState.miniatures) {
+        gameState.miniatures.forEach((mini, idx) => {
+          mini.rotation.y += 0.02 * (idx + 1);
+          mini.rotation.x = Math.sin(time + idx) * 0.15;
+        });
+      }
 
-      // 2. Interpolate & Update InstancedMesh matrices
-      const lerpFactor = 0.075 * activeWarp;
-      for (let i = 0; i < N; i++) {
-        const voxel = voxelData[i];
+      // Radio signal signal pulse rings
+      if (gameState.beaconRings) {
+        gameState.beaconRings.forEach(ringObj => {
+          ringObj.scale += ringObj.growth * speedMultiplier;
+          ringObj.mesh.scale.setScalar(ringObj.scale);
+          
+          // Wave decay transparency
+          ringObj.mesh.material.opacity = Math.max(0, 1.0 - (ringObj.scale / 4.2));
+
+          if (ringObj.scale >= 4.2) {
+            ringObj.scale = 0.1;
+            ringObj.mesh.material.opacity = 0.8;
+          }
+        });
+      }
+
+      // Slowly float and glide sky clouds
+      cloudList.forEach(cloud => {
+        cloud.mesh.position.x += Math.cos(cloud.driftDir) * cloud.speed * speedMultiplier;
+        cloud.mesh.position.z += Math.sin(cloud.driftDir) * cloud.speed * speedMultiplier;
+
+        // Wrap boundaries
+        const dist = Math.sqrt(cloud.mesh.position.x*cloud.mesh.position.x + cloud.mesh.position.z*cloud.mesh.position.z);
+        if (dist > 50) {
+          // Reverse direction
+          cloud.driftDir = cloud.driftDir + Math.PI;
+        }
+      });
+
+      // Commit Orbs spinning + bobbing
+      orbList.forEach(orb => {
+        orb.mesh.rotation.y += 0.035;
+        orb.mesh.rotation.x += 0.01;
+        orb.mesh.position.y = orb.baseY + Math.sin(time * orb.bobSpeed + orb.bobOffset) * 0.25;
+      });
+
+      // Security threat bugs spinning + bobbing
+      bugList.forEach(bug => {
+        bug.mesh.rotation.x += bug.rotSpeed.x * 0.008;
+        bug.mesh.rotation.y += bug.rotSpeed.y * 0.008;
+        bug.mesh.rotation.z += bug.rotSpeed.z * 0.008;
+        bug.mesh.position.y = bug.baseY + Math.sin(time * bug.bobSpeed + bug.bobOffset) * 0.35;
+      });
+
+      // Render explosion particles zaps
+      for (let i = explosionParticles.length - 1; i >= 0; i--) {
+        const p = explosionParticles[i];
+        p.vel.y -= p.gravity;
+        p.mesh.position.add(p.vel);
         
-        // Lerp current positions, colors, and scales
-        voxel.currentPos.lerp(voxel.targetPos, lerpFactor);
-        voxel.currentColor.lerp(voxel.targetColor, lerpFactor);
-        voxel.scale += (voxel.targetScale - voxel.scale) * lerpFactor;
+        p.scale *= 0.94;
+        p.mesh.scale.setScalar(p.scale);
 
-        // Apply spatial transformations
-        dummy.position.copy(voxel.currentPos);
-        dummy.scale.setScalar(voxel.scale);
-        
-        // Spinning chaos cubes
-        if (currentShape === 'chaos') {
-          dummy.rotation.set(i * 0.01 + time, i * 0.02 - time, 0);
-        } else {
-          dummy.rotation.set(0, 0, 0);
-        }
-
-        dummy.updateMatrix();
-        instancedMesh.setMatrixAt(i, dummy.matrix);
-        instancedMesh.setColorAt(i, voxel.currentColor);
-      }
-      instancedMesh.instanceMatrix.needsUpdate = true;
-      if (instancedMesh.instanceColor) {
-        instancedMesh.instanceColor.needsUpdate = true;
-      }
-
-      // 3. Render and update falling gravity click-debris
-      for (let i = debrisList.length - 1; i >= 0; i--) {
-        const d = debrisList[i];
-        // Apply downward velocity gravity acceleration
-        d.velocity.y -= d.gravity;
-        d.mesh.position.add(d.velocity);
-
-        // Spin in the air
-        d.mesh.rotation.x += d.rotationSpeed.x;
-        d.mesh.rotation.y += d.rotationSpeed.y;
-        d.mesh.rotation.z += d.rotationSpeed.z;
-
-        // Shrink and fade
-        d.scale *= 0.94;
-        d.mesh.scale.setScalar(d.scale);
-
-        // Garbage collection of offscreen/micro debris
-        if (d.scale < 0.02 || d.mesh.position.y < -30) {
-          scene.remove(d.mesh);
-          d.mesh.geometry.dispose();
-          d.mesh.material.dispose();
-          debrisList.splice(i, 1);
+        if (p.scale < 0.02) {
+          scene.remove(p.mesh);
+          p.mesh.geometry.dispose();
+          p.mesh.material.dispose();
+          explosionParticles.splice(i, 1);
         }
       }
 
-      // 4. Render and update 3D voxel mouse-trail particles
-      for (let i = trailVoxels.length - 1; i >= 0; i--) {
-        const t = trailVoxels[i];
-        t.mesh.position.y += t.driftSpeed;
-        t.mesh.rotation.x += 0.025;
-        t.mesh.rotation.y += 0.025;
-
-        t.scale *= 0.93;
-        t.mesh.scale.setScalar(t.scale);
-
-        // Garbage collection
-        if (t.scale < 0.02) {
-          scene.remove(t.mesh);
-          t.mesh.geometry.dispose();
-          t.mesh.material.dispose();
-          trailVoxels.splice(i, 1);
-        }
-      }
-
+      controls.update();
       renderer.render(scene, camera);
     }
 
-    // ----------------------------------------------------
-    // ENTRANCE CINEMATICS (ANIME.JS INTRO TIMELINE)
-    // ----------------------------------------------------
+    // Trigger initialization on viewport load
     window.addEventListener('load', () => {
-      // Initialize hover sound fx triggers across elements
-      attachHoverSounds();
-
-      anime.timeline({
-        easing: 'easeOutElastic(1.2, .6)'
-      })
-      .add({
-        targets: 'nav.neubrutalist-nav',
-        translateY: [-100, 0],
-        duration: 1100
-      })
-      .add({
-        targets: ['.hero-tagline', '.hero-title', '.hero-description', '.cta-group'],
-        scale: [0.65, 1.0],
-        translateY: [80, 0],
-        opacity: [0, 1],
-        delay: anime.stagger(150),
-        duration: 1300
-      }, '-=700')
-      .add({
-        targets: '.neubrutalist-card',
-        scale: [0.7, 1.0],
-        opacity: [0, 1],
-        delay: anime.stagger(120),
-        duration: 1200
-      }, '-=900')
-      .add({
-        targets: '.sandbox-hud',
-        translateY: [120, 0],
-        opacity: [0, 1],
-        duration: 1000
-      }, '-=1000');
-
-      // Start the main render loop
       animate();
+      addLog('[SYS] Deepspace low-poly matrices stable. Portal standing by.', 'var(--neon-cyan)');
     });
+
+    // Window resize handler
+    window.addEventListener('resize', () => {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    });
+
   </script>
 </body>
 </html>
