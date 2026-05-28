@@ -1,32 +1,41 @@
-/* ----------------------------------------------------
-   LOUIS-WEBSITE - Sleek Futuristic Design System
-   ---------------------------------------------------- */
+/* ==========================================================================
+   LOUIS-WEBSITE - Sophisticated Cyber-Neubrutalist Scientific Theme
+   Developer: Louis Kieu | Portal: nheep.com
+   ========================================================================== */
 
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Space+Grotesk:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700;900&family=Share+Tech+Mono&display=swap');
 
 :root {
-  /* Color Palette (Deep space theme with neon accents) */
-  --bg-dark: #07070a;
-  --bg-card: rgba(15, 15, 25, 0.6);
-  --border-color: rgba(255, 255, 255, 0.08);
+  /* Cyber Neubrutalism Solid Color Palette */
+  --bg-deep: #0d0e15;
+  --bg-panel: #121320;
+  --bg-panel-light: #1b1c30;
   
-  --accent-cyan: #00f2fe;
-  --accent-purple: #4facfe;
-  --accent-pink: #f093fb;
-  --accent-orange: #f5576c;
+  --neon-cyan: #00f0ff;
+  --neon-pink: #ff007f;
+  --neon-green: #39ff14;
+  --neon-purple: #bd00ff;
+  --neon-yellow: #fff200;
   
-  --text-primary: #f3f3f7;
-  --text-secondary: #a0a0ba;
+  --border-color: #0d0e15;
+  --text-light: #ffffff;
+  --text-muted: #8d90ad;
   
-  --font-sans: 'Outfit', sans-serif;
-  --font-mono: 'Space Grotesk', sans-serif;
+  --font-sans: 'Space Grotesk', sans-serif;
+  --font-mono: 'Share Tech Mono', monospace;
   
-  --glow-cyan: 0 0 20px rgba(0, 242, 254, 0.45);
-  --glow-pink: 0 0 20px rgba(240, 147, 251, 0.45);
-  --glow-purple: 0 0 20px rgba(79, 172, 254, 0.45);
+  /* Neubrutalist Sharp Shadows */
+  --shadow-primary: 6px 6px 0px var(--neon-pink);
+  --shadow-primary-hover: 10px 10px 0px var(--neon-cyan);
+  
+  --shadow-secondary: 5px 5px 0px var(--neon-purple);
+  --shadow-secondary-hover: 8px 8px 0px var(--neon-green);
+  
+  --shadow-btn: 4px 4px 0px var(--neon-cyan);
+  --shadow-btn-hover: 6px 6px 0px var(--neon-pink);
 }
 
-/* Reset */
+/* Reset & Base Styles */
 * {
   box-sizing: border-box;
   margin: 0;
@@ -36,71 +45,71 @@
 html, body {
   width: 100%;
   height: 100%;
-  background-color: var(--bg-dark);
-  color: var(--text-primary);
+  background-color: var(--bg-deep);
+  color: var(--text-light);
   font-family: var(--font-sans);
+  font-weight: 500;
   overflow-x: hidden;
-  scrollbar-width: thin;
-  scrollbar-color: var(--accent-cyan) var(--bg-dark);
+  scroll-behavior: smooth;
 }
 
-/* Custom Scrollbar */
+/* Custom Cyber Neubrutalist Scrollbar */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 12px;
 }
 ::-webkit-scrollbar-track {
-  background: var(--bg-dark);
+  background: var(--bg-deep);
+  border-left: 3px solid var(--neon-purple);
 }
 ::-webkit-scrollbar-thumb {
-  background: rgba(0, 242, 254, 0.3);
-  border-radius: 4px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: var(--accent-cyan);
-  box-shadow: var(--glow-cyan);
+  background: var(--neon-purple);
+  border: 2px solid var(--bg-deep);
+  box-shadow: inset 0 0 0 1px var(--neon-cyan);
 }
 
-/* Interactive Background Canvas */
-#bg-canvas {
+/* WebGL Canvas Background */
+#canvas-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -2;
+  pointer-events: auto; /* Allow interactions on background */
+}
+
+/* Neubrutalist Navigation Bar */
+nav.neubrutalist-nav {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  height: 100%;
-  z-index: -1;
-  pointer-events: auto;
-}
-
-/* Navigation */
-nav {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  padding: 1.5rem 3rem;
+  padding: 1.2rem 3rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
   z-index: 100;
-  backdrop-filter: blur(12px);
-  background: rgba(7, 7, 10, 0.4);
-  border-bottom: 1px solid var(--border-color);
+  background: var(--bg-panel);
+  border-bottom: 4px solid var(--neon-cyan);
+  box-shadow: 0 4px 0px var(--neon-purple);
 }
 
 .logo {
-  font-family: var(--font-mono);
-  font-size: 1.8rem;
-  font-weight: 700;
-  color: var(--text-primary);
+  font-family: var(--font-sans);
+  font-weight: 900;
+  font-size: 2rem;
+  text-transform: uppercase;
+  color: var(--neon-cyan);
   text-decoration: none;
-  background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  letter-spacing: -1px;
+  text-shadow: 3px 3px 0px var(--neon-pink);
+  transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 .logo:hover {
-  transform: scale(1.1) rotate(-3deg);
+  transform: scale(1.08) rotate(-2deg);
+  color: var(--neon-green);
+  text-shadow: 3px 3px 0px var(--neon-purple);
 }
 
 .nav-links {
@@ -110,34 +119,23 @@ nav {
 }
 
 .nav-links a {
-  color: var(--text-secondary);
+  color: var(--text-light);
   text-decoration: none;
-  font-weight: 500;
-  font-size: 0.95rem;
+  font-family: var(--font-mono);
+  font-size: 1.1rem;
   letter-spacing: 1px;
   text-transform: uppercase;
-  transition: all 0.3s ease;
-  position: relative;
+  padding: 0.5rem 1rem;
+  border: 2px solid transparent;
+  transition: all 0.2s ease;
 }
 
 .nav-links a:hover {
-  color: var(--accent-cyan);
-  text-shadow: var(--glow-cyan);
-}
-
-.nav-links a::after {
-  content: '';
-  position: absolute;
-  bottom: -4px;
-  left: 0;
-  width: 0;
-  height: 2px;
-  background: linear-gradient(90deg, var(--accent-cyan), var(--accent-purple));
-  transition: width 0.3s ease;
-}
-
-.nav-links a:hover::after {
-  width: 100%;
+  background: var(--neon-purple);
+  color: var(--bg-deep);
+  border-color: var(--neon-cyan);
+  box-shadow: 3px 3px 0px var(--neon-pink);
+  transform: translate(-3px, -3px);
 }
 
 /* Hero Section */
@@ -148,242 +146,420 @@ nav {
   justify-content: center;
   align-items: center;
   text-align: center;
-  padding: 6rem 2rem 2rem 2rem;
+  padding: 8rem 2rem 4rem 2rem;
   position: relative;
+  pointer-events: none; /* Let clicks pass through to Three.js canvas */
+}
+
+.hero > * {
+  pointer-events: auto; /* Re-enable events for text/buttons */
 }
 
 .hero-tagline {
   font-family: var(--font-mono);
-  font-size: 0.9rem;
+  font-size: 1.1rem;
+  letter-spacing: 2px;
+  color: var(--bg-deep);
+  background: var(--neon-yellow);
+  padding: 0.6rem 1.5rem;
+  border: 3px solid var(--border-color);
+  box-shadow: 4px 4px 0px var(--neon-pink);
+  margin-bottom: 2rem;
   text-transform: uppercase;
-  letter-spacing: 4px;
-  color: var(--accent-pink);
-  margin-bottom: 1.5rem;
-  animation: pulse 2s infinite ease-in-out;
+  font-weight: 700;
+  transform: rotate(-1.5deg);
 }
 
 .hero-title {
-  font-size: 5.5rem;
-  font-weight: 800;
-  line-height: 1.1;
-  letter-spacing: -2px;
+  font-family: var(--font-sans);
+  font-size: 6.5rem;
+  font-weight: 900;
+  line-height: 0.95;
   margin-bottom: 2rem;
+  color: var(--neon-cyan);
+  text-shadow: 4px 4px 0px var(--neon-pink), 8px 8px 0px var(--neon-purple);
+  letter-spacing: -3px;
   text-transform: uppercase;
-  background: linear-gradient(135deg, var(--text-primary) 30%, var(--accent-cyan), var(--accent-purple), var(--accent-pink));
-  background-size: 300% 300%;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  animation: gradientFlow 10s ease infinite;
 }
 
 .hero-description {
   font-size: 1.25rem;
-  max-width: 600px;
-  color: var(--text-secondary);
+  max-width: 700px;
+  color: var(--text-light);
   line-height: 1.6;
   margin-bottom: 3rem;
+  background: rgba(18, 19, 32, 0.95);
+  padding: 1.5rem 2rem;
+  border: 3px solid var(--neon-cyan);
+  box-shadow: 6px 6px 0px var(--neon-purple);
 }
 
-/* Premium Buttons */
+/* Bubbly Neubrutalist Buttons */
 .cta-group {
   display: flex;
-  gap: 1.5rem;
+  gap: 2rem;
 }
 
 .btn {
-  padding: 0.9rem 2.2rem;
-  font-size: 0.95rem;
-  font-weight: 600;
+  padding: 1.1rem 2.5rem;
+  font-family: var(--font-sans);
+  font-size: 1.2rem;
+  font-weight: 900;
   letter-spacing: 1px;
   text-transform: uppercase;
   text-decoration: none;
-  border-radius: 50px;
   cursor: pointer;
-  transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
-  position: relative;
-  overflow: hidden;
+  border: 3px solid var(--border-color);
+  box-shadow: var(--shadow-btn);
+  transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 .btn-primary {
-  background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
-  color: #000;
-  border: none;
-  box-shadow: var(--glow-cyan);
+  background: var(--neon-cyan);
+  color: var(--bg-deep);
 }
 
 .btn-primary:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 0 30px rgba(0, 242, 254, 0.7);
-  color: #000;
+  transform: translate(-3px, -3px);
+  box-shadow: var(--shadow-btn-hover);
+  background: var(--neon-pink);
+  color: var(--text-light);
 }
 
 .btn-secondary {
-  background: transparent;
-  color: var(--text-primary);
-  border: 1.5px solid var(--border-color);
-  backdrop-filter: blur(10px);
+  background: var(--neon-pink);
+  color: var(--text-light);
+  box-shadow: 4px 4px 0px var(--neon-purple);
 }
 
 .btn-secondary:hover {
-  transform: translateY(-3px);
-  border-color: var(--accent-pink);
-  box-shadow: var(--glow-pink);
-  color: var(--accent-pink);
+  transform: translate(-3px, -3px);
+  box-shadow: 6px 6px 0px var(--neon-green);
+  background: var(--neon-green);
+  color: var(--bg-deep);
 }
 
-/* Glass Card Showcase */
+/* Neubrutalist Showcase Grid */
 .showcase-container {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 2.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  gap: 3rem;
   width: 100%;
   max-width: 1200px;
-  margin: 4rem auto;
+  margin: 6rem auto;
   padding: 0 2rem;
 }
 
-.glass-card {
-  background: var(--bg-card);
-  border: 1px solid var(--border-color);
-  border-radius: 20px;
+.neubrutalist-card {
+  background: var(--bg-panel);
+  border: 3px solid var(--neon-cyan);
   padding: 2.5rem;
-  backdrop-filter: blur(16px);
-  transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
-  position: relative;
+  box-shadow: var(--shadow-primary);
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  overflow: hidden;
 }
 
-.glass-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(135deg, rgba(255,255,255,0.05), transparent);
-  pointer-events: none;
-  z-index: 1;
+.neubrutalist-card:hover {
+  transform: translate(-8px, -8px);
+  box-shadow: var(--shadow-primary-hover);
+  border-color: var(--neon-pink);
 }
 
-.glass-card:hover {
-  transform: translateY(-8px);
-  border-color: rgba(0, 242, 254, 0.3);
-  box-shadow: 0 15px 40px rgba(0, 242, 254, 0.1);
-}
-
+/* Card Icons */
 .card-icon {
-  width: 50px;
-  height: 50px;
-  border-radius: 12px;
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid var(--border-color);
+  width: 120px;
+  height: 120px;
+  background: var(--bg-panel-light);
+  border: 3px solid var(--neon-purple);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.5rem;
   margin-bottom: 2rem;
-  color: var(--accent-cyan);
-  transition: all 0.3s ease;
+  overflow: hidden;
+  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  padding: 8px;
+  box-shadow: 4px 4px 0px var(--neon-cyan);
 }
 
-.glass-card:hover .card-icon {
-  background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
-  color: #000;
-  box-shadow: var(--glow-cyan);
-  transform: scale(1.1);
+.game-icon-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.neubrutalist-card:hover .card-icon {
+  transform: scale(1.1) rotate(4deg);
+  background: var(--neon-purple);
+  border-color: var(--neon-green);
+  box-shadow: 4px 4px 0px var(--neon-pink);
 }
 
 .card-title {
-  font-size: 1.5rem;
-  font-weight: 600;
+  font-family: var(--font-sans);
+  font-size: 1.9rem;
+  font-weight: 900;
   margin-bottom: 1rem;
-  color: var(--text-primary);
+  color: var(--neon-green);
+  letter-spacing: -0.5px;
+  text-transform: uppercase;
 }
 
 .card-description {
-  color: var(--text-secondary);
+  color: var(--text-muted);
   line-height: 1.6;
-  margin-bottom: 2rem;
-  font-size: 0.95rem;
+  margin-bottom: 2.5rem;
+  font-size: 1.05rem;
 }
 
 .card-link {
-  color: var(--accent-cyan);
+  font-family: var(--font-mono);
+  color: var(--neon-cyan);
   text-decoration: none;
-  font-weight: 600;
-  font-size: 0.9rem;
+  font-size: 1.15rem;
+  font-weight: 700;
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  transition: all 0.3s ease;
+  transition: all 0.2s ease;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
 }
 
 .card-link:hover {
-  color: var(--accent-pink);
-  text-shadow: var(--glow-pink);
+  color: var(--neon-pink);
+  transform: translateX(6px);
 }
 
 .card-link span {
-  transition: transform 0.3s ease;
+  transition: transform 0.2s ease;
+  font-size: 1.3rem;
 }
 
-.card-link:hover span {
-  transform: translateX(5px);
-}
-
-/* Footer */
+/* Footer Section */
 footer {
   text-align: center;
-  padding: 4rem 2rem;
-  border-top: 1px solid var(--border-color);
-  margin-top: 6rem;
-  color: var(--text-secondary);
-  font-size: 0.9rem;
+  padding: 5rem 2rem;
+  border-top: 4px solid var(--neon-cyan);
+  margin-top: 8rem;
+  background: var(--bg-panel);
+  color: var(--text-muted);
+  font-size: 1.1rem;
+  box-shadow: 0 -4px 0px var(--neon-purple);
 }
 
 footer a {
-  color: var(--accent-cyan);
+  color: var(--neon-cyan);
   text-decoration: none;
-  font-weight: 600;
+  font-weight: 700;
+  border-bottom: 2px dashed var(--neon-cyan);
 }
 
 footer a:hover {
-  text-decoration: underline;
+  color: var(--neon-pink);
+  border-bottom-style: solid;
+  border-color: var(--neon-pink);
 }
 
-/* Floating Controls (Theme Sandbox Trigger) */
+/* High-End Industrial HUD Console Panel */
 .sandbox-hud {
   position: fixed;
   bottom: 2rem;
   right: 2rem;
-  background: rgba(15, 15, 25, 0.85);
-  border: 1px solid var(--border-color);
-  padding: 1rem 1.5rem;
-  border-radius: 15px;
-  backdrop-filter: blur(12px);
+  background: var(--bg-panel);
+  border: 3px solid var(--neon-purple);
+  padding: 1.5rem;
   z-index: 99;
   display: flex;
-  align-items: center;
+  flex-direction: column;
   gap: 1rem;
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: var(--text-primary);
-  box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+  box-shadow: var(--shadow-secondary);
+  width: 360px;
+  font-family: var(--font-mono);
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.sandbox-hud:hover {
+  border-color: var(--neon-cyan);
+  box-shadow: var(--shadow-secondary-hover);
+}
+
+.hud-header {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  border-bottom: 2px solid var(--neon-purple);
+  padding-bottom: 0.6rem;
 }
 
 .sandbox-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: var(--accent-cyan);
-  box-shadow: var(--glow-cyan);
-  animation: pulse 1.5s infinite ease-in-out;
+  width: 12px;
+  height: 12px;
+  background: var(--neon-green);
+  box-shadow: 0 0 8px var(--neon-green);
+  animation: pulse 1.2s infinite ease-in-out;
 }
 
-/* Keyframe Animations */
+.hud-status {
+  font-weight: 700;
+  font-size: 1.1rem;
+  letter-spacing: 1px;
+  color: var(--neon-green);
+}
+
+.hud-metrics {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.hud-metric {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--bg-panel-light);
+  padding: 0.5rem 0.8rem;
+  border-left: 3px solid var(--neon-cyan);
+}
+
+.hud-label {
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.hud-val {
+  font-weight: 700;
+  font-size: 1.25rem;
+  color: var(--neon-yellow);
+}
+
+.hud-divider {
+  height: 2px;
+  background: var(--bg-panel-light);
+  width: 100%;
+}
+
+/* Shape Modulator Control Box */
+.hud-controls-title {
+  font-size: 0.9rem;
+  color: var(--neon-cyan);
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.hud-controls {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.4rem;
+}
+
+.hud-btn {
+  background: var(--bg-deep);
+  border: 2px solid var(--neon-purple);
+  color: var(--neon-purple);
+  padding: 0.5rem 0.2rem;
+  font-size: 0.85rem;
+  cursor: pointer;
+  font-family: var(--font-mono);
+  font-weight: 700;
+  text-align: center;
+  transition: all 0.15s ease;
+}
+
+.hud-btn:hover, .hud-btn.active {
+  background: var(--neon-purple);
+  color: var(--bg-deep);
+  border-color: var(--neon-cyan);
+  box-shadow: 2px 2px 0px var(--neon-cyan);
+}
+
+/* Warp Button */
+.hud-btn-warp {
+  background: var(--neon-pink);
+  color: var(--text-light);
+  border: 2px solid var(--border-color);
+  box-shadow: 3px 3px 0px var(--neon-green);
+  padding: 0.75rem;
+  width: 100%;
+  cursor: pointer;
+  font-family: var(--font-mono);
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 0.95rem;
+  transition: all 0.15s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.hud-btn-warp:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 5px 5px 0px var(--neon-cyan);
+  background: var(--neon-green);
+  color: var(--bg-deep);
+}
+
+.hud-btn-warp:active {
+  transform: translate(2px, 2px);
+  box-shadow: 0px 0px 0px var(--neon-green);
+}
+
+/* Monospace Scientific Terminal Log */
+.hud-terminal-header {
+  font-size: 0.9rem;
+  color: var(--neon-pink);
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.hud-terminal {
+  background: #06070a;
+  border: 2px solid var(--bg-panel-light);
+  padding: 0.6rem;
+  height: 120px;
+  overflow-y: auto;
+  font-size: 0.8rem;
+  color: var(--neon-green);
+  line-height: 1.4;
+  white-space: pre-wrap;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.hud-terminal div {
+  font-family: var(--font-mono);
+}
+
+/* Toast Level Up notifications (Retained Bouncy Toast styled as neubrutalist banner) */
+.toast {
+  position: fixed;
+  bottom: 2rem;
+  left: 2rem;
+  background: var(--neon-yellow);
+  color: var(--bg-deep);
+  border: 3px solid var(--border-color);
+  box-shadow: var(--shadow-primary);
+  border-radius: 0; /* sharp */
+  padding: 1.2rem 2rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  z-index: 1000;
+  transform: translateY(180%);
+  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  font-family: var(--font-mono);
+  font-size: 1.15rem;
+  font-weight: 900;
+}
+
+.toast.show {
+  transform: translateY(0);
+}
+
+/* Pulse animation for active simulation indicators */
 @keyframes pulse {
   0%, 100% {
     opacity: 0.6;
@@ -392,53 +568,39 @@ footer a:hover {
   50% {
     opacity: 1;
     transform: scale(1.05);
+    box-shadow: 0 0 12px var(--neon-green);
   }
 }
 
-@keyframes gradientFlow {
-  0% {
-    background-position: 0% 50%;
+/* Mobile & Tablet Responsiveness */
+@media (max-width: 992px) {
+  .showcase-container {
+    gap: 2rem;
+    padding: 0 1.5rem;
   }
-  50% {
-    background-position: 100% 50%;
+  .sandbox-hud {
+    position: relative;
+    bottom: 0;
+    right: 0;
+    margin: 2rem auto;
+    width: 90%;
+    max-width: 400px;
   }
-  100% {
-    background-position: 0% 50%;
+  .hero-title {
+    font-size: 4.5rem;
   }
 }
 
-/* Custom Interactive Toast Notification */
-.toast {
-  position: fixed;
-  bottom: 2rem;
-  left: 2rem;
-  background: rgba(7, 7, 10, 0.9);
-  border: 1.5px solid var(--accent-cyan);
-  box-shadow: var(--glow-cyan);
-  border-radius: 12px;
-  padding: 1rem 1.5rem;
-  display: flex;
-  align-items: center;
-  gap: 0.8rem;
-  z-index: 1000;
-  transform: translateY(150%);
-  transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
-
-.toast.show {
-  transform: translateY(0);
-}
-
-/* Responsive Design */
 @media (max-width: 768px) {
-  nav {
+  nav.neubrutalist-nav {
     padding: 1rem 1.5rem;
   }
   .nav-links {
-    display: none; /* Keep it minimal for standard responsive layout */
+    display: none;
   }
   .hero-title {
     font-size: 3.5rem;
+    letter-spacing: -1.5px;
   }
   .cta-group {
     flex-direction: column;
