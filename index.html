@@ -224,6 +224,28 @@
       placeholderBox.addEventListener('mouseleave', () => {
         pausePlayback();
       });
+
+      // Handle background tab throttling/desync bugs elegantly
+      document.addEventListener('visibilitychange', () => {
+        if (document.hidden) {
+          pausePlayback();
+        } else {
+          // Auto-resume if user's cursor is still hovering over the card on return
+          if (placeholderBox.matches(':hover')) {
+            startPlayback();
+          }
+        }
+      });
+
+      window.addEventListener('blur', () => {
+        pausePlayback();
+      });
+
+      window.addEventListener('focus', () => {
+        if (placeholderBox.matches(':hover')) {
+          startPlayback();
+        }
+      });
     });
   </script>
 
