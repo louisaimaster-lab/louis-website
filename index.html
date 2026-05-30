@@ -76,6 +76,7 @@
   <script>
     document.addEventListener('DOMContentLoaded', () => {
       const card = document.getElementById('knights-quest-card');
+      const placeholderBox = card.querySelector('.video-placeholder');
       const videos = [
         card.querySelector('.slide-video:nth-child(1)'),
         card.querySelector('.slide-video:nth-child(2)')
@@ -216,11 +217,11 @@
         });
       }
 
-      card.addEventListener('mouseenter', () => {
+      placeholderBox.addEventListener('mouseenter', () => {
         startPlayback();
       });
 
-      card.addEventListener('mouseleave', () => {
+      placeholderBox.addEventListener('mouseleave', () => {
         pausePlayback();
       });
     });

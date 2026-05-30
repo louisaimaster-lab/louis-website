@@ -202,6 +202,8 @@ html, body {
   overflow: hidden;
   padding: 0 !important; /* Remove card padding to expand video to edges */
   background-color: #FFFFFF; /* Pure blank solid white when not hovered */
+  transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.4s ease, background-color 0.35s cubic-bezier(0.25, 1, 0.5, 1);
+  -webkit-mask-image: -webkit-radial-gradient(white, black);
 }
 
 /* Slider container masking */
@@ -217,11 +219,16 @@ html, body {
   overflow: hidden;
   transition: opacity 0.35s cubic-bezier(0.25, 1, 0.5, 1);
   background-color: #000000;
+  -webkit-mask-image: -webkit-radial-gradient(white, black);
 }
 
-/* Show video layers only when card is hovered */
-.game-card:hover .video-slider-container {
+/* Show video layers only when placeholder itself is hovered */
+.video-player-card:hover .video-slider-container {
   opacity: 1;
+}
+
+.video-player-card:hover {
+  background-color: #191919 !important; /* Hide white background corners behind video overlay */
 }
 
 /* Individual sliding video layer styles */
