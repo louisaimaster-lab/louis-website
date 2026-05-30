@@ -3,864 +3,166 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Louis Kieu | Scientific Voxel Gaming Portal</title>
-  <meta name="description" content="Enter Louis Kieu's interactive 3D Voxel Reactor & Telemetry Dashboard. Harness real-time quantum ripple wave equations, shape morphing, and falling debris physics.">
+  <title>Peep into the Nheep // Ecosystem Portal</title>
+  
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="Discover Peep into the Nheep. A sleek, high-fidelity dark-themed gateway engineered with beautiful geometry, micro-parallax layer depths, and modern design precision.">
+  <meta name="keywords" content="Peep, Nheep, Ecosystem, 3D Layers, Dark Theme, Sleek Design">
+  <meta name="author" content="Louis Kieu">
+  
+  <!-- Open Graph -->
+  <meta property="og:title" content="Peep into the Nheep // Ecosystem Portal">
+  <meta property="og:description" content="Enter a stunning geometric workspace designed with interactive typography layers and extreme dark precision.">
+  <meta property="og:type" content="website">
+  
+  <!-- Styling Sheet -->
   <link rel="stylesheet" href="style.css">
-  <!-- Load Premium 3D & Animation libraries -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
 </head>
 <body>
 
-  <!-- WebGL Voxel Lattice Simulation Canvas -->
-  <div id="canvas-container"></div>
+  <!-- Geometric Tech Grid Background -->
+  <div class="background-grid"></div>
 
-  <!-- Neubrutalist Header -->
-  <nav class="neubrutalist-nav">
-    <a href="#" class="logo">Louis Kieu</a>
-    <ul class="nav-links">
-      <li><a href="https://nheep.com" target="_blank">ECOSYSTEM</a></li>
-      <li><a href="https://github.com/louisaimaster-lab" target="_blank">MY GITHUB</a></li>
-    </ul>
-  </nav>
-
-  <!-- Hero Landing Section -->
-  <header class="hero">
-    <div class="hero-tagline">⚡ LATTICE SIMULATION RUNNING</div>
-    <h1 class="hero-title">Louis Kieu</h1>
-    <p class="hero-description">
-      Welcome to a highly sophisticated scientific voxel gaming environment. Move your mouse to warp the 3D grid with real-time wave equations, click to blast gravity-defying cyber debris, and use the telemetry HUD dashboard to mutate quantum configurations.
-    </p>
-    <div class="cta-group">
-      <a href="https://nheep.com" target="_blank" class="btn btn-primary">nheep.com PORTAL</a>
-      <a href="#projects" class="btn btn-secondary">SYSTEM DIAGNOSTICS</a>
-    </div>
-  </header>
-
-  <!-- Showcase Cards Section -->
-  <section id="projects" class="showcase-container">
+  <!-- Main Perspective Viewport Container -->
+  <main class="viewport-wrapper" id="main-viewport">
     
-    <!-- Card 1: Voxel Island -->
-    <div class="neubrutalist-card">
-      <div>
-        <div class="card-icon">
-          <img src="assets/voxel_island.png" alt="Voxel Island" class="game-icon-img">
+    <!-- Core Glass Morphing Interactive Panel -->
+    <div class="interactive-panel" id="tilt-panel" aria-label="Interactive Typographic Layer Explorer">
+      
+      <!-- Premium Corner Decor Lines -->
+      <div class="panel-corner corner-tl"></div>
+      <div class="panel-corner corner-tr"></div>
+      <div class="panel-corner corner-bl"></div>
+      <div class="panel-corner corner-br"></div>
+      
+      <!-- Typographic 3D Layers Stack -->
+      <div class="title-stack">
+        
+        <!-- TOP LAYER: Peep -->
+        <h1 class="text-layer" id="layer-top">
+          <span class="layer-badge peep-badge" id="badge-top">Top Layer</span>
+          <span class="layer-text peep-text">Peep</span>
+        </h1>
+        
+        <!-- MIDDLE LAYER: into the -->
+        <div class="text-layer" id="layer-middle">
+          <span class="layer-text into-text">into the</span>
+          <span class="layer-badge into-badge" id="badge-middle">Middle Layer</span>
         </div>
-        <h3 class="card-title">Voxel Island</h3>
-        <p class="card-description">
-          A high-performance floating block ecosystem simulated with custom biome noise equations, interactive coordinate grids, and voxelized topography rendering.
-        </p>
-      </div>
-      <a href="https://nheep.com" target="_blank" class="card-link">
-        Access Simulator <span>&rarr;</span>
-      </a>
-    </div>
-
-    <!-- Card 2: Quantum Reactor -->
-    <div class="neubrutalist-card">
-      <div>
-        <div class="card-icon">
-          <img src="assets/voxel_reactor.png" alt="Quantum Reactor" class="game-icon-img">
+        
+        <!-- BOTTOM LAYER: Nheep -->
+        <div class="text-layer" id="layer-bottom">
+          <span class="layer-badge nheep-badge" id="badge-bottom">Bottom Layer</span>
+          <span class="layer-text nheep-text">Nheep</span>
         </div>
-        <h3 class="card-title">Quantum Reactor</h3>
-        <p class="card-description">
-          Control deep nuclear cold fusion matrices. Monitor atomic cell configurations, scale thermal output, and analyze live voxel fission physics.
-        </p>
+        
       </div>
-      <a href="https://nheep.com" target="_blank" class="card-link">
-        Engage Core <span>&rarr;</span>
-      </a>
-    </div>
 
-    <!-- Card 3: Voxel Portal -->
-    <div class="neubrutalist-card">
-      <div>
-        <div class="card-icon">
-          <img src="assets/voxel_portal.png" alt="Voxel Portal" class="game-icon-img">
+      <!-- High-End Details & Status Footer -->
+      <footer class="panel-footer">
+        <div class="status-indicator">
+          <div class="status-dot"></div>
+          <span id="status-text">SYSTEM CORE LINKED // 120 FPS</span>
         </div>
-        <h3 class="card-title">Voxel Portal</h3>
-        <p class="card-description">
-          Cross sub-atomic threshold barriers to traverse the nheep.com gaming hub. Sync server environments and explore creative 3D sandboxes.
-        </p>
-      </div>
-      <a href="https://nheep.com" target="_blank" class="card-link">
-        Enter Gateway <span>&rarr;</span>
-      </a>
-    </div>
-
-    <!-- Card 4: Kieu's Quest -->
-    <div class="neubrutalist-card">
-      <div>
-        <div class="card-icon">
-          <img src="assets/cartoon_island.png" alt="Kieu's Quest" class="game-icon-img">
+        <div class="system-details" id="sys-details">
+          nheep.com ecosystem portal
         </div>
-        <h3 class="card-title">Kieu's Quest</h3>
-        <p class="card-description">
-          Embark on an epic cartoon adventure across mysterious floating platforms. Conquer tricky voxel physics and uncover pixelated treasures.
-        </p>
-      </div>
-      <a href="https://kquest.nheep.com" target="_blank" class="card-link">
-        Play Quest <span>&rarr;</span>
-      </a>
+      </footer>
+      
     </div>
+  </main>
 
-    <!-- Card 5: Tower Defense Simulator -->
-    <div class="neubrutalist-card">
-      <div>
-        <div class="card-icon">
-          <img src="assets/cyber_portal.png" alt="Tower Defense Simulator" class="game-icon-img">
-        </div>
-        <h3 class="card-title">Tower Defense</h3>
-        <p class="card-description">
-          Defend your network against automated threats. Position tactical cyber towers, upgrade matrix barriers, and blast rogue system bugs in real time.
-        </p>
-      </div>
-      <a href="https://tds.nheep.com" target="_blank" class="card-link">
-        Deploy Towers <span>&rarr;</span>
-      </a>
-    </div>
-
-  </section>
-
-  <!-- Interactive Neubrutalist Telemetry HUD -->
-  <div class="sandbox-hud" id="telemetry-hud">
-    <div class="hud-header">
-      <div class="sandbox-dot"></div>
-      <span class="hud-status">SYS LEVEL ACTIVE // 60 FPS</span>
-      <button class="hud-min-btn" id="hud-min-btn">[-]</button>
-    </div>
-    
-    <div class="hud-metrics">
-      <div class="hud-metric">
-        <span class="hud-label">VOXEL FLUX</span>
-        <span class="hud-val" id="hud-flux">1,024 VX</span>
-      </div>
-      <div class="hud-metric">
-        <span class="hud-label">GRID ENTROPY</span>
-        <span class="hud-val" id="hud-entropy">1.458 uN</span>
-      </div>
-      <div class="hud-metric">
-        <span class="hud-label">LATTICE STABILITY</span>
-        <span class="hud-val" id="hud-stability">99.82%</span>
-      </div>
-    </div>
-
-    <div class="hud-divider"></div>
-
-    <div class="hud-controls-title">GEOMETRY MUTATOR</div>
-    <div class="hud-controls">
-      <button class="hud-btn active" data-shape="grid">GRID</button>
-      <button class="hud-btn" data-shape="helix">HELIX</button>
-      <button class="hud-btn" data-shape="torus">TORUS</button>
-      <button class="hud-btn" data-shape="chaos">CHAOS</button>
-    </div>
-
-    <button class="hud-btn-warp" id="warp-btn">WARP FLUX VELOCITY</button>
-
-    <div class="hud-divider"></div>
-    
-    <div class="hud-terminal-header">QUANTUM TERMINAL LOG</div>
-    <div class="hud-terminal" id="terminal-log">
-      <div>[SYS] Quantum voxel engine online.</div>
-      <div>[SYS] Calibrating 3D voxel lattice... OK</div>
-    </div>
-  </div>
-
-  <!-- Interactive Toast Notification -->
-  <div id="toast" class="toast">
-    <span style="font-size: 1.5rem;">🎉</span>
-    <span id="toast-text">RIPPLE INSTIGATED: +100 XP</span>
-  </div>
-
-  <!-- Footer -->
-  <footer>
-    <p>&copy; 2026 Louis Kieu. All rights reserved. Created under the <a href="https://nheep.com" target="_blank">nheep.com</a> ecosystem.</p>
-  </footer>
-
-  <!-- 3D Voxel Lattice Engine and Script logic -->
+  <!-- Interactive 3D Parallax & Tilt Engine -->
   <script>
-    // ----------------------------------------------------
-    // QUANTUM SYNTHESIZER (WEB AUDIO API SYNTH)
-    // ----------------------------------------------------
-    class QuantumSynth {
-      constructor() {
-        this.ctx = null;
-      }
-      init() {
-        if (!this.ctx) {
-          this.ctx = new (window.AudioContext || window.webkitAudioContext)();
-        }
-        if (this.ctx.state === 'suspended') {
-          this.ctx.resume();
-        }
-      }
-      playBlip() {
-        this.init();
-        if (!this.ctx) return;
-        const osc = this.ctx.createOscillator();
-        const gain = this.ctx.createGain();
-        osc.type = 'sine';
-        osc.frequency.setValueAtTime(800, this.ctx.currentTime);
-        osc.frequency.exponentialRampToValueAtTime(1500, this.ctx.currentTime + 0.04);
-        gain.gain.setValueAtTime(0.012, this.ctx.currentTime);
-        gain.gain.exponentialRampToValueAtTime(0.0001, this.ctx.currentTime + 0.04);
-        osc.connect(gain);
-        gain.connect(this.ctx.destination);
-        osc.start();
-        osc.stop(this.ctx.currentTime + 0.04);
-      }
-      playClick() {
-        this.init();
-        if (!this.ctx) return;
-        const osc = this.ctx.createOscillator();
-        const gain = this.ctx.createGain();
-        osc.type = 'triangle';
-        osc.frequency.setValueAtTime(220, this.ctx.currentTime);
-        osc.frequency.exponentialRampToValueAtTime(800, this.ctx.currentTime + 0.1);
-        gain.gain.setValueAtTime(0.06, this.ctx.currentTime);
-        gain.gain.exponentialRampToValueAtTime(0.0001, this.ctx.currentTime + 0.1);
-        osc.connect(gain);
-        gain.connect(this.ctx.destination);
-        osc.start();
-        osc.stop(this.ctx.currentTime + 0.1);
-      }
-      playWarp() {
-        this.init();
-        if (!this.ctx) return;
-        const osc1 = this.ctx.createOscillator();
-        const osc2 = this.ctx.createOscillator();
-        const gain = this.ctx.createGain();
-        osc1.type = 'sawtooth';
-        osc2.type = 'sine';
-        osc1.frequency.setValueAtTime(120, this.ctx.currentTime);
-        osc1.frequency.exponentialRampToValueAtTime(1200, this.ctx.currentTime + 0.7);
-        osc2.frequency.setValueAtTime(180, this.ctx.currentTime);
-        osc2.frequency.exponentialRampToValueAtTime(1600, this.ctx.currentTime + 0.7);
-        gain.gain.setValueAtTime(0.04, this.ctx.currentTime);
-        gain.gain.exponentialRampToValueAtTime(0.0001, this.ctx.currentTime + 0.7);
-        osc1.connect(gain);
-        osc2.connect(gain);
-        gain.connect(this.ctx.destination);
-        osc1.start();
-        osc2.start();
-        osc1.stop(this.ctx.currentTime + 0.7);
-        osc2.stop(this.ctx.currentTime + 0.7);
-      }
-      playMorph() {
-        this.init();
-        if (!this.ctx) return;
-        const osc = this.ctx.createOscillator();
-        const gain = this.ctx.createGain();
-        osc.type = 'sine';
-        osc.frequency.setValueAtTime(600, this.ctx.currentTime);
-        osc.frequency.linearRampToValueAtTime(300, this.ctx.currentTime + 0.22);
-        gain.gain.setValueAtTime(0.03, this.ctx.currentTime);
-        gain.gain.exponentialRampToValueAtTime(0.0001, this.ctx.currentTime + 0.22);
-        osc.connect(gain);
-        gain.connect(this.ctx.destination);
-        osc.start();
-        osc.stop(this.ctx.currentTime + 0.22);
-      }
-    }
-
-    const synth = new QuantumSynth();
-    const trailVoxels = [];
-
-    // ----------------------------------------------------
-    // THREE.JS SCENE SETUP
-    // ----------------------------------------------------
-    const container = document.getElementById('canvas-container');
-    const scene = new THREE.Scene();
+    const panel = document.getElementById('tilt-panel');
+    const viewport = document.getElementById('main-viewport');
     
-    // Sleek space depth fog
-    scene.fog = new THREE.FogExp2(0x0d0e15, 0.015);
+    // Select layers to apply differential parallax displacement
+    const layerTop = document.getElementById('layer-top');
+    const layerMiddle = document.getElementById('layer-middle');
+    const layerBottom = document.getElementById('layer-bottom');
 
-    const camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 1000);
-    // Positioned slightly above and back for a premium cinematic bird's-eye view
-    camera.position.set(0, 22, 36);
-    camera.lookAt(0, 0, 0);
-
-    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false });
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    renderer.setClearColor(0x0d0e15, 1);
-    container.appendChild(renderer.domElement);
-
-    // ----------------------------------------------------
-    // HIGH-END CYBER LIGHTING
-    // ----------------------------------------------------
-    const ambientLight = new THREE.AmbientLight(0x121320, 0.6);
-    scene.add(ambientLight);
-
-    const sunLight = new THREE.DirectionalLight(0xffffff, 1.2);
-    sunLight.position.set(20, 45, 20);
-    scene.add(sunLight);
-
-    // Cyber lights flashing off colors on the voxels
-    const cyanLight = new THREE.PointLight(0x00f0ff, 2.5, 80);
-    cyanLight.position.set(-15, 10, -15);
-    scene.add(cyanLight);
-
-    const pinkLight = new THREE.PointLight(0xff007f, 2.5, 80);
-    pinkLight.position.set(15, -10, 15);
-    scene.add(pinkLight);
-
-    // Cyber Grid Helper at the base for premium industrial flavor
-    const gridHelper = new THREE.GridHelper(80, 40, 0xbd00ff, 0x1b1c30);
-    gridHelper.position.y = -14;
-    scene.add(gridHelper);
-
-    // ----------------------------------------------------
-    // VOXEL LATTICE CONFIGURATION (THREE.InstancedMesh)
-    // ----------------------------------------------------
-    const N = 1024; // 32x32 lattice
-    const voxelGeo = new THREE.BoxGeometry(0.85, 0.85, 0.85);
-    // Standard material with shiny roughness to capture neon highlights
-    const voxelMat = new THREE.MeshStandardMaterial({
-      roughness: 0.15,
-      metalness: 0.8,
-    });
-
-    const instancedMesh = new THREE.InstancedMesh(voxelGeo, voxelMat, N);
-    scene.add(instancedMesh);
-
-    // Voxel structural tracking array
-    const voxelData = [];
-    for (let i = 0; i < N; i++) {
-      voxelData.push({
-        currentPos: new THREE.Vector3(0, -50, 0), // Spawn from deep below for entry morph
-        targetPos: new THREE.Vector3(0, 0, 0),
-        currentColor: new THREE.Color('#00f0ff'),
-        targetColor: new THREE.Color('#00f0ff'),
-        scale: 0.01,
-        targetScale: 1.0
-      });
-    }
-
-    // Invisible XZ plane for 3D mouse raycasting ripples
-    const planeGeo = new THREE.PlaneGeometry(1000, 1000);
-    planeGeo.rotateX(-Math.PI / 2);
-    const planeMat = new THREE.MeshBasicMaterial({ visible: false });
-    const raycastPlane = new THREE.Mesh(planeGeo, planeMat);
-    scene.add(raycastPlane);
-
-    // Simulation States
-    let currentShape = 'grid'; // grid, helix, torus, chaos
-    let activeWarp = 1.0;
-    const rippleCenter = new THREE.Vector3();
-    let rippleActive = false;
-    const raycaster = new THREE.Raycaster();
-    const mouse = new THREE.Vector2();
-
-    // ----------------------------------------------------
-    // SHAPE TRANSITIONS & MATHEMATICAL WAVE EQUATIONS
-    // ----------------------------------------------------
-    function calculateVoxelTargets(time) {
-      for (let i = 0; i < N; i++) {
-        const voxel = voxelData[i];
-
-        if (currentShape === 'grid') {
-          // Standard flat square plane
-          const u = (i % 32) - 15.5;
-          const v = Math.floor(i / 32) - 15.5;
-          const spacing = 1.25;
-          const x = u * spacing;
-          const z = v * spacing;
-
-          // Wave equation radiating outward from center
-          const d = Math.sqrt(u*u + v*v);
-          let y = Math.sin(d * 0.35 - time * 2.5) * 1.5;
-
-          // Add real-time decaying mouse ripple vectors
-          if (rippleActive) {
-            const dx = x - rippleCenter.x;
-            const dz = z - rippleCenter.z;
-            const distToMouse = Math.sqrt(dx*dx + dz*dz);
-            const ripple = Math.sin(distToMouse * 0.45 - time * 6.0) * 3.8 * Math.exp(-distToMouse * 0.12);
-            y += ripple;
-          }
-
-          voxel.targetPos.set(x, y, z);
-          voxel.targetScale = 1.0;
-
-          // Morph colors from Cyan inside to Purple outside
-          const colorRatio = Math.min(d / 16, 1.0);
-          voxel.targetColor.copy(new THREE.Color('#00f0ff')).lerp(new THREE.Color('#bd00ff'), colorRatio);
-
-        } else if (currentShape === 'helix') {
-          // DNA Double Helix
-          const strand = i < 512 ? 0 : 1;
-          const idx = i % 512;
-          const t = (idx / 512) * Math.PI * 6; // Twists
-          const offset = strand * Math.PI;
-
-          const radius = 6.0;
-          // Twist rotation dynamic over time
-          const x = Math.cos(t + offset + time * 0.6) * radius;
-          const z = Math.sin(t + offset + time * 0.6) * radius;
-          const y = (idx / 512 - 0.5) * 24.0;
-
-          voxel.targetPos.set(x, y, z);
-          voxel.targetScale = 0.9;
-
-          // Strand color differentiation
-          if (strand === 0) {
-            voxel.targetColor.set('#ff007f'); // Hot Pink
-          } else {
-            voxel.targetColor.set('#39ff14'); // Lime Green
-          }
-
-        } else if (currentShape === 'torus') {
-          // Quantum Torus Donut
-          const uIndex = i % 32;
-          const vIndex = Math.floor(i / 32);
-
-          const theta = (uIndex / 32) * Math.PI * 2;
-          const phi = (vIndex / 32) * Math.PI * 2;
-
-          const R = 9.5;
-          const r = 3.6;
-
-          // Modulating torus thickness with orbit waves
-          const rDynamic = r + Math.sin(theta * 6.0 - time * 4.0) * 0.85;
-
-          const x = (R + rDynamic * Math.cos(phi)) * Math.cos(theta);
-          const y = rDynamic * Math.sin(phi);
-          const z = (R + rDynamic * Math.cos(phi)) * Math.sin(theta);
-
-          voxel.targetPos.set(x, y, z);
-          voxel.targetScale = 0.85;
-
-          // Concentric neon coloring loops
-          const colorRatio = Math.sin(theta + time) * 0.5 + 0.5;
-          voxel.targetColor.copy(new THREE.Color('#bd00ff')).lerp(new THREE.Color('#39ff14'), colorRatio);
-
-        } else if (currentShape === 'chaos') {
-          // Entropy Noise Field (3D Pseudo-random harmonic drift)
-          const seed1 = Math.sin(i * 432.12) * 54.3;
-          const seed2 = Math.cos(i * 876.54) * 32.1;
-          const seed3 = Math.sin(i * 129.87) * 98.7;
-
-          const x = Math.sin(time * 0.45 + seed1) * 15.0;
-          const y = Math.cos(time * 0.55 + seed2) * 12.0;
-          const z = Math.sin(time * 0.65 + seed3) * 15.0;
-
-          voxel.targetPos.set(x, y, z);
-          voxel.targetScale = 0.7;
-
-          // Fast neon cycling colors
-          const h = (i * 0.003 + time * 0.15) % 1.0;
-          voxel.targetColor.setHSL(h, 1.0, 0.5);
-        }
-      }
-    }
-
-    // ----------------------------------------------------
-    // VOXEL DEBRIS SYSTEM (GRAVITY SIMULATION)
-    // ----------------------------------------------------
-    const debrisList = [];
-    const debrisGeo = new THREE.BoxGeometry(0.35, 0.35, 0.35);
-
-    function spawnDebris(point) {
-      const count = 22;
-      const neonColors = ['#00f0ff', '#ff007f', '#39ff14', '#bd00ff', '#fff200'];
-      
-      for (let i = 0; i < count; i++) {
-        const colorStr = neonColors[Math.floor(Math.random() * neonColors.length)];
-        const mat = new THREE.MeshStandardMaterial({
-          color: new THREE.Color(colorStr),
-          roughness: 0.1,
-          metalness: 0.8,
-          emissive: new THREE.Color(colorStr),
-          emissiveIntensity: 0.35
-        });
-        
-        const mesh = new THREE.Mesh(debrisGeo, mat);
-        mesh.position.copy(point);
-
-        // Disperse velocity vectors outwards
-        const angle = Math.random() * Math.PI * 2;
-        const speed = Math.random() * 0.22 + 0.06;
-        const velocity = new THREE.Vector3(
-          Math.cos(angle) * speed,
-          Math.random() * 0.24 + 0.16, // Initial upward pop
-          Math.sin(angle) * speed
-        );
-
-        mesh.rotation.set(Math.random() * Math.PI, Math.random() * Math.PI, 0);
-        scene.add(mesh);
-
-        debrisList.push({
-          mesh: mesh,
-          velocity: velocity,
-          rotationSpeed: new THREE.Vector3(
-            (Math.random() - 0.5) * 0.2,
-            (Math.random() - 0.5) * 0.2,
-            (Math.random() - 0.5) * 0.2
-          ),
-          scale: 1.0,
-          gravity: 0.009
-        });
-      }
-    }
-
-    // ----------------------------------------------------
-    // INTERACTIVE EVENTS
-    // ----------------------------------------------------
-    const dummy = new THREE.Object3D();
+    let isHovering = false;
+    let reqFrame = null;
     
-    // Mouse movement updates raycast ripple coordinates and spawns 3D voxel trails
-    window.addEventListener('mousemove', (e) => {
-      mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
-      mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
-
-      raycaster.setFromCamera(mouse, camera);
-      const intersects = raycaster.intersectObject(raycastPlane);
-      if (intersects.length > 0) {
-        rippleCenter.copy(intersects[0].point);
-        rippleActive = true;
-
-        // Spawn glowing 3D voxel cursor trail particle with 35% probability
-        if (Math.random() < 0.35) {
-          const trailGeo = new THREE.BoxGeometry(0.32, 0.32, 0.32);
-          const neonColors = ['#00f0ff', '#ff007f', '#39ff14', '#bd00ff', '#fff200'];
-          const randomColor = neonColors[Math.floor(Math.random() * neonColors.length)];
-          const trailMat = new THREE.MeshStandardMaterial({
-            color: new THREE.Color(randomColor),
-            roughness: 0.1,
-            metalness: 0.8,
-            emissive: new THREE.Color(randomColor),
-            emissiveIntensity: 0.8
-          });
-          const trailMesh = new THREE.Mesh(trailGeo, trailMat);
-          trailMesh.position.copy(intersects[0].point);
-          // Add minor scattering offsets
-          trailMesh.position.x += (Math.random() - 0.5) * 0.7;
-          trailMesh.position.z += (Math.random() - 0.5) * 0.7;
-          
-          scene.add(trailMesh);
-          trailVoxels.push({
-            mesh: trailMesh,
-            scale: 1.0,
-            driftSpeed: 0.04 + Math.random() * 0.04
-          });
-        }
-
-      } else {
-        rippleActive = false;
-      }
-    });
-
-    window.addEventListener('mouseleave', () => {
-      rippleActive = false;
-    });
-
-    // Spawn gravity debris + play click synth audio on click (unless clicking interface elements)
-    window.addEventListener('click', (e) => {
-      if (e.target.tagName === 'A' || e.target.closest('a') || e.target.tagName === 'BUTTON' || e.target.closest('.sandbox-hud')) return;
-
-      raycaster.setFromCamera(mouse, camera);
-      const intersects = raycaster.intersectObject(raycastPlane);
-      if (intersects.length > 0) {
-        spawnDebris(intersects[0].point);
-        synth.playClick();
-        triggerToast("DEBRIS FIELD COLLISION: +50 XP");
-        addLog(`[GRAVITY] Collided at (${intersects[0].point.x.toFixed(1)}, ${intersects[0].point.z.toFixed(1)}). Debris sprayed!`);
-      }
-    });
-
-    // Minimize HUD functionality with sound triggering
-    const minimizeBtn = document.getElementById('hud-min-btn');
-    const telemetryHud = document.getElementById('telemetry-hud');
-    minimizeBtn.addEventListener('click', (e) => {
-      e.stopPropagation();
-      telemetryHud.classList.toggle('minimized');
-      synth.playMorph();
-      if (telemetryHud.classList.contains('minimized')) {
-        minimizeBtn.textContent = '[+]';
-        addLog('[SYS] Telemetry console minimized.');
-      } else {
-        minimizeBtn.textContent = '[-]';
-        addLog('[SYS] Telemetry console restored.');
-      }
-    });
-
-    // Attach hover sound blips on all interactive elements
-    function attachHoverSounds() {
-      const interactives = document.querySelectorAll('a, button, .neubrutalist-card, .hud-btn');
-      interactives.forEach(el => {
-        el.addEventListener('mouseenter', () => {
-          synth.playBlip();
-        });
-      });
-    }
-
-    // ----------------------------------------------------
-    // HUD & TERMINAL CONTROL HANDLERS
-    // ----------------------------------------------------
-    const terminalLog = document.getElementById('terminal-log');
+    // Mouse coordinates relative to viewport bounds
+    let targetX = 0;
+    let targetY = 0;
     
-    function addLog(text) {
-      const div = document.createElement('div');
-      div.textContent = text;
-      terminalLog.appendChild(div);
-      terminalLog.scrollTop = terminalLog.scrollHeight;
+    // Current interpolated coordinates for buttery smooth easing
+    let currentX = 0;
+    let currentY = 0;
+    
+    // Easing multiplier (smaller = smoother, larger = snappier)
+    const easing = 0.08;
+
+    // Listen to mouse moving inside viewport
+    viewport.addEventListener('mousemove', (e) => {
+      const rect = viewport.getBoundingClientRect();
       
-      // Prevent browser memory leaks by limiting log lines
-      while (terminalLog.children.length > 25) {
-        terminalLog.removeChild(terminalLog.firstChild);
-      }
-    }
-
-    // Periodic pseudo-scientific terminal logs
-    const logMessages = [
-      "[SYS] Telemetry grid linked successfully.",
-      "[LATTICE] Quantum ripple wave vector amplitude: 3.80",
-      "[WARN] Atomic energy fluctuation in Sector 7... resolved",
-      "[FLUX] Sub-atomic shielding loops at 99.82% efficiency",
-      "[GRAVITY] Vector core calculations updated to 9.81 v/s²",
-      "[PORTAL] Syncing stargate spatial matrices with nheep.com",
-      "[ENERGY] Reactor internal temp: 1.2M Kelvin (STABLE)",
-      "[SYS] Streaming accelerated voxel buffers at 60 FPS",
-      "[LATTICE] Recompiling instanced cellular structure... NOMINAL",
-      "[WARN] Magnetic flux oscillation detected... compensating",
-      "[SYS] Periodic diagnostic sweep... ALL MODULES OPERATIONAL"
-    ];
-
-    setInterval(() => {
-      const msg = logMessages[Math.floor(Math.random() * logMessages.length)];
-      addLog(msg);
-    }, 2800);
-
-    // Shape buttons handler with audio morphing blip
-    document.querySelectorAll('.hud-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        document.querySelectorAll('.hud-btn').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        
-        currentShape = btn.dataset.shape;
-        synth.playMorph();
-        addLog(`[MUTATOR] Morphing voxel lattice state to: ${currentShape.toUpperCase()}`);
-        triggerToast(`MORPHED TO ${currentShape.toUpperCase()} CONFIG!`);
-
-        // Rotate InstancedMesh base coordinates for helical/toroid look
-        anime({
-          targets: instancedMesh.rotation,
-          x: currentShape === 'grid' ? 0 : 0.25,
-          y: 0,
-          z: 0,
-          duration: 1200,
-          easing: 'easeOutElastic(1, .8)'
-        });
-      });
-    });
-
-    // Warp button handler with high-power audio warp sweep
-    const warpBtn = document.getElementById('warp-btn');
-    warpBtn.addEventListener('click', () => {
-      activeWarp = 6.2;
-      synth.playWarp();
-      addLog("[WARN] OVERDRIVE ENGAGED! Voxel warp flux velocity spike!");
-      triggerToast("WARP VELOCITY ENGAGED! 600% BOOST");
-
-      // HUD bounce reaction
-      anime.remove('.sandbox-hud');
-      anime({
-        targets: '.sandbox-hud',
-        scale: [1.0, 1.06, 1.0],
-        borderColor: ['#bd00ff', '#ff007f', '#bd00ff'],
-        duration: 800,
-        easing: 'easeOutElastic(1, .5)'
-      });
-    });
-
-    // Toast notification trigger
-    const toast = document.getElementById('toast');
-    const toastText = document.getElementById('toast-text');
-    let toastTimeout;
-
-    function triggerToast(text) {
-      toastText.textContent = text || "QUANTUM RIPPLE INSTIGATED: +100 XP";
-      toast.classList.add('show');
+      // Calculate normalized position from center: Range [-1, 1]
+      const halfWidth = rect.width / 2;
+      const halfHeight = rect.height / 2;
+      const x = e.clientX - (rect.left + halfWidth);
+      const y = e.clientY - (rect.top + halfHeight);
       
-      anime.remove('.toast');
-      anime({
-        targets: '.toast',
-        scale: [0.75, 1.05, 1.0],
-        duration: 500,
-        easing: 'easeOutBack'
-      });
-
-      clearTimeout(toastTimeout);
-      toastTimeout = setTimeout(() => {
-        toast.classList.remove('show');
-      }, 2000);
-    }
-
-    // ----------------------------------------------------
-    // WINDOW RESIZING
-    // ----------------------------------------------------
-    window.addEventListener('resize', () => {
-      camera.aspect = window.innerWidth / window.innerHeight;
-      camera.updateProjectionMatrix();
-      renderer.setSize(window.innerWidth, window.innerHeight);
+      targetX = x / halfWidth;
+      targetY = y / halfHeight;
+      
+      if (!isHovering) {
+        isHovering = true;
+        cancelAnimationFrame(reqFrame);
+        loop();
+      }
     });
 
-    // ----------------------------------------------------
-    // ANIMATION & PHYSICS RENDERING LOOP
-    // ----------------------------------------------------
-    const clock = new THREE.Clock();
-
-    function animate() {
-      requestAnimationFrame(animate);
-
-      const elapsedTime = clock.getElapsedTime();
-      const time = elapsedTime;
-
-      // Gradually decay warp velocity boost back to standard speed
-      if (activeWarp > 1.0) {
-        activeWarp -= 0.08;
-        if (activeWarp < 1.0) activeWarp = 1.0;
-      }
-
-      // Update HUD metrics in real-time
-      document.getElementById('hud-flux').textContent = (1024 * activeWarp).toFixed(0) + ' VX/s';
-      document.getElementById('hud-entropy').textContent = (1.458 + Math.sin(time * 3.5) * 0.15 + (activeWarp - 1.0) * 1.5).toFixed(3) + ' uN';
-      document.getElementById('hud-stability').textContent = (99.82 - (activeWarp - 1.0) * 1.8 - Math.random() * 0.08).toFixed(2) + '%';
-
-      // Subtle base rotation of whole scene based on shape mode
-      if (currentShape === 'helix') {
-        instancedMesh.rotation.y += 0.005 * activeWarp;
-      } else if (currentShape === 'torus') {
-        instancedMesh.rotation.y += 0.003 * activeWarp;
-        instancedMesh.rotation.z += 0.001;
-      } else if (currentShape === 'chaos') {
-        instancedMesh.rotation.y += 0.002;
-        instancedMesh.rotation.x += 0.001;
-      } else {
-        instancedMesh.rotation.set(0, 0, 0);
-      }
-
-      // 1. Calculate positions & colors
-      calculateVoxelTargets(time);
-
-      // 2. Interpolate & Update InstancedMesh matrices
-      const lerpFactor = 0.075 * activeWarp;
-      for (let i = 0; i < N; i++) {
-        const voxel = voxelData[i];
-        
-        // Lerp current positions, colors, and scales
-        voxel.currentPos.lerp(voxel.targetPos, lerpFactor);
-        voxel.currentColor.lerp(voxel.targetColor, lerpFactor);
-        voxel.scale += (voxel.targetScale - voxel.scale) * lerpFactor;
-
-        // Apply spatial transformations
-        dummy.position.copy(voxel.currentPos);
-        dummy.scale.setScalar(voxel.scale);
-        
-        // Spinning chaos cubes
-        if (currentShape === 'chaos') {
-          dummy.rotation.set(i * 0.01 + time, i * 0.02 - time, 0);
-        } else {
-          dummy.rotation.set(0, 0, 0);
-        }
-
-        dummy.updateMatrix();
-        instancedMesh.setMatrixAt(i, dummy.matrix);
-        instancedMesh.setColorAt(i, voxel.currentColor);
-      }
-      instancedMesh.instanceMatrix.needsUpdate = true;
-      if (instancedMesh.instanceColor) {
-        instancedMesh.instanceColor.needsUpdate = true;
-      }
-
-      // 3. Render and update falling gravity click-debris
-      for (let i = debrisList.length - 1; i >= 0; i--) {
-        const d = debrisList[i];
-        // Apply downward velocity gravity acceleration
-        d.velocity.y -= d.gravity;
-        d.mesh.position.add(d.velocity);
-
-        // Spin in the air
-        d.mesh.rotation.x += d.rotationSpeed.x;
-        d.mesh.rotation.y += d.rotationSpeed.y;
-        d.mesh.rotation.z += d.rotationSpeed.z;
-
-        // Shrink and fade
-        d.scale *= 0.94;
-        d.mesh.scale.setScalar(d.scale);
-
-        // Garbage collection of offscreen/micro debris
-        if (d.scale < 0.02 || d.mesh.position.y < -30) {
-          scene.remove(d.mesh);
-          d.mesh.geometry.dispose();
-          d.mesh.material.dispose();
-          debrisList.splice(i, 1);
-        }
-      }
-
-      // 4. Render and update 3D voxel mouse-trail particles
-      for (let i = trailVoxels.length - 1; i >= 0; i--) {
-        const t = trailVoxels[i];
-        t.mesh.position.y += t.driftSpeed;
-        t.mesh.rotation.x += 0.025;
-        t.mesh.rotation.y += 0.025;
-
-        t.scale *= 0.93;
-        t.mesh.scale.setScalar(t.scale);
-
-        // Garbage collection
-        if (t.scale < 0.02) {
-          scene.remove(t.mesh);
-          t.mesh.geometry.dispose();
-          t.mesh.material.dispose();
-          trailVoxels.splice(i, 1);
-        }
-      }
-
-      renderer.render(scene, camera);
-    }
-
-    // ----------------------------------------------------
-    // ENTRANCE CINEMATICS (ANIME.JS INTRO TIMELINE)
-    // ----------------------------------------------------
-    window.addEventListener('load', () => {
-      // Initialize hover sound fx triggers across elements
-      attachHoverSounds();
-
-      anime.timeline({
-        easing: 'easeOutElastic(1.2, .6)'
-      })
-      .add({
-        targets: 'nav.neubrutalist-nav',
-        translateY: [-100, 0],
-        duration: 1100
-      })
-      .add({
-        targets: ['.hero-tagline', '.hero-title', '.hero-description', '.cta-group'],
-        scale: [0.65, 1.0],
-        translateY: [80, 0],
-        opacity: [0, 1],
-        delay: anime.stagger(150),
-        duration: 1300
-      }, '-=700')
-      .add({
-        targets: '.neubrutalist-card',
-        scale: [0.7, 1.0],
-        opacity: [0, 1],
-        delay: anime.stagger(120),
-        duration: 1200
-      }, '-=900')
-      .add({
-        targets: '.sandbox-hud',
-        translateY: [120, 0],
-        opacity: [0, 1],
-        duration: 1000
-      }, '-=1000');
-
-      // Start the main render loop
-      animate();
+    // Reset when mouse leaves
+    viewport.addEventListener('mouseleave', () => {
+      isHovering = false;
+      targetX = 0;
+      targetY = 0;
     });
+
+    // Main animation & interpolation loop
+    function loop() {
+      // Linear interpolation (lerp) for supreme kinetic smoothness
+      currentX += (targetX - currentX) * easing;
+      currentY += (targetY - currentY) * easing;
+
+      // 1. Tilt main card: Max tilt angles (15 degrees)
+      const rotateY = currentX * 16;
+      const rotateX = -currentY * 16;
+      panel.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+
+      // 2. Parallax displace specific layers relative to their depth
+      // Top layer: Highest movement
+      const topMoveX = currentX * 22;
+      const topMoveY = currentY * 22;
+      layerTop.style.transform = `translateX(${topMoveX}px) translateY(${topMoveY}px)`;
+
+      // Middle layer: Medium movement
+      const midMoveX = currentX * 12;
+      const midMoveY = currentY * 12;
+      layerMiddle.style.transform = `translateX(${midMoveX}px) translateY(${midMoveY}px)`;
+
+      // Bottom layer: Minimal movement
+      const botMoveX = currentX * 4;
+      const botMoveY = currentY * 4;
+      layerBottom.style.transform = `translateX(${botMoveX}px) translateY(${botMoveY}px)`;
+
+      // If we've settled near 0, 0 and mouse left, stop anim frame loop to conserve CPU/GPU
+      const distance = Math.sqrt(Math.pow(targetX - currentX, 2) + Math.pow(targetY - currentY, 2));
+      if (!isHovering && distance < 0.001) {
+        panel.style.transform = 'rotateX(0deg) rotateY(0deg)';
+        layerTop.style.transform = 'translateX(0px) translateY(0px)';
+        layerMiddle.style.transform = 'translateX(0px) translateY(0px)';
+        layerBottom.style.transform = 'translateX(0px) translateY(0px)';
+        cancelAnimationFrame(reqFrame);
+        return;
+      }
+
+      reqFrame = requestAnimationFrame(loop);
+    }
   </script>
 </body>
 </html>
