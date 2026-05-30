@@ -1,9 +1,9 @@
 /* ==========================================================================
-   PEEP INTO THE NHEEP - Minimal Dark Layout
-   Matching the provided mockup image exactly
+   PEEP INTO THE NHEEP - Minimal Dark Layout with Game Collection
+   Matching the provided mockup designs exactly, with sleek spacing and precision
    ========================================================================== */
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@700;900&display=swap');
 
 * {
   box-sizing: border-box;
@@ -13,18 +13,28 @@
 
 html, body {
   width: 100%;
-  height: 100%;
   background-color: #191919; /* Solid dark charcoal background */
   color: #FFFFFF; /* Crisp white text */
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: auto; /* Enable vertical scrolling */
+  scroll-behavior: smooth;
 }
 
-/* Central Typographic Container */
-.container {
+/* ==========================================================================
+   HERO SECTION (100vh)
+   ========================================================================== */
+.hero-section {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.hero-container {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -57,17 +67,204 @@ html, body {
   letter-spacing: -0.01em;
 }
 
-/* Responsive scaling for mobile screens */
+/* Elegant minimalist scroll down chevron indicator */
+.scroll-indicator {
+  position: absolute;
+  bottom: 2.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  justify-content: center;
+  animation: bounce 2s infinite;
+  opacity: 0.7;
+}
+
+.chevron-down {
+  width: 36px;
+  height: 36px;
+  transition: opacity 0.3s;
+}
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translate(-50%, 0);
+  }
+  40% {
+    transform: translate(-50%, -10px);
+  }
+  60% {
+    transform: translate(-50%, -5px);
+  }
+}
+
+/* ==========================================================================
+   GAME COLLECTION SECTION
+   ========================================================================== */
+.collection-section {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 4rem 2rem 8rem 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Header with straight line underneath */
+.section-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 5.5rem;
+  width: 100%;
+  text-align: center;
+}
+
+.section-title {
+  font-size: 2.2rem;
+  font-weight: 900;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: #FFFFFF;
+  margin-bottom: 1.5rem;
+}
+
+.section-underline {
+  width: 440px;
+  max-width: 90%;
+  height: 2.5px;
+  background-color: #FFFFFF;
+  opacity: 0.95;
+}
+
+/* 2x2 Clean Grid Layout */
+.games-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 5.5rem 5.5rem; /* Spacious, clean gaps */
+  width: 100%;
+  max-width: 1060px;
+}
+
+.game-card {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+/* Sleek Rounded White Video Placeholder Box */
+.video-placeholder {
+  width: 100%;
+  aspect-ratio: 16 / 10.8;
+  background-color: #FFFFFF;
+  border-radius: 40px; /* Highly rounded corners */
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 3rem 4rem;
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.2);
+  transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.4s ease;
+  cursor: pointer;
+}
+
+.video-placeholder:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.45);
+}
+
+/* Left-aligned clean placeholder text */
+.placeholder-text {
+  font-size: 2.1rem;
+  color: #191919;
+  font-weight: 700;
+  line-height: 1.25;
+  text-align: left;
+  letter-spacing: -0.01em;
+}
+
+/* Elegant white text labels underneath */
+.game-title {
+  font-size: 2.1rem;
+  font-weight: 900;
+  color: #FFFFFF;
+  text-align: center;
+  margin-top: 1.8rem;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+
+/* ==========================================================================
+   RESPONSIVE LAYOUTS (Mobile / Tablet)
+   ========================================================================== */
+@media (max-width: 992px) {
+  .peep { font-size: 5rem; }
+  .into-the { font-size: 1.8rem; }
+  .nheep { font-size: 6.2rem; }
+  
+  .games-grid {
+    gap: 4rem 4rem;
+  }
+  
+  .video-placeholder {
+    padding: 2.5rem 3rem;
+  }
+  
+  .placeholder-text {
+    font-size: 1.7rem;
+  }
+  
+  .game-title {
+    font-size: 1.7rem;
+  }
+}
+
 @media (max-width: 768px) {
   .peep {
     font-size: 4rem;
     margin-bottom: 1rem;
   }
   .into-the {
-    font-size: 1.5rem;
+    font-size: 1.4rem;
     margin-bottom: 0.8rem;
   }
   .nheep {
     font-size: 5rem;
+  }
+  
+  .collection-section {
+    padding-top: 2rem;
+  }
+  
+  .section-header {
+    margin-bottom: 3.5rem;
+  }
+  
+  .section-title {
+    font-size: 1.6rem;
+  }
+  
+  .section-underline {
+    width: 280px;
+  }
+
+  .games-grid {
+    grid-template-columns: 1fr; /* 1 Column layout on mobile */
+    gap: 4rem;
+    max-width: 480px;
+  }
+  
+  .video-placeholder {
+    aspect-ratio: 16 / 10;
+    border-radius: 30px;
+    padding: 2rem 2.5rem;
+  }
+  
+  .placeholder-text {
+    font-size: 1.4rem;
+  }
+  
+  .game-title {
+    font-size: 1.5rem;
+    margin-top: 1.2rem;
   }
 }
