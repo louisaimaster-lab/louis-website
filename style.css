@@ -169,7 +169,7 @@ html, body {
 
 .video-placeholder:hover {
   transform: translateY(-8px);
-  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.45);
+  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.45), 0 0 0 2px rgba(255, 255, 255, 0.3);
 }
 
 /* Left-aligned clean placeholder text */
