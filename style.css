@@ -203,7 +203,6 @@ html, body {
   padding: 0 !important; /* Remove card padding to expand video to edges */
   background-color: #FFFFFF; /* Pure blank solid white when not hovered */
   transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.4s ease, background-color 0.35s cubic-bezier(0.25, 1, 0.5, 1);
-  -webkit-mask-image: -webkit-radial-gradient(white, black);
 }
 
 /* Slider container masking */
