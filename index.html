@@ -88,40 +88,19 @@
         'assets/kq_clip4.mp4'
       ];
       
-      // Shuffle clips dynamically on entry
+      // Shuffle clips dynamically on page load
       let shuffledClips = [...clips].sort(() => Math.random() - 0.5);
       
       let activeIdx = 0;  // Index in videos array (0 or 1)
-      let clipIdx = 0;    // Index in shuffledClips (0 to 4)
+      let clipIdx = 0;    // Index in shuffledClips (0 to 3)
       let isHovered = false;
       let transitionTimeout = null;
       let checkInterval = null;
 
-      function resetPlayer() {
-        isHovered = false;
-        clearTimeout(transitionTimeout);
-        clearInterval(checkInterval);
-        
-        videos.forEach(v => {
-          v.pause();
-          v.src = '';
-          v.removeAttribute('src');
-          v.load();
-          v.className = 'slide-video';
-        });
-        
-        activeIdx = 0;
-        clipIdx = 0;
-        // Reshuffle clips for the next hover cycle!
-        shuffledClips = [...clips].sort(() => Math.random() - 0.5);
-      }
-
-      function startPlayback() {
-        isHovered = true;
-        
-        // Setup primary active video
-        const activeVideo = videos[activeIdx];
-        const nextVideo = videos[1 - activeIdx];
+      // Preload video elements immediately on page load for instant start on hover
+      function preloadVideos() {
+        const activeVideo = videos[0];
+        const nextVideo = videos[1];
         
         activeVideo.muted = true;
         activeVideo.playsInline = true;
@@ -129,13 +108,33 @@
         activeVideo.className = 'slide-video active-video';
         activeVideo.load();
         
-        // Pre-load the next standby video
         const nextClipIdx = (clipIdx + 1) % shuffledClips.length;
         nextVideo.muted = true;
         nextVideo.playsInline = true;
         nextVideo.src = shuffledClips[nextClipIdx];
         nextVideo.className = 'slide-video next-video';
         nextVideo.load();
+      }
+
+      // Run preloader instantly
+      preloadVideos();
+
+      function pausePlayback() {
+        isHovered = false;
+        clearTimeout(transitionTimeout);
+        clearInterval(checkInterval);
+        
+        videos.forEach(v => {
+          v.pause();
+          v.currentTime = 0; // Reset time to play fresh on next hover entry
+        });
+      }
+
+      function startPlayback() {
+        isHovered = true;
+        
+        const activeVideo = videos[activeIdx];
+        const nextVideo = videos[1 - activeIdx];
         
         activeVideo.play().then(() => {
           monitorTransition(activeVideo, nextVideo);
@@ -150,8 +149,9 @@
         clearInterval(checkInterval);
         
         // Sliced clips are exactly 7.0 seconds. 
-        // Trigger the sliding transition 0.65 seconds right before finishing (at 6.35s).
-        const triggerTime = 6.35; 
+        // With a slower 950ms transition, we trigger the transition exactly 950ms before finishing (at 6.05s)
+        // so it completes exactly at 7.0 seconds!
+        const triggerTime = 6.05; 
         
         checkInterval = setInterval(() => {
           if (!isHovered) return;
@@ -176,7 +176,7 @@
           nextVideo.classList.add('slide-in');
           nextVideo.classList.remove('next-video');
           
-          // Synchronize swap with the 650ms CSS slide animation duration
+          // Synchronize swap with the 950ms CSS slide animation duration
           transitionTimeout = setTimeout(() => {
             if (!isHovered) return;
             
@@ -195,7 +195,7 @@
             activeVideo.load();
             
             monitorTransition(nextVideo, activeVideo);
-          }, 650);
+          }, 950);
         }).catch(err => {
           console.warn("Standby video play blocked, bypassing transition:", err);
           // Fallback immediate jump
@@ -221,7 +221,7 @@
       });
 
       card.addEventListener('mouseleave', () => {
-        resetPlayer();
+        pausePlayback();
       });
     });
   </script>

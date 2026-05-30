@@ -233,7 +233,7 @@ html, body {
   object-fit: cover;
   border-radius: 40px;
   transform: translateX(100%); /* Position off-stage to the right by default */
-  transition: transform 0.65s cubic-bezier(0.25, 1, 0.5, 1);
+  transition: transform 0.95s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 /* Slide classes controlled by JS */
