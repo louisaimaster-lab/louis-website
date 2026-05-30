@@ -1,27 +1,10 @@
 /* ==========================================================================
-   PEEP INTO THE NHEEP - Sleek Dark Aesthetic Theme
-   Inspired by the premium grey & black Antigravity workspace
+   PEEP INTO THE NHEEP - Minimal Dark Layout
+   Matching the provided mockup image exactly
    ========================================================================== */
 
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@900&display=swap');
 
-:root {
-  /* Color Palette (Antigravity Workspace aesthetic) */
-  --bg-dark-base: #0B0B0C;       /* Deep rich dark background */
-  --bg-dark-panel: #18181A;      /* Sleek dark panels */
-  --bg-dark-active: #222225;     /* Highlighted areas */
-  --border-subtle: #28282B;      /* Premium thin border line */
-  --border-active: #3C3C41;      /* Focused border line */
-  --text-primary: #FFFFFF;       /* Crisp white titles */
-  --text-muted: #8E8E93;         /* Dimmed secondary descriptions */
-  --text-dimmer: #57575C;        /* Darker details */
-  --accent-blue: #007AFF;        /* Electric blue highlights */
-  
-  --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  --font-mono: 'JetBrains Mono', monospace;
-}
-
-/* Reset & Core Setup */
 * {
   box-sizing: border-box;
   margin: 0;
@@ -31,231 +14,60 @@
 html, body {
   width: 100%;
   height: 100%;
-  background-color: var(--bg-dark-base);
-  color: var(--text-primary);
-  font-family: var(--font-sans);
+  background-color: #191919; /* Solid dark charcoal background */
+  color: #FFFFFF; /* Crisp white text */
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   overflow: hidden;
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
-/* Elegant Tech Grid Background (Fades out near boundaries) */
-.background-grid {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-size: 50px 50px;
-  background-image: 
-    linear-gradient(to right, var(--border-subtle) 1px, transparent 1px),
-    linear-gradient(to bottom, var(--border-subtle) 1px, transparent 1px);
-  mask-image: radial-gradient(circle at center, black 40%, transparent 85%);
-  -webkit-mask-image: radial-gradient(circle at center, black 40%, transparent 85%);
-  pointer-events: none;
-  z-index: 1;
-}
-
-/* Layout Wrapper for 3D Tilt Viewport */
-.viewport-wrapper {
-  perspective: 1200px;
-  z-index: 10;
-  width: 100%;
-  max-width: 750px;
-  padding: 2rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-/* The Core Interactive Glass Panel */
-.interactive-panel {
-  width: 100%;
-  background-color: rgba(24, 24, 26, 0.7);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid var(--border-subtle);
-  border-radius: 16px;
-  padding: 4.5rem 3rem;
-  box-shadow: 
-    0 30px 70px rgba(0, 0, 0, 0.8),
-    inset 0 1px 0 rgba(255, 255, 255, 0.05);
-  transform-style: preserve-3d;
-  transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1), border-color 0.4s ease;
-  position: relative;
-}
-
-.interactive-panel:hover {
-  border-color: var(--border-active);
-}
-
-/* Subtle corner decor representing premium editor styling */
-.panel-corner {
-  position: absolute;
-  width: 8px;
-  height: 8px;
-  border-color: var(--text-dimmer);
-  border-style: solid;
-  pointer-events: none;
-}
-.corner-tl { top: 12px; left: 12px; border-width: 1px 0 0 1px; }
-.corner-tr { top: 12px; right: 12px; border-width: 1px 1px 0 0; }
-.corner-bl { bottom: 12px; left: 12px; border-width: 0 0 1px 1px; }
-.corner-br { bottom: 12px; right: 12px; border-width: 0 1px 1px 0; }
-
-/* The Main Typography Stack */
-.title-stack {
+/* Central Typographic Container */
+.container {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 2.2rem;
-  width: 100%;
-  transform-style: preserve-3d;
-}
-
-/* Dynamic Layer Box */
-.text-layer {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 1.5rem;
-  width: 100%;
-  transform-style: preserve-3d;
-  transition: transform 0.1s ease-out;
-  pointer-events: none; /* Mouse moves directly on panel */
-}
-
-/* The Words */
-.layer-text {
-  color: var(--text-primary);
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: -0.04em;
-  line-height: 1.0;
   text-align: center;
 }
 
-/* Word Size Scales */
-.peep-text {
-  font-size: 5rem;
-  /* Top layer has high depth separation */
-  transform: translateZ(70px);
-  text-shadow: 0 10px 25px rgba(0,0,0,0.5);
-}
-
-.into-text {
-  font-size: 4rem;
-  color: var(--text-muted);
-  /* Middle layer has medium depth separation */
-  transform: translateZ(35px);
-  text-shadow: 0 5px 15px rgba(0,0,0,0.4);
-}
-
-.nheep-text {
-  /* Bottom layer is slightly bigger than the others */
-  font-size: 6.2rem;
+/* Bold Uppercase Text Lines */
+.title-line {
   font-weight: 900;
-  color: var(--text-primary);
-  /* Bottom layer sits at the base */
-  transform: translateZ(10px);
-  text-shadow: 0 2px 5px rgba(0,0,0,0.3);
-}
-
-/* Beautiful Interactive Badges */
-.layer-badge {
-  font-family: var(--font-mono);
-  font-size: 0.65rem;
-  font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.12em;
-  padding: 0.35rem 0.75rem;
-  border-radius: 4px;
-  border: 1px solid var(--border-subtle);
-  background-color: var(--bg-dark-base);
-  color: var(--text-muted);
-  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
-  transition: all 0.3s ease;
-  white-space: nowrap;
+  letter-spacing: -0.01em;
+  line-height: 1.1;
 }
 
-.peep-badge {
-  transform: translateZ(85px);
+/* Proportional sizing matching the mockup image */
+.peep {
+  font-size: 7.2rem;
+  margin-bottom: 1.5rem;
 }
 
-.into-badge {
-  transform: translateZ(50px);
-  color: var(--text-dimmer);
+.into-the {
+  font-size: 2.3rem;
+  letter-spacing: 0.02em;
+  margin-bottom: 1.2rem;
 }
 
-.nheep-badge {
-  transform: translateZ(25px);
-  border-color: var(--accent-blue);
-  color: var(--accent-blue);
-  box-shadow: 0 2px 10px rgba(0, 122, 255, 0.15);
+.nheep {
+  font-size: 8.8rem; /* Slightly larger than PEEP */
+  letter-spacing: -0.01em;
 }
 
-/* Hover effects of badges */
-.interactive-panel:hover .nheep-badge {
-  background-color: rgba(0, 122, 255, 0.1);
-}
-
-/* Sleek Status bar in footer area of panel */
-.panel-footer {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 4rem;
-  padding-top: 1.5rem;
-  border-top: 1px solid var(--border-subtle);
-  width: 100%;
-  color: var(--text-dimmer);
-  font-family: var(--font-mono);
-  font-size: 0.7rem;
-  letter-spacing: 0.05em;
-  transform: translateZ(15px);
-}
-
-.status-indicator {
-  display: flex;
-  align-items: center;
-  gap: 0.45rem;
-}
-
-.status-dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background-color: var(--accent-blue);
-  box-shadow: 0 0 8px var(--accent-blue);
-}
-
-.system-details {
-  text-transform: uppercase;
-}
-
-/* Responsive Scaling */
+/* Responsive scaling for mobile screens */
 @media (max-width: 768px) {
-  .interactive-panel {
-    padding: 3.5rem 1.5rem;
+  .peep {
+    font-size: 4rem;
+    margin-bottom: 1rem;
   }
-  
-  .title-stack {
-    gap: 1.8rem;
+  .into-the {
+    font-size: 1.5rem;
+    margin-bottom: 0.8rem;
   }
-
-  .text-layer {
-    flex-direction: column;
-    gap: 0.6rem;
-  }
-  
-  .peep-text { font-size: 3.5rem; }
-  .into-text { font-size: 2.8rem; }
-  .nheep-text { font-size: 4.5rem; }
-
-  .peep-badge, .into-badge, .nheep-badge {
-    order: -1; /* Place badges above words on mobile */
+  .nheep {
+    font-size: 5rem;
   }
 }

@@ -3,166 +3,17 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Peep into the Nheep // Ecosystem Portal</title>
-  
-  <!-- SEO Meta Tags -->
-  <meta name="description" content="Discover Peep into the Nheep. A sleek, high-fidelity dark-themed gateway engineered with beautiful geometry, micro-parallax layer depths, and modern design precision.">
-  <meta name="keywords" content="Peep, Nheep, Ecosystem, 3D Layers, Dark Theme, Sleek Design">
-  <meta name="author" content="Louis Kieu">
-  
-  <!-- Open Graph -->
-  <meta property="og:title" content="Peep into the Nheep // Ecosystem Portal">
-  <meta property="og:description" content="Enter a stunning geometric workspace designed with interactive typography layers and extreme dark precision.">
-  <meta property="og:type" content="website">
-  
-  <!-- Styling Sheet -->
+  <title>PEEP INTO THE NHEEP</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <!-- Geometric Tech Grid Background -->
-  <div class="background-grid"></div>
-
-  <!-- Main Perspective Viewport Container -->
-  <main class="viewport-wrapper" id="main-viewport">
-    
-    <!-- Core Glass Morphing Interactive Panel -->
-    <div class="interactive-panel" id="tilt-panel" aria-label="Interactive Typographic Layer Explorer">
-      
-      <!-- Premium Corner Decor Lines -->
-      <div class="panel-corner corner-tl"></div>
-      <div class="panel-corner corner-tr"></div>
-      <div class="panel-corner corner-bl"></div>
-      <div class="panel-corner corner-br"></div>
-      
-      <!-- Typographic 3D Layers Stack -->
-      <div class="title-stack">
-        
-        <!-- TOP LAYER: Peep -->
-        <h1 class="text-layer" id="layer-top">
-          <span class="layer-badge peep-badge" id="badge-top">Top Layer</span>
-          <span class="layer-text peep-text">Peep</span>
-        </h1>
-        
-        <!-- MIDDLE LAYER: into the -->
-        <div class="text-layer" id="layer-middle">
-          <span class="layer-text into-text">into the</span>
-          <span class="layer-badge into-badge" id="badge-middle">Middle Layer</span>
-        </div>
-        
-        <!-- BOTTOM LAYER: Nheep -->
-        <div class="text-layer" id="layer-bottom">
-          <span class="layer-badge nheep-badge" id="badge-bottom">Bottom Layer</span>
-          <span class="layer-text nheep-text">Nheep</span>
-        </div>
-        
-      </div>
-
-      <!-- High-End Details & Status Footer -->
-      <footer class="panel-footer">
-        <div class="status-indicator">
-          <div class="status-dot"></div>
-          <span id="status-text">SYSTEM CORE LINKED // 120 FPS</span>
-        </div>
-        <div class="system-details" id="sys-details">
-          nheep.com ecosystem portal
-        </div>
-      </footer>
-      
-    </div>
+  <!-- Central Stacked Typographic Container -->
+  <main class="container">
+    <div class="title-line peep">PEEP</div>
+    <div class="title-line into-the">INTO THE</div>
+    <div class="title-line nheep">NHEEP</div>
   </main>
 
-  <!-- Interactive 3D Parallax & Tilt Engine -->
-  <script>
-    const panel = document.getElementById('tilt-panel');
-    const viewport = document.getElementById('main-viewport');
-    
-    // Select layers to apply differential parallax displacement
-    const layerTop = document.getElementById('layer-top');
-    const layerMiddle = document.getElementById('layer-middle');
-    const layerBottom = document.getElementById('layer-bottom');
-
-    let isHovering = false;
-    let reqFrame = null;
-    
-    // Mouse coordinates relative to viewport bounds
-    let targetX = 0;
-    let targetY = 0;
-    
-    // Current interpolated coordinates for buttery smooth easing
-    let currentX = 0;
-    let currentY = 0;
-    
-    // Easing multiplier (smaller = smoother, larger = snappier)
-    const easing = 0.08;
-
-    // Listen to mouse moving inside viewport
-    viewport.addEventListener('mousemove', (e) => {
-      const rect = viewport.getBoundingClientRect();
-      
-      // Calculate normalized position from center: Range [-1, 1]
-      const halfWidth = rect.width / 2;
-      const halfHeight = rect.height / 2;
-      const x = e.clientX - (rect.left + halfWidth);
-      const y = e.clientY - (rect.top + halfHeight);
-      
-      targetX = x / halfWidth;
-      targetY = y / halfHeight;
-      
-      if (!isHovering) {
-        isHovering = true;
-        cancelAnimationFrame(reqFrame);
-        loop();
-      }
-    });
-
-    // Reset when mouse leaves
-    viewport.addEventListener('mouseleave', () => {
-      isHovering = false;
-      targetX = 0;
-      targetY = 0;
-    });
-
-    // Main animation & interpolation loop
-    function loop() {
-      // Linear interpolation (lerp) for supreme kinetic smoothness
-      currentX += (targetX - currentX) * easing;
-      currentY += (targetY - currentY) * easing;
-
-      // 1. Tilt main card: Max tilt angles (15 degrees)
-      const rotateY = currentX * 16;
-      const rotateX = -currentY * 16;
-      panel.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-
-      // 2. Parallax displace specific layers relative to their depth
-      // Top layer: Highest movement
-      const topMoveX = currentX * 22;
-      const topMoveY = currentY * 22;
-      layerTop.style.transform = `translateX(${topMoveX}px) translateY(${topMoveY}px)`;
-
-      // Middle layer: Medium movement
-      const midMoveX = currentX * 12;
-      const midMoveY = currentY * 12;
-      layerMiddle.style.transform = `translateX(${midMoveX}px) translateY(${midMoveY}px)`;
-
-      // Bottom layer: Minimal movement
-      const botMoveX = currentX * 4;
-      const botMoveY = currentY * 4;
-      layerBottom.style.transform = `translateX(${botMoveX}px) translateY(${botMoveY}px)`;
-
-      // If we've settled near 0, 0 and mouse left, stop anim frame loop to conserve CPU/GPU
-      const distance = Math.sqrt(Math.pow(targetX - currentX, 2) + Math.pow(targetY - currentY, 2));
-      if (!isHovering && distance < 0.001) {
-        panel.style.transform = 'rotateX(0deg) rotateY(0deg)';
-        layerTop.style.transform = 'translateX(0px) translateY(0px)';
-        layerMiddle.style.transform = 'translateX(0px) translateY(0px)';
-        layerBottom.style.transform = 'translateX(0px) translateY(0px)';
-        cancelAnimationFrame(reqFrame);
-        return;
-      }
-
-      reqFrame = requestAnimationFrame(loop);
-    }
-  </script>
 </body>
 </html>
