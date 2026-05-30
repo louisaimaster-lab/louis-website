@@ -197,6 +197,7 @@ html, body {
    KNIGHT'S QUEST SEAMLESS VIDEO SLIDER STYLING
    ========================================================================== */
 .video-player-card {
+  display: block !important; /* Disable flex properties to prevent absolute positioning stretching bugs */
   position: relative;
   overflow: hidden;
   padding: 0 !important; /* Remove card padding to expand video to edges */
