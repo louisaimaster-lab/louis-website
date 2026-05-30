@@ -124,12 +124,16 @@
         const activeVideo = videos[activeIdx];
         const nextVideo = videos[1 - activeIdx];
         
+        activeVideo.muted = true;
+        activeVideo.playsInline = true;
         activeVideo.src = shuffledClips[clipIdx];
         activeVideo.className = 'slide-video active-video';
         activeVideo.load();
         
         // Pre-load the next standby video
         const nextClipIdx = (clipIdx + 1) % shuffledClips.length;
+        nextVideo.muted = true;
+        nextVideo.playsInline = true;
         nextVideo.src = shuffledClips[nextClipIdx];
         nextVideo.className = 'slide-video next-video';
         nextVideo.load();
@@ -137,7 +141,9 @@
         activeVideo.play().then(() => {
           monitorTransition(activeVideo, nextVideo);
         }).catch(err => {
-          console.warn("Autoplay blocked or failed:", err);
+          console.warn("Autoplay blocked or failed, retrying with explicit muted state:", err);
+          activeVideo.muted = true;
+          activeVideo.play().catch(e => console.error("Final play retry failed:", e));
         });
       }
 
@@ -161,6 +167,8 @@
       function triggerTransition(activeVideo, nextVideo) {
         if (!isHovered) return;
 
+        nextVideo.muted = true;
+        nextVideo.playsInline = true;
         nextVideo.play().then(() => {
           // Slide active video out left, next video in from right
           activeVideo.classList.add('slide-left');
@@ -182,13 +190,15 @@
             
             // Pre-load new clip into standby element
             const incomingClipIdx = (clipIdx + 1) % shuffledClips.length;
+            activeVideo.muted = true;
+            activeVideo.playsInline = true;
             activeVideo.src = shuffledClips[incomingClipIdx];
             activeVideo.load();
             
             monitorTransition(nextVideo, activeVideo);
           }, 650);
         }).catch(err => {
-          console.warn("Standby video play blocked:", err);
+          console.warn("Standby video play blocked, bypassing transition:", err);
           // Fallback immediate jump
           activeVideo.pause();
           activeVideo.className = 'slide-video next-video';
@@ -198,6 +208,8 @@
           clipIdx = (clipIdx + 1) % shuffledClips.length;
           
           const incomingClipIdx = (clipIdx + 1) % shuffledClips.length;
+          activeVideo.muted = true;
+          activeVideo.playsInline = true;
           activeVideo.src = shuffledClips[incomingClipIdx];
           activeVideo.load();
           
