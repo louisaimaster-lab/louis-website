@@ -149,9 +149,9 @@
         clearInterval(checkInterval);
         
         // Sliced clips are exactly 7.0 seconds. 
-        // With a slower 950ms transition, we trigger the transition exactly 950ms before finishing (at 6.05s)
+        // With a slower 1.4s transition, we trigger the transition exactly 1.4s before finishing (at 5.6s)
         // so it completes exactly at 7.0 seconds!
-        const triggerTime = 6.05; 
+        const triggerTime = 5.6; 
         
         checkInterval = setInterval(() => {
           if (!isHovered) return;
@@ -176,7 +176,7 @@
           nextVideo.classList.add('slide-in');
           nextVideo.classList.remove('next-video');
           
-          // Synchronize swap with the 950ms CSS slide animation duration
+          // Synchronize swap with the 1.4s CSS slide animation duration
           transitionTimeout = setTimeout(() => {
             if (!isHovered) return;
             
@@ -195,7 +195,7 @@
             activeVideo.load();
             
             monitorTransition(nextVideo, activeVideo);
-          }, 950);
+          }, 1400);
         }).catch(err => {
           console.warn("Standby video play blocked, bypassing transition:", err);
           // Fallback immediate jump
