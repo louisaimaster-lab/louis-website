@@ -177,6 +177,13 @@ body::before {
   width: 100%;
 }
 
+.game-card a {
+  text-decoration: none;
+  display: block;
+  width: 100%;
+  color: inherit;
+}
+
 /* Sleek Rounded White Video Placeholder Box */
 .video-placeholder {
   width: 100%;
