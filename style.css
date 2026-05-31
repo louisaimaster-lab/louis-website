@@ -247,10 +247,6 @@ body::before {
   background-image: url('assets/kq_thumbnail.png');
 }
 
-#untitled-tower-defense-card .video-player-card {
-  background-image: url('assets/tds_thumbnail.png');
-}
-
 /* Slider container masking */
 .video-slider-container {
   position: absolute;
