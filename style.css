@@ -280,7 +280,6 @@ body::before {
   width: calc(100% + 2px);
   height: calc(100% + 2px);
   object-fit: cover;
-  border-radius: 40px;
   opacity: 1;
   transform: translateX(100%); /* Position off-stage to the right by default */
   transition: transform 1.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 1.4s cubic-bezier(0.16, 1, 0.3, 1);
@@ -373,7 +372,7 @@ body::before {
     padding: 2rem 2.5rem;
   }
   
-  .video-slider-container, .slide-video {
+  .video-slider-container {
     border-radius: 30px;
   }
 
