@@ -254,13 +254,11 @@ body::before {
   left: 0;
   width: 100%;
   height: 100%;
-  opacity: 0; /* Fully hidden (blank white placeholder mask) when not hovered */
+  opacity: 0; /* Fully hidden when not hovered */
   pointer-events: none;
   border-radius: 40px;
   overflow: hidden;
   transition: opacity 0.35s cubic-bezier(0.25, 1, 0.5, 1);
-  background-color: #000000;
-  -webkit-mask-image: -webkit-radial-gradient(white, black);
 }
 
 /* Show video layers only when placeholder itself is hovered */
