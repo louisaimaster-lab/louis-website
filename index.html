@@ -44,10 +44,14 @@
       </div>
 
       <!-- Card 2: Untitled Tower Defense -->
-      <div class="game-card">
+      <div class="game-card" id="untitled-tower-defense-card">
         <a href="https://tds.nheep.com" target="_blank" rel="noopener noreferrer">
-          <div class="video-placeholder">
-            <p class="placeholder-text">Empty, Videos<br>will go here<br>later</p>
+          <div class="video-placeholder video-player-card">
+            <!-- Video elements for seamless sliding transitions -->
+            <div class="video-slider-container">
+              <video class="slide-video" muted playsinline></video>
+              <video class="slide-video" muted playsinline></video>
+            </div>
           </div>
         </a>
         <h3 class="game-title">Untitled Tower Defense</h3>
@@ -78,123 +82,164 @@
     </div>
   </main>
 
-  <!-- Sequential Video Slider Controller for Knight's Quest -->
+  <!-- Multi-Card Video Slider Controller -->
   <script>
     document.addEventListener('DOMContentLoaded', () => {
-      const card = document.getElementById('knights-quest-card');
-      const placeholderBox = card.querySelector('.video-placeholder');
-      const videos = [
-        card.querySelector('.slide-video:nth-child(1)'),
-        card.querySelector('.slide-video:nth-child(2)')
+      // Configuration for multiple video card sliders
+      const slidersConfig = [
+        {
+          id: 'knights-quest-card',
+          clips: [
+            'assets/kq_clip1.mp4',
+            'assets/kq_clip2.mp4',
+            'assets/kq_clip3.mp4',
+            'assets/kq_clip4.mp4'
+          ]
+        },
+        {
+          id: 'untitled-tower-defense-card',
+          clips: [
+            'assets/tds_clip1.mp4',
+            'assets/tds_clip2.mp4'
+          ]
+        }
       ];
-      
-      const clips = [
-        'assets/kq_clip1.mp4',
-        'assets/kq_clip2.mp4',
-        'assets/kq_clip3.mp4',
-        'assets/kq_clip4.mp4'
-      ];
-      
-      // Shuffle clips dynamically on page load
-      let shuffledClips = [...clips].sort(() => Math.random() - 0.5);
-      
-      let activeIdx = 0;  // Index in videos array (0 or 1)
-      let clipIdx = 0;    // Index in shuffledClips (0 to 3)
-      let isHovered = false;
-      let transitionTimeout = null;
-      let checkInterval = null;
 
-      // Preload video elements immediately on page load for instant start on hover
-      function preloadVideos() {
-        const activeVideo = videos[0];
-        const nextVideo = videos[1];
-        
-        activeVideo.muted = true;
-        activeVideo.playsInline = true;
-        activeVideo.src = shuffledClips[clipIdx];
-        activeVideo.className = 'slide-video active-video';
-        activeVideo.load();
-        
-        const nextClipIdx = (clipIdx + 1) % shuffledClips.length;
-        nextVideo.muted = true;
-        nextVideo.playsInline = true;
-        nextVideo.src = shuffledClips[nextClipIdx];
-        nextVideo.className = 'slide-video next-video';
-        nextVideo.load();
-      }
+      slidersConfig.forEach(config => {
+        const card = document.getElementById(config.id);
+        if (!card) return;
 
-      // Run preloader instantly
-      preloadVideos();
+        const placeholderBox = card.querySelector('.video-placeholder');
+        const videos = [
+          card.querySelector('.slide-video:nth-child(1)'),
+          card.querySelector('.slide-video:nth-child(2)')
+        ];
 
-      function pausePlayback() {
-        isHovered = false;
-        clearTimeout(transitionTimeout);
-        clearInterval(checkInterval);
+        // Shuffle clips dynamically on page load
+        let shuffledClips = [...config.clips].sort(() => Math.random() - 0.5);
         
-        videos.forEach(v => {
-          v.pause();
-          v.currentTime = 0; // Reset time to play fresh on next hover entry
-        });
-      }
+        let activeIdx = 0;  // Index in videos array (0 or 1)
+        let clipIdx = 0;    // Index in shuffledClips
+        let isHovered = false;
+        let transitionTimeout = null;
+        let checkInterval = null;
 
-      function startPlayback() {
-        isHovered = true;
-        
-        const activeVideo = videos[activeIdx];
-        const nextVideo = videos[1 - activeIdx];
-        
-        activeVideo.play().then(() => {
-          monitorTransition(activeVideo, nextVideo);
-        }).catch(err => {
-          console.warn("Autoplay blocked or failed, retrying with explicit muted state:", err);
+        // Preload video elements immediately on page load for instant start on hover
+        function preloadVideos() {
+          if (shuffledClips.length === 0) return;
+          
+          const activeVideo = videos[0];
+          const nextVideo = videos[1];
+          
           activeVideo.muted = true;
-          activeVideo.play().catch(e => console.error("Final play retry failed:", e));
-        });
-      }
-
-      function monitorTransition(activeVideo, nextVideo) {
-        clearInterval(checkInterval);
-        
-        // Sliced clips are exactly 7.0 seconds. 
-        // With a slower 1.4s transition, we trigger the transition exactly 1.4s before finishing (at 5.6s)
-        // so it completes exactly at 7.0 seconds!
-        const triggerTime = 5.6; 
-        
-        checkInterval = setInterval(() => {
-          if (!isHovered) return;
+          activeVideo.playsInline = true;
+          activeVideo.src = shuffledClips[clipIdx];
+          activeVideo.className = 'slide-video active-video';
+          activeVideo.load();
           
-          if (activeVideo.currentTime >= triggerTime) {
-            clearInterval(checkInterval);
-            triggerTransition(activeVideo, nextVideo);
+          if (shuffledClips.length > 1) {
+            const nextClipIdx = (clipIdx + 1) % shuffledClips.length;
+            nextVideo.muted = true;
+            nextVideo.playsInline = true;
+            nextVideo.src = shuffledClips[nextClipIdx];
+            nextVideo.className = 'slide-video next-video';
+            nextVideo.load();
           }
-        }, 30);
-      }
+        }
 
-      function triggerTransition(activeVideo, nextVideo) {
-        if (!isHovered) return;
+        // Run preloader instantly
+        preloadVideos();
 
-        nextVideo.muted = true;
-        nextVideo.playsInline = true;
-        nextVideo.play().then(() => {
-          // Slide active video out left, next video in from right
-          activeVideo.classList.add('slide-left');
-          activeVideo.classList.remove('active-video');
+        function pausePlayback() {
+          isHovered = false;
+          clearTimeout(transitionTimeout);
+          clearInterval(checkInterval);
           
-          nextVideo.classList.add('slide-in');
-          nextVideo.classList.remove('next-video');
+          videos.forEach(v => {
+            v.pause();
+            v.currentTime = 0; // Reset time to play fresh on next hover entry
+          });
+        }
+
+        function startPlayback() {
+          if (shuffledClips.length === 0) return;
+          isHovered = true;
           
-          // Synchronize swap with the 1.4s CSS slide animation duration
-          transitionTimeout = setTimeout(() => {
+          const activeVideo = videos[activeIdx];
+          const nextVideo = videos[1 - activeIdx];
+          
+          activeVideo.play().then(() => {
+            if (shuffledClips.length > 1) {
+              monitorTransition(activeVideo, nextVideo);
+            }
+          }).catch(err => {
+            console.warn("Autoplay blocked or failed, retrying with explicit muted state:", err);
+            activeVideo.muted = true;
+            activeVideo.play().catch(e => console.error("Final play retry failed:", e));
+          });
+        }
+
+        function monitorTransition(activeVideo, nextVideo) {
+          clearInterval(checkInterval);
+          
+          // Sliced clips are exactly 7.0 seconds. 
+          // With a slower 1.4s transition, we trigger the transition exactly 1.4s before finishing (at 5.6s)
+          // so it completes exactly at 7.0 seconds!
+          const triggerTime = 5.6; 
+          
+          checkInterval = setInterval(() => {
             if (!isHovered) return;
             
+            if (activeVideo.currentTime >= triggerTime) {
+              clearInterval(checkInterval);
+              triggerTransition(activeVideo, nextVideo);
+            }
+          }, 30);
+        }
+
+        function triggerTransition(activeVideo, nextVideo) {
+          if (!isHovered || shuffledClips.length <= 1) return;
+
+          nextVideo.muted = true;
+          nextVideo.playsInline = true;
+          nextVideo.play().then(() => {
+            // Slide active video out left, next video in from right
+            activeVideo.classList.add('slide-left');
+            activeVideo.classList.remove('active-video');
+            
+            nextVideo.classList.add('slide-in');
+            nextVideo.classList.remove('next-video');
+            
+            // Synchronize swap with the 1.4s CSS slide animation duration
+            transitionTimeout = setTimeout(() => {
+              if (!isHovered) return;
+              
+              activeVideo.pause();
+              activeVideo.className = 'slide-video next-video'; // Move to standby position
+              nextVideo.className = 'slide-video active-video'; // Settle as active
+              
+              activeIdx = 1 - activeIdx; // Swap active video element index
+              clipIdx = (clipIdx + 1) % shuffledClips.length; // Advance clip pointer
+              
+              // Pre-load new clip into standby element
+              const incomingClipIdx = (clipIdx + 1) % shuffledClips.length;
+              activeVideo.muted = true;
+              activeVideo.playsInline = true;
+              activeVideo.src = shuffledClips[incomingClipIdx];
+              activeVideo.load();
+              
+              monitorTransition(nextVideo, activeVideo);
+            }, 1400);
+          }).catch(err => {
+            console.warn("Standby video play blocked, bypassing transition:", err);
+            // Fallback immediate jump
             activeVideo.pause();
-            activeVideo.className = 'slide-video next-video'; // Move to standby position
-            nextVideo.className = 'slide-video active-video'; // Settle as active
+            activeVideo.className = 'slide-video next-video';
+            nextVideo.className = 'slide-video active-video';
             
-            activeIdx = 1 - activeIdx; // Swap active video element index
-            clipIdx = (clipIdx + 1) % shuffledClips.length; // Advance clip pointer
+            activeIdx = 1 - activeIdx;
+            clipIdx = (clipIdx + 1) % shuffledClips.length;
             
-            // Pre-load new clip into standby element
             const incomingClipIdx = (clipIdx + 1) % shuffledClips.length;
             activeVideo.muted = true;
             activeVideo.playsInline = true;
@@ -202,50 +247,31 @@
             activeVideo.load();
             
             monitorTransition(nextVideo, activeVideo);
-          }, 1400);
-        }).catch(err => {
-          console.warn("Standby video play blocked, bypassing transition:", err);
-          // Fallback immediate jump
-          activeVideo.pause();
-          activeVideo.className = 'slide-video next-video';
-          nextVideo.className = 'slide-video active-video';
-          
-          activeIdx = 1 - activeIdx;
-          clipIdx = (clipIdx + 1) % shuffledClips.length;
-          
-          const incomingClipIdx = (clipIdx + 1) % shuffledClips.length;
-          activeVideo.muted = true;
-          activeVideo.playsInline = true;
-          activeVideo.src = shuffledClips[incomingClipIdx];
-          activeVideo.load();
-          
-          monitorTransition(nextVideo, activeVideo);
+          });
+        }
+
+        placeholderBox.addEventListener('mouseenter', () => {
+          if (!isHovered) {
+            startPlayback();
+          }
         });
-      }
 
-      placeholderBox.addEventListener('mouseenter', () => {
-        if (!isHovered) {
-          startPlayback();
-        }
-      });
+        placeholderBox.addEventListener('mousemove', () => {
+          if (!isHovered) {
+            startPlayback();
+          }
+        });
 
-      placeholderBox.addEventListener('mousemove', () => {
-        // Safe interactive fallback: triggers playback on any mouse action inside the box.
-        // Extremely robust against programmatic browser autoplay blocks when returning to backgrounded tabs.
-        if (!isHovered) {
-          startPlayback();
-        }
-      });
-
-      placeholderBox.addEventListener('mouseleave', () => {
-        pausePlayback();
-      });
-
-      // Handle background tab throttling/desync bugs elegantly
-      document.addEventListener('visibilitychange', () => {
-        if (document.hidden) {
+        placeholderBox.addEventListener('mouseleave', () => {
           pausePlayback();
-        }
+        });
+
+        // Handle background tab throttling/desync bugs elegantly
+        document.addEventListener('visibilitychange', () => {
+          if (document.hidden) {
+            pausePlayback();
+          }
+        });
       });
     });
   </script>
