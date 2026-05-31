@@ -218,7 +218,17 @@
       }
 
       placeholderBox.addEventListener('mouseenter', () => {
-        startPlayback();
+        if (!isHovered) {
+          startPlayback();
+        }
+      });
+
+      placeholderBox.addEventListener('mousemove', () => {
+        // Safe interactive fallback: triggers playback on any mouse action inside the box.
+        // Extremely robust against programmatic browser autoplay blocks when returning to backgrounded tabs.
+        if (!isHovered) {
+          startPlayback();
+        }
       });
 
       placeholderBox.addEventListener('mouseleave', () => {
@@ -229,21 +239,6 @@
       document.addEventListener('visibilitychange', () => {
         if (document.hidden) {
           pausePlayback();
-        } else {
-          // Auto-resume if user's cursor is still hovering over the card on return
-          if (placeholderBox.matches(':hover')) {
-            startPlayback();
-          }
-        }
-      });
-
-      window.addEventListener('blur', () => {
-        pausePlayback();
-      });
-
-      window.addEventListener('focus', () => {
-        if (placeholderBox.matches(':hover')) {
-          startPlayback();
         }
       });
     });
