@@ -49,8 +49,8 @@
           <div class="video-placeholder video-player-card">
             <!-- Video elements for seamless sliding transitions -->
             <div class="video-slider-container">
-              <video class="slide-video" muted playsinline autoplay></video>
-              <video class="slide-video" muted playsinline autoplay></video>
+              <video class="slide-video" muted playsinline></video>
+              <video class="slide-video" muted playsinline></video>
             </div>
           </div>
         </a>
@@ -63,8 +63,8 @@
           <div class="video-placeholder video-player-card">
             <!-- Video elements for seamless sliding transitions -->
             <div class="video-slider-container">
-              <video class="slide-video" muted playsinline autoplay></video>
-              <video class="slide-video" muted playsinline autoplay></video>
+              <video class="slide-video" muted playsinline></video>
+              <video class="slide-video" muted playsinline></video>
             </div>
           </div>
         </a>
@@ -172,6 +172,11 @@
           
           activeVideo.muted = true;
           activeVideo.playsInline = true;
+          
+          // Ensure it starts from the beginning if it was ended or stuck
+          if (activeVideo.ended || activeVideo.currentTime >= 7.0) {
+            activeVideo.currentTime = 0;
+          }
           
           const playVideo = () => {
             if (!isHovered) return;
