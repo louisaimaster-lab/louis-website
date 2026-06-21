@@ -282,7 +282,7 @@ body::before {
   object-fit: cover;
   opacity: 1;
   transform: translateX(100%); /* Position off-stage to the right by default */
-  transition: transform 1.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 1.4s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: transform 1.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 /* Slide classes controlled by JS */
@@ -298,7 +298,6 @@ body::before {
 
 .slide-video.slide-left {
   transform: translateX(-100%); /* Slide out left */
-  opacity: 0; /* Fade out completely */
 }
 
 .slide-video.slide-in {
