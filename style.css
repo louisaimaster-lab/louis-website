@@ -422,7 +422,6 @@ body::before {
 .gate-red {
   opacity: 0;
   pointer-events: none;
-  filter: invert(24%) sepia(90%) saturate(6354%) hue-rotate(358deg) brightness(97%) contrast(110%);
   transition: opacity 1.0s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
