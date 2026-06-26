@@ -8,6 +8,11 @@
 </head>
 <body>
 
+  <!-- Gate Easter Egg Trigger -->
+  <div class="gate-container" id="gate-trigger" role="button" aria-label="Mysterious Gate" onclick="triggerGate()">
+    <img src="assets/gate.png" alt="Gate" class="gate-icon">
+  </div>
+
   <!-- Hero Landing Section -->
   <section class="hero-section">
     <div class="hero-container">
@@ -84,6 +89,17 @@
 
   <!-- Multi-Card Video Slider Controller -->
   <script>
+    function triggerGate() {
+      const gate = document.getElementById('gate-trigger');
+      if (gate) {
+        gate.classList.add('clicked');
+        // ponytail: simple timeout to remove clicked class and trigger CSS transition back
+        setTimeout(() => {
+          gate.classList.remove('clicked');
+        }, 100);
+      }
+    }
+
     document.addEventListener('DOMContentLoaded', () => {
       // Configuration for multiple video card sliders
       const slidersConfig = [
@@ -310,6 +326,7 @@
           }
         });
       });
+
     });
   </script>
 

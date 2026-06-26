@@ -380,3 +380,54 @@ body::before {
     margin-top: 1.2rem;
   }
 }
+
+/* ==========================================================================
+   MYSTERIOUS EASTER EGG GATE
+   ========================================================================== */
+.gate-container {
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
+  z-index: 1000;
+  cursor: pointer;
+  transition: transform 0.2s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.gate-container:hover {
+  transform: scale(1.08);
+}
+
+.gate-container:active {
+  transform: scale(0.95);
+}
+
+.gate-icon {
+  width: 64px;
+  height: 64px;
+  object-fit: contain;
+  image-rendering: pixelated; /* Crisp pixel art rendering */
+  opacity: 0.75;
+  transition: filter 1s ease, opacity 0.2s ease;
+}
+
+.gate-container:hover .gate-icon {
+  opacity: 1;
+}
+
+.gate-container.clicked .gate-icon {
+  filter: invert(24%) sepia(90%) saturate(6354%) hue-rotate(358deg) brightness(97%) contrast(110%);
+  opacity: 1;
+  transition: none; /* Instant tint on click */
+}
+
+@media (max-width: 768px) {
+  .gate-container {
+    top: 1rem;
+    right: 1rem;
+  }
+  .gate-icon {
+    width: 48px;
+    height: 48px;
+  }
+}
+
