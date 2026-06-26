@@ -388,8 +388,8 @@ body::before {
   position: absolute;
   top: 2rem;
   right: 2rem;
-  width: 24px;
-  height: 24px;
+  width: 27px;
+  height: 27px;
   z-index: 1000;
   cursor: pointer;
   transition: transform 0.2s cubic-bezier(0.25, 1, 0.5, 1);
@@ -435,8 +435,8 @@ body::before {
   .gate-container {
     top: 1rem;
     right: 1rem;
-    width: 16px;
-    height: 16px;
+    width: 18px;
+    height: 18px;
   }
 }
 
