@@ -388,6 +388,8 @@ body::before {
   position: absolute;
   top: 2rem;
   right: 2rem;
+  width: 24px;
+  height: 24px;
   z-index: 1000;
   cursor: pointer;
   transition: transform 0.2s cubic-bezier(0.25, 1, 0.5, 1);
@@ -402,21 +404,30 @@ body::before {
 }
 
 .gate-icon {
-  width: 64px;
-  height: 64px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   object-fit: contain;
   image-rendering: pixelated; /* Crisp pixel art rendering */
   opacity: 0.75;
-  transition: filter 1s ease, opacity 0.2s ease;
+  transition: opacity 0.2s ease;
 }
 
-.gate-container:hover .gate-icon {
+.gate-container:hover .gate-icon:not(.gate-red) {
   opacity: 1;
 }
 
-.gate-container.clicked .gate-icon {
+.gate-red {
+  opacity: 0;
+  pointer-events: none;
   filter: invert(24%) sepia(90%) saturate(6354%) hue-rotate(358deg) brightness(97%) contrast(110%);
-  opacity: 1;
+  transition: opacity 1.0s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.gate-container.clicked .gate-red {
+  opacity: 0.65;
   transition: none; /* Instant tint on click */
 }
 
@@ -424,10 +435,8 @@ body::before {
   .gate-container {
     top: 1rem;
     right: 1rem;
-  }
-  .gate-icon {
-    width: 48px;
-    height: 48px;
+    width: 16px;
+    height: 16px;
   }
 }
 

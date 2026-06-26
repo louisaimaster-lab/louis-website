@@ -11,6 +11,7 @@
   <!-- Gate Easter Egg Trigger -->
   <div class="gate-container" id="gate-trigger" role="button" aria-label="Mysterious Gate" onclick="triggerGate()">
     <img src="assets/gate.png" alt="Gate" class="gate-icon">
+    <img src="assets/gate.png" alt="Gate Tint" class="gate-icon gate-red">
   </div>
 
   <!-- Hero Landing Section -->
@@ -92,6 +93,8 @@
     function triggerGate() {
       const gate = document.getElementById('gate-trigger');
       if (gate) {
+        gate.classList.remove('clicked');
+        void gate.offsetWidth; // Force reflow
         gate.classList.add('clicked');
         // ponytail: simple timeout to remove clicked class and trigger CSS transition back
         setTimeout(() => {
