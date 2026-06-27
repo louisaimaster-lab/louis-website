@@ -40,12 +40,15 @@
     <div class="games-grid">
       
       <!-- Card 1: Low Poly World -->
-      <div class="game-card">
-        <a href="https://lpw.nheep.com" target="_blank" rel="noopener noreferrer">
-          <div class="video-placeholder">
-            <p class="placeholder-text">Empty, Videos<br>will go here<br>later</p>
-          </div>
-        </a>
+      <div class="game-card" id="lpw-card">
+        <div class="card-media-wrapper">
+          <a href="https://lpw.nheep.com" target="_blank" rel="noopener noreferrer">
+            <div class="video-placeholder" id="lpw-placeholder">
+              <p class="placeholder-text">Empty, Videos<br>will go here<br>later</p>
+            </div>
+          </a>
+          <div class="key-easter-egg" id="lpw-key" onclick="triggerKey(event)" role="button" aria-label="Golden Key"></div>
+        </div>
         <h3 class="game-title">Low Poly World</h3>
       </div>
 
@@ -100,6 +103,19 @@
         setTimeout(() => {
           gate.classList.remove('clicked');
         }, 100);
+      }
+    }
+
+    function triggerKey(event) {
+      if (event) {
+        event.preventDefault();
+        event.stopPropagation();
+      }
+      const key = document.getElementById('lpw-key');
+      const placeholder = document.getElementById('lpw-placeholder');
+      if (key && placeholder) {
+        key.classList.add('hidden-behind');
+        placeholder.classList.add('yellow-outline');
       }
     }
 
