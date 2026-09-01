@@ -13,7 +13,7 @@
 
 html {
   width: 100%;
-  background-color: #191919; /* Solid dark charcoal background */
+  background-color: #0e0f13; /* Deep dark obsidian background */
   scroll-behavior: smooth;
 }
 
@@ -27,7 +27,7 @@ body {
   position: relative;
 }
 
-/* Beautiful static rainbow fog background overlay */
+/* Beautiful static vibrant cosmic fog background overlay */
 body::before {
   content: "";
   position: fixed;
@@ -36,14 +36,14 @@ body::before {
   width: 100%;
   height: 100%;
   z-index: -1;
-  background: radial-gradient(circle at 15% 15%, rgba(255, 99, 132, 0.06) 0%, transparent 40%),
-              radial-gradient(circle at 85% 15%, rgba(255, 159, 64, 0.06) 0%, transparent 40%),
-              radial-gradient(circle at 85% 85%, rgba(75, 192, 192, 0.06) 0%, transparent 40%),
-              radial-gradient(circle at 15% 85%, rgba(54, 162, 235, 0.06) 0%, transparent 40%),
-              radial-gradient(circle at 50% 50%, rgba(153, 102, 255, 0.05) 0%, transparent 45%),
-              radial-gradient(circle at 50% 15%, rgba(255, 205, 86, 0.05) 0%, transparent 35%);
+  background: radial-gradient(circle at 15% 15%, rgba(255, 45, 110, 0.18) 0%, transparent 50%),
+              radial-gradient(circle at 85% 15%, rgba(255, 125, 30, 0.16) 0%, transparent 50%),
+              radial-gradient(circle at 85% 85%, rgba(0, 230, 180, 0.16) 0%, transparent 50%),
+              radial-gradient(circle at 15% 85%, rgba(50, 130, 255, 0.18) 0%, transparent 50%),
+              radial-gradient(circle at 50% 50%, rgba(168, 85, 247, 0.18) 0%, transparent 55%),
+              radial-gradient(circle at 50% 12%, rgba(255, 195, 40, 0.14) 0%, transparent 40%);
   pointer-events: none;
-  filter: blur(50px);
+  filter: blur(60px);
 }
 
 /* ==========================================================================
@@ -235,7 +235,7 @@ body::before {
   position: relative;
   overflow: hidden;
   padding: 0 !important; /* Remove card padding to expand video to edges */
-  background-color: #191919;
+  background-color: #0e0f13;
   background-position: center center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -269,7 +269,7 @@ body::before {
 }
 
 .video-player-card:hover {
-  background-color: #191919 !important; /* Hide white background corners behind video overlay */
+  background-color: #0e0f13 !important; /* Hide white background corners behind video overlay */
 }
 
 /* Individual sliding video layer styles */
@@ -481,5 +481,19 @@ body::before {
 .video-placeholder.yellow-outline:hover {
   box-shadow: 0 0 0 4px #ffcc00, 0 24px 48px rgba(0, 0, 0, 0.45) !important;
 }
+
+/* ==========================================================================
+   MAGIC MOUSE TRAIL
+   ========================================================================== */
+.magic-trail-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 999999;
+}
+
 
 

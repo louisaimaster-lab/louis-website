@@ -3,6 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Just a local website of games.">
+  <meta property="og:title" content="PEEP INTO THE NHEEP">
+  <meta property="og:description" content="Just a local website of games.">
   <title>PEEP INTO THE NHEEP</title>
   <link rel="stylesheet" href="style.css">
 </head>
@@ -349,5 +352,236 @@
     });
   </script>
 
+  <!-- Magic Mouse Trail Canvas -->
+  <canvas id="magic-trail" class="magic-trail-canvas"></canvas>
+
+  <!-- Magic Mouse Trail Script -->
+  <script>
+    // ponytail: smooth purple-blue magic comet & sparkle trail with 0 dependencies
+    (() => {
+      const canvas = document.getElementById('magic-trail');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+
+      let width = window.innerWidth;
+      let height = window.innerHeight;
+      let dpr = Math.min(window.devicePixelRatio || 1, 2);
+
+      function resize() {
+        width = window.innerWidth;
+        height = window.innerHeight;
+        dpr = Math.min(window.devicePixelRatio || 1, 2);
+        canvas.width = Math.floor(width * dpr);
+        canvas.height = Math.floor(height * dpr);
+        canvas.style.width = width + 'px';
+        canvas.style.height = height + 'px';
+      }
+      window.addEventListener('resize', resize);
+      resize();
+
+      // Mouse history for smooth glowing comet ribbon
+      const trailPoints = [];
+      const maxTrailPoints = 28;
+
+      // Stardust & Sparkle particles
+      const particles = [];
+      let lastPos = null;
+      let isMoving = false;
+      let idleTimer = null;
+
+      function createParticle(x, y, isSparkle = false, speedMult = 1) {
+        // Purple-blue spectrum: 215 (electric blue) -> 250 (indigo) -> 280 (neon purple) -> 295 (magenta accent)
+        const hue = 215 + Math.random() * 75;
+        const angle = Math.random() * Math.PI * 2;
+        const speed = (Math.random() * 1.6 + 0.4) * speedMult;
+        return {
+          x,
+          y,
+          vx: Math.cos(angle) * speed,
+          vy: Math.sin(angle) * speed - 0.35, // buoyant upward drift
+          size: isSparkle ? (Math.random() * 7 + 4.5) : (Math.random() * 5.5 + 3.5),
+          maxLife: isSparkle ? Math.floor(Math.random() * 20 + 35) : Math.floor(Math.random() * 18 + 28),
+          life: 0,
+          hue,
+          sat: 90 + Math.random() * 10,
+          light: 65 + Math.random() * 25,
+          isSparkle,
+          rot: Math.random() * Math.PI,
+          rotSpeed: (Math.random() - 0.5) * 0.15
+        };
+      }
+
+      function handlePointer(x, y) {
+        trailPoints.unshift({ x, y, age: 0 });
+        if (trailPoints.length > maxTrailPoints) {
+          trailPoints.pop();
+        }
+
+        if (lastPos) {
+          const dx = x - lastPos.x;
+          const dy = y - lastPos.y;
+          const dist = Math.hypot(dx, dy);
+
+          // Interpolate along movement vector for uninterrupted particle dispersion
+          const steps = Math.min(10, Math.max(1, Math.floor(dist / 6)));
+          for (let i = 0; i < steps; i++) {
+            const t = i / steps;
+            const px = lastPos.x + dx * t;
+            const py = lastPos.y + dy * t;
+
+            // Glowing stardust orb
+            particles.push(createParticle(px, py, false, Math.min(dist * 0.05, 2)));
+
+            // Sparkling 4-point star
+            if (Math.random() < 0.35) {
+              particles.push(createParticle(px, py, true, 1.2));
+            }
+          }
+        } else {
+          particles.push(createParticle(x, y, true, 1));
+        }
+
+        lastPos = { x, y };
+        isMoving = true;
+        clearTimeout(idleTimer);
+        idleTimer = setTimeout(() => {
+          isMoving = false;
+          lastPos = null;
+        }, 120);
+
+        if (particles.length > 200) {
+          particles.splice(0, particles.length - 200);
+        }
+      }
+
+      window.addEventListener('pointermove', (e) => handlePointer(e.clientX, e.clientY), { passive: true });
+      window.addEventListener('mousemove', (e) => handlePointer(e.clientX, e.clientY), { passive: true });
+      window.addEventListener('touchmove', (e) => {
+        if (e.touches && e.touches.length > 0) {
+          handlePointer(e.touches[0].clientX, e.touches[0].clientY);
+        }
+      }, { passive: true });
+
+      window.addEventListener('pointerleave', () => {
+        lastPos = null;
+        isMoving = false;
+      });
+
+      function drawSparkleStar(ctx, x, y, size, angle) {
+        ctx.save();
+        ctx.translate(x, y);
+        ctx.rotate(angle);
+        ctx.beginPath();
+        for (let i = 0; i < 4; i++) {
+          const a = (i * Math.PI) / 2;
+          const nextA = a + Math.PI / 4;
+          ctx.lineTo(Math.cos(a) * size, Math.sin(a) * size);
+          ctx.lineTo(Math.cos(nextA) * (size * 0.22), Math.sin(nextA) * (size * 0.22));
+        }
+        ctx.closePath();
+        ctx.fill();
+        ctx.restore();
+      }
+
+      function render() {
+        requestAnimationFrame(render);
+
+        // If nothing to draw, clear and skip
+        if (trailPoints.length === 0 && particles.length === 0) {
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          return;
+        }
+
+        ctx.save();
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.scale(dpr, dpr);
+        ctx.globalCompositeOperation = 'lighter'; // Additive blending for magical glow
+
+        // 1. Draw glowing ribbon trail
+        if (trailPoints.length > 2) {
+          // Age and prune trail points
+          for (let i = trailPoints.length - 1; i >= 0; i--) {
+            trailPoints[i].age++;
+            if (trailPoints[i].age > maxTrailPoints) {
+              trailPoints.splice(i, 1);
+            }
+          }
+
+          // Draw multi-layer smooth ribbon with quadratic curves
+          const layers = [
+            { width: 15, color: 'rgba(139, 92, 246, 0.25)' }, // Outer purple aura
+            { width: 8,  color: 'rgba(59, 130, 246, 0.5)' },   // Mid electric blue
+            { width: 3,  color: 'rgba(235, 240, 255, 0.9)' }   // Inner glowing white core
+          ];
+
+          layers.forEach(layer => {
+            ctx.beginPath();
+            ctx.lineCap = 'round';
+            ctx.lineJoin = 'round';
+            ctx.strokeStyle = layer.color;
+            ctx.lineWidth = layer.width;
+
+            ctx.moveTo(trailPoints[0].x, trailPoints[0].y);
+            for (let i = 1; i < trailPoints.length - 1; i++) {
+              const xc = (trailPoints[i].x + trailPoints[i + 1].x) / 2;
+              const yc = (trailPoints[i].y + trailPoints[i + 1].y) / 2;
+              ctx.quadraticCurveTo(trailPoints[i].x, trailPoints[i].y, xc, yc);
+            }
+            ctx.stroke();
+          });
+        }
+
+        // 2. Draw stardust & sparkle particles
+        for (let i = particles.length - 1; i >= 0; i--) {
+          const p = particles[i];
+          p.life++;
+          if (p.life >= p.maxLife) {
+            particles.splice(i, 1);
+            continue;
+          }
+
+          const progress = 1 - p.life / p.maxLife; // 1 -> 0
+          p.x += p.vx;
+          p.y += p.vy;
+          p.vx *= 0.94;
+          p.vy *= 0.94;
+          p.rot += p.rotSpeed;
+
+          const currentSize = p.size * Math.pow(progress, 0.7);
+          const alpha = progress * 0.95;
+
+          ctx.fillStyle = `hsla(${p.hue}, ${p.sat}%, ${p.light}%, ${alpha})`;
+
+          if (p.isSparkle) {
+            drawSparkleStar(ctx, p.x, p.y, currentSize * 1.6, p.rot);
+          } else {
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, Math.max(0.5, currentSize), 0, Math.PI * 2);
+            ctx.fill();
+          }
+        }
+
+        // 3. Glowing wand tip at current mouse position
+        if (trailPoints.length > 0 && isMoving) {
+          const head = trailPoints[0];
+          const grad = ctx.createRadialGradient(head.x, head.y, 0, head.x, head.y, 16);
+          grad.addColorStop(0, 'rgba(255, 255, 255, 0.95)');
+          grad.addColorStop(0.3, 'rgba(168, 85, 247, 0.7)');
+          grad.addColorStop(0.7, 'rgba(59, 130, 246, 0.3)');
+          grad.addColorStop(1, 'rgba(59, 130, 246, 0)');
+          ctx.fillStyle = grad;
+          ctx.beginPath();
+          ctx.arc(head.x, head.y, 16, 0, Math.PI * 2);
+          ctx.fill();
+        }
+
+        ctx.restore();
+      }
+
+      render();
+    })();
+  </script>
+
 </body>
 </html>
+
